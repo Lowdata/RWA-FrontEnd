@@ -1,8 +1,41 @@
-# React + Vite
+# RWA (Real World Assets Frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend for the Real World Assets project. It is a React-based application that leverages modern web technologies like Vite for fast development, Material UI for styling, Redux for state management, and various Web3 libraries for blockchain integration.
 
-Currently, two official plugins are available:
+## Table of Contents
+- [Features](#features)
+- [Technologies](#technologies)
+- [Getting Started](#getting-started)
+- [Scripts](#scripts)
+- [License](#license)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+- **Vite** for fast development and builds.
+- **Material UI** for modern UI components.
+- **Redux** and **Redux Persist** for state management and persistence.
+- **Web3 Integration** using WalletConnect, Wagmi, and WalletKit.
+- **React Router** for navigation.
+- **Authentication** using Google and Facebook login.
+
+## Technologies
+- **React** (v18)
+- **Vite**
+- **Redux** and **Redux Toolkit**
+- **Material UI**
+- **Web3 Libraries**: WalletConnect, Wagmi, WalletKit
+- **React Query** for server state management
+- **Axios** for HTTP requests
+
+## Getting Started
+
+### Prerequisites
+Before you begin, ensure you have the following installed:
+- [Yarn](https://yarnpkg.com/) (optional, but recommended)
+
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/RWA.git](https://github.com/Lowdata/RWA-FrontEnd.git
+   cd RWA-FrontEnd
+   yarn run dev
+   ``` 
