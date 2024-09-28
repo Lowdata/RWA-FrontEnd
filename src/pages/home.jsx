@@ -1,4 +1,4 @@
-import React from "react";
+
 import Marketplace from "../components/homePage/marketplace";
 import Hero from "../components/homePage/hero";
 import About from "../components/homePage/about";

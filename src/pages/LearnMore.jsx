@@ -1,4 +1,3 @@
-import React from "react";
 import YouTubeIcon from "@mui/icons-material/YouTube"; // Material UI YouTube icon
 
 const IntroSection = () => (
@@ -9,7 +8,7 @@ const IntroSection = () => (
       Assets). These innovative platforms are designed to bridge the gap between
       traditional assets and digital transformation. By leveraging blockchain
       technology, we aim to bring transparency, security, and access to a wide
-      range of financial tools.
+      range of financial tools. It&apos;s a great opportunity!
     </p>
   </section>
 );
@@ -87,7 +86,7 @@ const HowItWorks = () => (
 const TechnicalRoadmap = () => (
   <section style={styles.card}>
     <h2 style={styles.sectionTitle}>
-      Technical Roadmap: Milestones and What's Next
+      Technical Roadmap: Milestones and Whats Next
     </h2>
     <div style={styles.roadmapStep}>
       <h3 style={styles.roadmapTitle}>Q1 2024: Launch</h3>
@@ -179,11 +178,10 @@ const styles = {
     marginBottom: "2.5rem", // More spacing between sections
     maxWidth: "800px",
     margin: "auto",
-    marginTop: "10px"
+    marginTop: "10px",
   },
   list: {
     listStyle: "none",
-    padding: 0,
     fontSize: "1.2rem",
     lineHeight: "1.8",
     textAlign: "left",

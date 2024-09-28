@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import  { useEffect } from "react";
 import { coin } from "../assets/images";
 import { useDispatch, useSelector } from "react-redux";
 import {

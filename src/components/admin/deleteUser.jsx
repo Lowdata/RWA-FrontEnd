@@ -1,6 +1,6 @@
-// src/components/DeleteUserCard.js
+/* eslint-disable no-unused-vars */
 
-import React, { useState } from "react";
+import { useState } from "react";
 
 const DeleteUserCard = () => {
   const [userId, setUserId] = useState("");

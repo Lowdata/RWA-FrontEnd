@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import "./TokenPage.css";
+/* eslint-disable no-unused-vars */
 
 const TokenPage = () => {
   const [selectedToken, setSelectedToken] = useState("RWA");

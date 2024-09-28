@@ -1,16 +1,14 @@
+/* eslint-disable no-unused-vars */
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { setIsLoggedIn } from "../authSlice";
 
-
-export var publicKey = ""
+export var publicKey = "";
 export var userName = "";
 export var id = "";
 export var role = "";
 export var user = {};
 
-export const fetchUserProfile = createAsyncThunk
-
-
+export const fetchUserProfile = createAsyncThunk;
 
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
@@ -39,8 +37,7 @@ export const registerUser = createAsyncThunk(
   }
 );
 
-
-//Login 
+//Login
 
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
@@ -75,7 +72,10 @@ export const loginUser = createAsyncThunk(
       };
 
       // Store the auth data in localStorage
-      localStorage.setItem("auth", JSON.stringify({...user, isLoggedIn:true}));
+      localStorage.setItem(
+        "auth",
+        JSON.stringify({ ...user, isLoggedIn: true })
+      );
 
       return { user };
     } catch (error) {
@@ -86,13 +86,12 @@ export const loginUser = createAsyncThunk(
 
 //LogOut
 export const logOutUser = () => (dispatch) => {
-  localStorage.removeItem("persist:auth"); 
+  localStorage.removeItem("persist:auth");
   dispatch(setIsLoggedIn(false));
   dispatch({
     type: "auth/clearUserState",
   });
 };
-
 
 //forget password
 export const forgotPassword = createAsyncThunk(

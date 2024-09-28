@@ -1,4 +1,4 @@
-import React from "react";
+
 
 import {  investment } from "../../assets/images";
 import SectorBanner from "./sectorCard";

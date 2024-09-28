@@ -1,4 +1,3 @@
-import React from "react";
 import { Button, Card, CardContent, Typography } from "@mui/material";
 import CodeIcon from "@mui/icons-material/Code";
 import HackathonIcon from "@mui/icons-material/GroupWork";
@@ -11,9 +10,10 @@ const DevelopSection = () => (
       Develop: Start Coding with WRA & RWA
     </Typography>
     <Typography variant="body1" style={styles.paragraph}>
-      Whether you're an experienced blockchain developer or just starting out,
-      we provide the tools and resources to build innovative applications with
-      WRA (Wealth Real Assets) and RWA (Real World Assets). Let's get coding!
+      Whether you&apos;re an experienced blockchain developer or just starting
+      out, we provide the tools and resources to build innovative applications
+      with WRA (Wealth Real Assets) and RWA (Real World Assets). Let&apos;s get
+      coding!
     </Typography>
   </section>
 );
@@ -22,14 +22,18 @@ const ResourcesSection = () => (
   <Card style={styles.card}>
     <CardContent>
       <Typography variant="h4" style={styles.sectionTitle}>
-        Developers' Documentation
+        Developers&apos; Documentation
       </Typography>
       <Typography variant="body1" style={styles.paragraph}>
         Dive into the technical documentation and learn how to integrate WRA and
         RWA tokens into your dApps. Access smart contracts, API documentation,
         and sample projects.
       </Typography>
-      <Button variant="contained" style={styles.button} onClick={()=> alert("Launcing Soon...")}>
+      <Button
+        variant="contained"
+        style={styles.button}
+        onClick={() => alert("Launching Soon...")}
+      >
         <CodeIcon style={styles.icon} />
         Start Coding
       </Button>
@@ -44,12 +48,16 @@ const SampleCodeSection = () => (
         Sample Code
       </Typography>
       <Typography variant="body1" style={styles.paragraph}>
-        Here's a sample of how to interact with WRA and RWA tokens on Binance
-        Smart Chain using Web3.js. This code fetches a balance and transfers
-        tokens.
+        Here&apos;s a sample of how to interact with WRA and RWA tokens on
+        Binance Smart Chain using Web3.js. This code fetches a balance and
+        transfers tokens.
       </Typography>
 
-      <SyntaxHighlighter language="javascript" style={vscDarkPlus} showLineNumbers>
+      <SyntaxHighlighter
+        language="javascript"
+        style={vscDarkPlus}
+        showLineNumbers
+      >
         {`
         // Import Web3.js
         const Web3 = require('web3');
@@ -61,6 +69,7 @@ const SampleCodeSection = () => (
 
         // Token ABI (truncated for brevity)
         const TOKEN_ABI = [...];
+
 
         // Example: Fetch balance of WRA token holder
         async function getBalance(tokenAddress, account) {
@@ -132,7 +141,7 @@ const HackathonsSection = () => (
       <Button
         variant="contained"
         style={styles.button}
-        onClick={() => alert("Launcing Soon...")}
+        onClick={() => alert("Launching Soon...")}
       >
         <HackathonIcon style={styles.icon} />
         Join a Hackathon

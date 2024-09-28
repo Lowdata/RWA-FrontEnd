@@ -1,4 +1,5 @@
-import React, { useRef, useEffect, useState } from "react";
+/* eslint-disable react/prop-types */
+import { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 // Styles directly in JSX

@@ -1,5 +1,3 @@
-import React from "react";
-
 const ConnectButton = () => {
   return <w3m-button label="Connect Wallet" icon="wallet" />;
 };

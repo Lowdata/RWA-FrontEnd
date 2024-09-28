@@ -1,4 +1,4 @@
-import React from "react";
+
 
 const SvgButton = () => (
   <button className="svg-button" onClick={() => alert("SVG Button Clicked!")}>

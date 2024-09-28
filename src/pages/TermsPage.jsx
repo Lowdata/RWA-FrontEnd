@@ -1,4 +1,4 @@
-import React from "react";
+
 
 const TermsAndConditions = () => {
   const styles = {
@@ -122,10 +122,11 @@ const TermsAndConditions = () => {
       <div style={styles.section}>
         <h2 style={styles.title}>9. Limitation of Liability</h2>
         <p style={styles.text}>
-          The Company is not liable for any direct, indirect, incidental, or
-          consequential damages arising from your use of the platform or the
-          performance of digital assets. The platform is provided on an "as is"
-          and "as available" basis without any warranties of any kind.
+          By accessing and using the services of Real World Asset Corp (the
+          &ldquo;Company&rdquo;), you agree to comply with and be bound by these
+          Terms and Conditions. These terms govern your use of the
+          Company&rsquo;s platform, blockchain-based services, and digital
+          assets such as RWATOKEN and RWANFT.
         </p>
       </div>
 

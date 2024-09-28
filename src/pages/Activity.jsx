@@ -1,4 +1,4 @@
-import React from "react";
+
 
 // Styles object with blue and white theme
 const styles = {

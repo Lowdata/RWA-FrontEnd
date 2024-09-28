@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+/* eslint-disable react/prop-types */
+import { useEffect, useState } from "react";
 import "../styles/dashboard.css";
 import Profile from "../components/dashboard/profile";
 import ActivityPage from "./Activity";
@@ -35,11 +36,13 @@ const Dashboard = () => {
           </div>
         );
       case "Purchases":
-        return <div>You are on "Purchases" page</div>;
+        return <div>You are on &quot;Purchases&quot; page</div>;
       case "Tokens":
-        return <div>
-            <TokenPage/>
-        </div>;
+        return (
+          <div>
+            <TokenPage />
+          </div>
+        );
       case "Rank and Rewards":
         return (
           <div>

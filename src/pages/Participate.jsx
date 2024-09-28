@@ -1,5 +1,3 @@
-import React from "react";
-import YouTubeIcon from "@mui/icons-material/YouTube"; // Material UI YouTube icon
 import { Button } from "@mui/material";
 
 // Importing the components from Learn More section
@@ -167,7 +165,6 @@ const styles = {
   },
   list: {
     listStyle: "none",
-    padding: 0,
     fontSize: "1.2rem",
     lineHeight: "1.8",
     textAlign: "left",

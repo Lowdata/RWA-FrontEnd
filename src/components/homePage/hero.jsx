@@ -1,4 +1,4 @@
-import React from "react";
+
 import { logo, bg } from "../../assets/images"; // Import the logo and background images
 
 const Hero = () => (

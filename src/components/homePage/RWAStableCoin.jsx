@@ -1,4 +1,3 @@
-import React from "react";
 
 import { stable } from "../../assets/images";
 import SectorBanner from "./sectorCard";

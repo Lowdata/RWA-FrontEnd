@@ -1,4 +1,3 @@
-import React from "react";
 
 const tokenPackages = [
   { name: "$50 Package", cv: "40%" },
