@@ -1,0 +1,29 @@
+deployment:
+  tasks:
+    # Set the paths (same directory for both repo and public_html)
+    - export REPO_PATH=/home/c15j5p2kjtgw/public_html/ifamilytechnology.com
+    - export BUILD_PATH=$REPO_PATH/build
+
+    - echo "Starting deployment for React app..."
+
+    # Navigate to the repository directory (public_html/ifamilytechnology.com)
+    - echo "Navigating to repository path: $REPO_PATH"
+    - cd $REPO_PATH
+
+    # Install npm dependencies
+    - echo "Installing dependencies..."
+    - /opt/cpanel/ea-nodejs16/bin/npm install
+
+    # Build the React app
+    - echo "Building the React app..."
+    - /opt/cpanel/ea-nodejs16/bin/npm run build
+
+    # Remove old build files in public_html/ifamilytechnology.com (excluding necessary directories/files like '.git', 'node_modules', etc.)
+    - echo "Cleaning old build files from $REPO_PATH..."
+    - find $REPO_PATH -maxdepth 1 ! -name 'build' ! -name 'node_modules' ! -name '.git' ! -name '.' ! -name '..' -exec rm -rf {} \;
+
+    # Move the contents of the build directory to the root of public_html/ifamilytechnology.com
+    - echo "Deploying new build to $REPO_PATH..."
+    - cp -r $BUILD_PATH/* $REPO_PATH/
+
+    - echo "Deployment completed!"

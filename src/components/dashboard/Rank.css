@@ -1,0 +1,98 @@
+.rank-rewards-container {
+  padding: 30px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  color: #333;
+}
+
+.heading {
+  font-size: 32px;
+  color: #1f3a93;
+  margin-bottom: 20px;
+}
+
+.description {
+  margin-bottom: 30px;
+  font-size: 18px;
+  color: #777;
+}
+
+.user-rank-card {
+  padding: 20px;
+  border-radius: 8px;
+  color: white;
+  margin-bottom: 30px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.table-heading {
+  font-size: 24px;
+  color: #1f3a93;
+  margin-bottom: 20px;
+}
+
+.rank-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 40px;
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.rank-table th,
+.rank-table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.rank-table th {
+  background-color: #1f3a93;
+  color: white;
+}
+
+.rank-table td {
+  color: #333;
+}
+
+.rank-table tr {
+  transition: background-color 0.3s ease;
+}
+
+.rank-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.highlighted-row {
+  background-color: #ffedcc !important;
+}
+
+.bonus-section {
+  margin-top: 40px;
+}
+
+.bonus-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.bonus-table th,
+.bonus-table td {
+  padding: 15px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.bonus-table th {
+  background-color: #1f3a93;
+  color: white;
+}
+
+.bonus-table td {
+  color: #333;
+}

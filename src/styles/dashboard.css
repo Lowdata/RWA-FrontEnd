@@ -1,0 +1,66 @@
+/* Ensure the dashboard covers the full viewport height */
+.dashboard-container {
+  display: flex;
+  min-height: 100vh; /* Full height of the viewport */
+}
+
+/* Sidebar without fixed height */
+.sidebar {
+  width: 200px;
+  background-color: #007bff; /* Blue background for sidebar */
+  padding: 20px;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar ul li {
+  padding: 15px 20px;
+  color: #fff; /* White text */
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  transition: background-color 0.3s, transform 0.3s; /* Smooth transition */
+  border-radius: 8px; /* Rounded corners for a more modern look */
+  margin-bottom: 10px; /* Space between list items */
+}
+
+.sidebar ul li:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: translateX(5px); /* Slight slide effect on hover */
+}
+
+.sidebar ul li.active {
+  background-color: #0056b3; /* Active state */
+  transform: translateX(5px);
+}
+
+.sidebar ul li:active {
+  background-color: #003d82; /* Even darker blue on click */
+}
+
+.sidebar-footer {
+  margin-top: auto; /* Push footer to the bottom */
+  padding: 20px 0;
+}
+
+.sidebar-footer p {
+  color: #ffffff;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* Content area with flexible height */
+.dashboard-content {
+  flex: 1;
+  padding: 40px;
+  background-color: #f0f4f8; /* Light blue-gray background for content area */
+}

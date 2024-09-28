@@ -1,0 +1,95 @@
+.about {
+  position: relative;
+  padding: 100px 20px;
+  text-align: center;
+  background-color: #1a1a2e; /* Dark background for luxury feel */
+  color: #ffffff;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.about::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 255, 255, 0)); /* Subtle gold gradient */
+  z-index: -1;
+}
+
+.about h2 {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #ffde59; /* Soft gold */
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  animation: fadeInDown 1s ease-out; /* Entrance animation */
+}
+
+.about p {
+  font-size: 18px;
+  line-height: 1.9;
+  color: #c0c0c0;
+  max-width: 800px;
+  margin: 0 auto;
+  animation: fadeInUp 1.5s ease-out; /* Entrance animation */
+}
+
+.about p span {
+  font-weight: 700;
+  color: #ffffff; /* Highlighted text */
+}
+
+.about .divider {
+  width: 150px;
+  height: 4px;
+  background-color: #ffde59; /* Gold divider */
+  margin: 40px auto;
+  border-radius: 2px;
+  animation: fadeIn 1.3s ease-out;
+}
+
+/* Keyframes for subtle animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .about h2 {
+    font-size: 36px;
+  }
+
+  .about p {
+    font-size: 16px;
+  }
+}
