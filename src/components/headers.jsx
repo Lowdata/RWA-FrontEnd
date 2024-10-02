@@ -76,6 +76,7 @@ function Header() {
     { label: "About Us", path: "/about" },
     { label: "Develop", path: "/develop" },
     { label: "Participate", path: "/participate" },
+    { label: "Home", path: "/" },
   ];
 
   return (

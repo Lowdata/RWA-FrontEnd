@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getApprovedProducts } from "./Marketplace";
 import { LinearProgress } from "@mui/material";
+import {  resetPaymentState } from "../store/paymentSlice";
+
+import { useDispatch, useSelector } from "react-redux";
 import LoadingSpinner from "../components/loading/Loading";
 export const stake = [];
 
@@ -15,6 +18,10 @@ const NFTDetails = () => {
   const [totalPrice, setTotalPrice] = useState(50);
   const [maxUnits, setMaxUnits] = useState(0);
   const [raisedFunds, setRaisedFunds] = useState(0);
+  const [lockTime, setLockTime] = useState(1); // Initialize lockTime state
+  const dispatch = useDispatch();
+  const status = useSelector((state) => state.payment.status);
+  const error = useSelector((state) => state.payment.error);
 
   useEffect(() => {
     const fetchNFTDetails = async () => {
@@ -24,7 +31,7 @@ const NFTDetails = () => {
         if (product) {
           setNft(product);
           setMaxUnits(Math.floor(product.amount / 50));
-          setRaisedFunds(product.raised || 0); // Default raised funds to 0 if not available
+          setRaisedFunds(product.raised || 0);
         }
         setLoading(false);
       } catch (error) {
@@ -41,10 +48,6 @@ const NFTDetails = () => {
 
   const handleBuy = () => {
     setShowModal(true);
-  };
-
-  const goToStaking = () => {
-    navigate("/dashboard", { state: { currentPage: "Staking" } });
   };
 
   const handleUnitsChange = (e) => {
@@ -85,75 +88,95 @@ const NFTDetails = () => {
       image: nft.image,
       name: nft.name,
       units,
+      lockTime,
       purchaseDate: new Date().toISOString(),
     };
-    const newRaisedAmount = raisedFunds + totalPrice; // Update raised funds based on total price
-    setRaisedFunds(newRaisedAmount); // Set the new raised amount
+    const newRaisedAmount = raisedFunds + totalPrice;
+    setRaisedFunds(newRaisedAmount);
 
-    // Push the purchase details into the stake array
     stake.push(purchaseDetails);
 
     setShowModal(false);
   };
 
+  const handleLockTimeChange = (e) => {
+    setLockTime(parseInt(e.target.value, 10));
+  };
+
+  useEffect(() => {
+    if (status === "succeeded") {
+      alert("Payment completed successfully.");
+      dispatch(resetPaymentState());
+    }
+    if (status === "failed" && error) {
+      alert(`Payment failed: ${error}`);
+    }
+  }, [status, error, dispatch]);
+
   const styles = {
     page: {
-      maxWidth: "1200px",
+      width: "100%",
+      minHeight: "100vh",
       margin: "0 auto",
-      padding: "20px 20px",
-      fontFamily: "'Roboto', sans-serif",
-      backgroundColor: "#fff",
-      color: "#333",
+      padding: "40px 20px",
+      fontFamily: "'Poppins', sans-serif",
+      background: "linear-gradient(145deg, #1a1f36, #1c1f3f)",
+      color: "#fff",
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
+      justifyContent: "center",
+      boxShadow: "0 8px 20px rgba(0, 0, 0, 0.2)",
     },
     banner: {
-      width: "100%",
-      height: "300px",
+      width: "40%",
+      maxHeight: "400px",
       objectFit: "cover",
-      borderRadius: "10px",
+      borderRadius: "15px",
       marginBottom: "30px",
-      boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
+      boxShadow: "0 6px 20px rgba(0, 0, 0, 0.2)",
     },
     backButton: {
       marginBottom: "20px",
-      color: "#3498db",
+      color: "#e2b645",
       cursor: "pointer",
       textDecoration: "none",
-      fontSize: "1rem",
-      marginLeft: "-766px",
+      fontSize: "1.2rem",
+      alignSelf: "flex-start",
     },
     header: {
-      fontSize: "2rem",
+      fontSize: "2.5rem",
       fontWeight: "bold",
-      color: "#003366",
+      color: "#e2b645",
       textAlign: "center",
       marginBottom: "15px",
     },
     price: {
-      fontSize: "2rem",
-      fontWeight: "bold",
-      color: "#0066cc",
+      fontSize: "2.2rem",
+      fontWeight: "600",
+      color: "#e2b645",
       marginBottom: "20px",
     },
     description: {
-      fontSize: "1.2rem",
-      lineHeight: "1.6",
-      marginBottom: "20px",
-      color: "#666",
-      textAlign: "center",
+      fontSize: "1.3rem",
+      lineHeight: "1.8",
+      marginBottom: "30px",
+      color: "#a9b3c1",
+      textAlign: "left",
+      width: "40%",
+      maxWidth: "600px",
     },
     buyButton: {
-      backgroundColor: "#0066cc",
-      color: "white",
-      padding: "15px 30px",
-      borderRadius: "5px",
+      background: "linear-gradient(90deg, #e2b645, #f5cc79)",
+      color: "#fff",
+      padding: "15px 40px",
+      borderRadius: "8px",
       cursor: "pointer",
       border: "none",
-      fontSize: "18px",
+      fontSize: "1.2rem",
       transition: "background-color 0.3s ease",
-      marginBottom: "30px",
+      marginBottom: "20px",
+      width: "fit-content",
     },
     fundsContainer: {
       width: "80%",
@@ -161,107 +184,89 @@ const NFTDetails = () => {
     },
     progressBar: {
       width: "100%",
-      height: "10px",
-      borderRadius: "5px",
-      backgroundColor: "#e0e0e0",
+      height: "12px",
+      borderRadius: "6px",
+      backgroundColor: "#34495e",
       marginBottom: "10px",
     },
     progressColor: (percentage) => ({
-      height: "15px",
-      borderRadius: "5px",
+      height: "100%",
+      borderRadius: "6px",
       backgroundColor:
-        percentage < 25 ? "#ff4d4f" : percentage < 50 ? "#ffa940" : "#4caf50",
+        percentage < 25 ? "#d35400" : percentage < 50 ? "#e67e22" : "#27ae60",
+      width: `${percentage}%`,
       transition: "width 0.5s ease-in-out",
     }),
-    footer: {
-      marginTop: "50px",
-      color: "#666",
-      textAlign: "center",
-    },
-    raisedText: {
-      textAlign: "left",
-      fontSize: "1rem",
-    },
-    targetText: {
-      textAlign: "right",
-      fontSize: "1rem",
-    },
     modalOverlay: {
       position: "fixed",
       top: 0,
       left: 0,
       width: "100%",
       height: "100%",
-      backgroundColor: "rgba(0, 0, 0, 0.5)",
+      backgroundColor: "rgba(0, 0, 0, 0.7)",
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
       padding: "20px",
     },
     modal: {
-      backgroundColor: "white",
+      backgroundColor: "#1a1f36",
       padding: "30px",
-      borderRadius: "10px",
+      borderRadius: "15px",
       maxWidth: "400px",
-      width: "50%",
-      textAlign: "center",
-    },
-    slider: {
       width: "100%",
-      marginTop: "20px",
+      textAlign: "center",
+      boxShadow: "0 8px 20px rgba(0, 0, 0, 0.4)",
     },
     inputField: {
-      padding: "10px",
-      width: "100px",
-      fontSize: "1.2rem",
+      padding: "12px",
+      width: "120px",
+      fontSize: "1.3rem",
       textAlign: "center",
       marginBottom: "20px",
-      border: "1px solid #ccc",
+      border: "1px solid #a9b3c1",
       borderRadius: "5px",
       marginRight: "20px",
+      backgroundColor: "#34495e",
+      color: "#fff",
     },
     modalButton: {
-      backgroundColor: "#0066cc",
+      background: "linear-gradient(90deg, #e2b645, #f5cc79)",
       color: "white",
-      padding: "10px 20px",
-      borderRadius: "5px",
+      padding: "12px 30px",
+      borderRadius: "8px",
       cursor: "pointer",
       border: "none",
-      fontSize: "16px",
+      fontSize: "1.2rem",
+      marginTop: "20px",
+    },
+    modalButtonCancel: {
+      backgroundColor: "#e74c3c",
+      color: "white",
+      padding: "12px 30px",
+      borderRadius: "8px",
+      cursor: "pointer",
+      border: "none",
+      fontSize: "1.2rem",
       marginTop: "20px",
       marginLeft: "10px",
     },
-    modalButtonCancel: {
-      backgroundColor: "#cc0000",
-      color: "white",
-      padding: "10px 20px",
-      borderRadius: "5px",
-      cursor: "pointer",
-      border: "none",
-      fontSize: "16px",
-      marginTop: "20px",
-    },
-    modalProgressContainer: {
-      marginTop: "10px",
-      marginBottom: "10px",
-      width: "100%",
-    },
     stakingButton: {
       marginTop: "20px",
-      padding: "10px 15px",
-      backgroundColor: "#0066cc",
+      padding: "15px 30px",
+      background: "linear-gradient(90deg, #1c4c8f, #275fa3)",
       color: "#fff",
       border: "none",
-      borderRadius: "5px",
+      borderRadius: "8px",
       cursor: "pointer",
-      fontSize: "16px",
+      fontSize: "1.2rem",
     },
   };
 
   if (loading) {
     return (
       <div style={styles.page}>
-       <LoadingSpinner/>
+        <LoadingSpinner />
       </div>
     );
   }
@@ -278,30 +283,23 @@ const NFTDetails = () => {
       <img style={styles.banner} src={nft.image} alt={nft.name} />
 
       <h1 style={styles.header}>{nft.name}</h1>
-      <p style={styles.price}>${nft.amount}</p>
+      <p style={styles.price}>${nft.amount.toLocaleString()}</p>
 
       <button style={styles.buyButton} onClick={handleBuy}>
         Buy Now
       </button>
-
       <div style={styles.fundsContainer}>
-        <div style={styles.raisedText}>Raised: ${raisedFunds}</div>
-        <div style={styles.progressBar}>
-          <div
-            style={styles.progressColor(getProgressPercentage())}
-            width={`${getProgressPercentage()}%`}
-          >
-            <LinearProgress
-              variant="determinate"
-              value={getProgressPercentage()}
-              style={styles.progressColor(getProgressPercentage())}
-            />
-          </div>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div>Raised: ${raisedFunds.toLocaleString()}</div>
+          <div>Target: ${nft.amount.toLocaleString()}</div>
         </div>
-        <div style={styles.targetText}>Target: ${nft.amount}</div>
+        <div style={styles.progressBar}>
+          <div style={styles.progressColor(getProgressPercentage())} />
+        </div>
       </div>
 
-      <p>Available Amount: ${nft.amount - raisedFunds}</p>
+      <p>Available Amount: ${(nft.amount - raisedFunds).toLocaleString()}</p>
+      <h1 style={styles.header}>Description</h1>
       {nft.description && <p style={styles.description}>{nft.description}</p>}
 
       {showModal && (
@@ -320,45 +318,43 @@ const NFTDetails = () => {
             />
             <p>Total Price: ${totalPrice}</p>
 
+            {/* Lock Time Selection */}
+            <label>Lock Time (Years): </label>
+            <select
+              value={lockTime}
+              onChange={handleLockTimeChange}
+              style={styles.selectField}
+            >
+              <option value="1">1 Year</option>
+              <option value="2">2 Years</option>
+              <option value="3">3 Years</option>
+              <option value="4">4 Years</option>
+            </select>
+
             <div style={styles.modalProgressContainer}>
-              <div
-                style={styles.progressColor(getProgressPercentage())}
-                width={`${getProgressPercentage()}%`}
-              >
-                <LinearProgress
-                  variant="determinate"
-                  value={getModalProgressPercentage()}
-                  style={{ height: "15px", borderRadius: "5px" }}
-                />
-              </div>
+              <div style={styles.progressColor(getModalProgressPercentage())} />
+              <LinearProgress
+                variant="determinate"
+                value={getModalProgressPercentage()}
+                style={{ height: "12px", borderRadius: "5px" }}
+              />
             </div>
 
-            <button
-              style={styles.modalButton}
-              onClick={() => {
-                setShowModal(false);
-                handleConfirmPayment();
-              }}
-            >
+            <button style={styles.modalButton} onClick={handleConfirmPayment}>
               Confirm Payment
             </button>
             <button
               style={styles.modalButtonCancel}
               onClick={() => {
-                
-                setShowModal(false)
-            setUnits(0);}}
+                setShowModal(false);
+                setUnits(0);
+              }}
             >
               Cancel
             </button>
           </div>
         </div>
       )}
-
-      <button style={styles.stakingButton} onClick={goToStaking}>
-        Go to Your Staking
-      </button>
-      <div style={styles.footer}>© 2024 NFT Marketplace</div>
     </div>
   );
 };

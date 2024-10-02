@@ -4,7 +4,7 @@ const IntroSection = () => (
   <section style={styles.section}>
     <h1 style={styles.mainTitle}>Get to Know WRA and RWA</h1>
     <p style={styles.paragraph}>
-      Welcome to the world of WRA (Wealth Real Assets) and RWA (Real World
+      Welcome to the world of RWA (Real World
       Assets). These innovative platforms are designed to bridge the gap between
       traditional assets and digital transformation. By leveraging blockchain
       technology, we aim to bring transparency, security, and access to a wide

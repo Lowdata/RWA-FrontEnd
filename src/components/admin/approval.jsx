@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useDispatch } from "react-redux";
-import { approveOrRejectBusinessPartner } from "../../store/adminSlice";
+import { approveOrRejectBusinessPartner } from "../../store/api/admin";
 
 const ApproveBusinessPartner = ({ user }) => {
   const dispatch = useDispatch();

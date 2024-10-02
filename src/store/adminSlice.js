@@ -1,71 +1,14 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-
-export const fetchUsers = createAsyncThunk("admin/fetchUsers", async () => {
-  const response = await fetch("https://rwa-backend.onrender.com/admin/users");
-  const data = await response.json();
-  return data.users;
-});
-
-export const fetchSourcingPartners = createAsyncThunk(
-  "admin/fetchSourcingPartners",
-  async () => {
-    const response = await fetch(
-      "https://rwa-backend.onrender.com/admin/sourcingPartners"
-    );
-    const data = await response.json();
-    return data.referrals; 
-  }
-);
+import { createSlice } from "@reduxjs/toolkit";
+import {
+  fetchReferralDetails,
+  fetchUserEarnings,
+  fetchUsers,
+  deductTokens,
+  creditTokens,
+  approveOrRejectBusinessPartner,
+} from "./api/admin";
 
 
-// Fetch referral details by RWA ID
-export const fetchReferralDetails = createAsyncThunk(
-  "admin/fetchReferralDetails",
-  async (rwaId) => {
-    const response = await fetch(
-      `https://rwa-backend.onrender.com/users/referrals/${rwaId}`
-    );
-    const data = await response.json();
-    return data.referrals; // Assuming the API returns an array of referrals
-  }
-);
-
-// Approve or reject business partner
-export const approveOrRejectBusinessPartner = createAsyncThunk(
-  "admin/approveOrRejectBusinessPartner",
-  async ({ rwa_id, status }, { dispatch }) => {
-    const response = await fetch(
-      "https://rwa-backend.onrender.com/admin/approveBusinessPartner",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ rwa_id, status }),
-      }
-    );
-
-    const data = await response.json();
-    if (response.ok) {
-      dispatch(fetchUsers()); // Refresh business partner list
-      return { rwa_id, status, success: true };
-    } else {
-      throw new Error(data.message || "Approval failed");
-    }
-  }
-);
-
-//Fetch user earnings and Rank
-export const fetchUserEarnings = createAsyncThunk(
-  "admin/fetchUserEarnings",
-  async (rwaId) => {
-    const response = await fetch(
-      `https://rwa-backend.onrender.com/users/earnings/${rwaId}`
-    );
-    const data = await response.json();
-    return data; // Assuming the API returns earnings information
-  }
-);
 
 
 
@@ -76,7 +19,7 @@ const adminSlice = createSlice({
     sourcingPartners: [],
     loading: false,
     earningsDetails: null,
-    rank:"Unranked",
+    rank: "Unranked",
     referralDetails: null,
     error: null,
     todayJoining: 0,
@@ -84,8 +27,8 @@ const adminSlice = createSlice({
   },
   reducers: {},
   extraReducers: (builder) => {
-    
     builder
+      // Fetch Users
       .addCase(fetchUsers.pending, (state) => {
         state.loading = true;
       })
@@ -102,31 +45,31 @@ const adminSlice = createSlice({
         state.loading = false;
         state.error = action.error.message;
       })
-      .addCase(fetchSourcingPartners.pending, (state) => {
-        state.loading = true;
+
+      // Approve or reject business partner
+      .addCase(approveOrRejectBusinessPartner.fulfilled, (state, action) => {
+        state.sourcingPartners = state.sourcingPartners.filter(
+          (partner) => partner.rwa_id !== action.payload.rwa_id
+        );
       })
-      .addCase(fetchSourcingPartners.fulfilled, (state, action) => {
-        state.loading = false;
-        state.sourcingPartners = action.payload;
-      })
-      .addCase(fetchSourcingPartners.rejected, (state, action) => {
-        state.loading = false;
+      .addCase(approveOrRejectBusinessPartner.rejected, (state, action) => {
         state.error = action.error.message;
       })
-      // Handle fetching referral details
+
+      // Fetch referral details
       .addCase(fetchReferralDetails.pending, (state) => {
         state.loading = true;
       })
       .addCase(fetchReferralDetails.fulfilled, (state, action) => {
         state.loading = false;
-        state.referralDetails = action.payload; // Save referral details
+        state.referralDetails = action.payload;
       })
       .addCase(fetchReferralDetails.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       })
 
-      // Handle fetching earnings
+      // Fetch user earnings
       .addCase(fetchUserEarnings.pending, (state) => {
         state.loading = true;
       })
@@ -136,6 +79,20 @@ const adminSlice = createSlice({
       })
       .addCase(fetchUserEarnings.rejected, (state, action) => {
         state.loading = false;
+        state.error = action.error.message;
+      })
+
+      // Credit and deduct tokens
+      .addCase(creditTokens.fulfilled, (state, action) => {
+        console.log("Tokens credited successfully", action.payload);
+      })
+      .addCase(creditTokens.rejected, (state, action) => {
+        state.error = action.error.message;
+      })
+      .addCase(deductTokens.fulfilled, (state, action) => {
+        console.log("Tokens deducted successfully", action.payload);
+      })
+      .addCase(deductTokens.rejected, (state, action) => {
         state.error = action.error.message;
       });
   },

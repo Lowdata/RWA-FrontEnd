@@ -1,20 +1,17 @@
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { profile } from "../../assets/images";
-
 import {
   Button,
   Snackbar,
-  Select,
-  MenuItem,
   Card,
   CardContent,
   Typography,
 } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { fetchUserEarnings } from "../../store/earningSlice";
+import { fetchUserEarnings, fetchUserBalance } from "../../store/earningSlice";
 import ConnectButton from "./ConnectButton";
-
+import RoleUpdate from "./RoleUpdate";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -23,24 +20,32 @@ const Profile = () => {
   const [selectedCurrency, setSelectedCurrency] = useState("USDT");
   const [showNotification, setShowNotification] = useState(false);
 
-  // Fetching user data from Redux store
   const { publicKey, privateKey, userId, userName, role, approval } =
     useSelector((state) => state.auth);
 
-  // Safely destructure earnings state with default values
   const {
     rank = "Unranked",
     totalEarnings = "0.00",
     referralEarnings = "0.00",
     matrixEarnings = "0.00",
+    nativeBnbBalance,
+    usdtBalance,
+    rwaUsdBalance,
+    rwaTokenBalance,
   } = useSelector((state) => state.earnings || {});
 
-  const tokenOptions = ["RWA", "RWAUSD", "USDT", "BNB"];
+  useEffect(() => {
+    if (userId) {
+      dispatch(fetchUserBalance(userId));
+      dispatch(fetchUserEarnings(userId));
+    }
+  }, [dispatch, userId]);
+
   const tokenBalances = {
-    RWA: 1.23456789,
-    RWAUSD: 150.12,
-    USDT: 2000.45,
-    BNB: 0.34567891,
+    RWA: rwaTokenBalance,
+    RWAUSD: rwaUsdBalance,
+    USDT: usdtBalance,
+    BNB: nativeBnbBalance,
   };
 
   const referralLink = `${window.location.origin}/dashboard/?referId=${userId}`;
@@ -54,13 +59,6 @@ const Profile = () => {
     }
   }, [role, approval]);
 
-  // Fetching user earnings when the component mounts
-  useEffect(() => {
-    if (userId) {
-      dispatch(fetchUserEarnings(userId)); // Fetch user earnings from API and store in Redux
-    }
-  }, [dispatch, userId]);
-
   const handleCurrencyChange = (event) => {
     setSelectedCurrency(event.target.value);
   };
@@ -70,11 +68,6 @@ const Profile = () => {
       alert("Referral link copied to clipboard!");
     });
   };
-
-  const handleDepositClick = () => {
-    alert("Deposit Funds clicked");
-  };
-
   const handleWithdrawClick = () => {
     alert("Withdraw Funds clicked");
   };
@@ -86,9 +79,11 @@ const Profile = () => {
   };
 
   const handleAdminDashboardClick = () => {
-    navigate("/admin"); // Navigate to the admin dashboard
+    navigate("/admin");
   };
 
+  // Updated styles with matte, gold, blue, and dark metal
+  // Updated styles
   const profileStyles = {
     container: {
       display: "flex",
@@ -97,7 +92,7 @@ const Profile = () => {
       justifyContent: "center",
       width: "100%",
       padding: "20px",
-      backgroundColor: "#f9f9f9",
+      color: "#E0E0E0", // Light text
     },
     walletConnection: {
       marginBottom: "20px",
@@ -110,16 +105,19 @@ const Profile = () => {
       width: "100%",
       maxWidth: "600px",
       padding: "20px",
-      backgroundColor: "#fff",
+      backgroundColor: "#112240", // Darker metal blue for card background
       borderRadius: "12px",
-      boxShadow: "0 6px 15px rgba(0, 0, 0, 0.08)",
+      border: "2px solid #CBA135", // Softer gold border
+      boxShadow: "0 8px 18px rgba(0, 0, 0, 0.6)", // Stronger shadow for depth
       marginBottom: "20px",
+      color: "#F5E6C5", // Softer gold text for luxury feel
     },
     avatar: {
       width: "80px",
       height: "80px",
       borderRadius: "50%",
       marginRight: "15px",
+      border: "2px solid #CBA135", // Softer gold border for the avatar
     },
     userDetails: {
       flexGrow: "1",
@@ -130,22 +128,30 @@ const Profile = () => {
     },
     userId: {
       fontSize: "14px",
-      color: "#777",
+      color: "#777", // Subtle gray for muted text
     },
     userRole: {
       fontSize: "14px",
       fontWeight: "500",
-      color: "#00796b",
+      color: "#ADD8E6", // Matte blue for role text
       marginTop: "8px",
     },
     publicKey: {
-      fontSize: "14px",
-      color: "#00796b",
+      fontSize: "13px",
+      color: "#ADD8E6",
       marginTop: "8px",
       wordBreak: "break-all",
+      fontWeight: "bold",
     },
     privateKeyButton: {
       marginTop: "10px",
+      backgroundColor: "#CBA135", // Softer gold button
+      color: "#1C1C1E", // Dark text on gold
+      boxShadow: "0 0 8px rgba(203, 161, 53, 0.5)", // Subtle glow effect
+      "&:hover": {
+        backgroundColor: "#CBA135", // Same gold button on hover
+        boxShadow: "0 0 12px rgba(203, 161, 53, 0.7)", // Softer glow on hover
+      },
     },
     rank: {
       display: "flex",
@@ -159,17 +165,19 @@ const Profile = () => {
       alignItems: "center",
       justifyContent: "center",
       padding: "20px",
-      backgroundColor: "linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%)",
+      backgroundColor: "#112240", // Darker metal blue for the card
       borderRadius: "12px",
-      boxShadow: "0 8px 20px rgba(0, 0, 0, 0.1)",
+      border: "2px solid #CBA135", // Softer gold border for the card
+      boxShadow: "0 8px 18px rgba(0, 0, 0, 0.6)", // Deep shadow for rich look
       width: "100%",
       maxWidth: "600px",
+      color: "#CBA135", // Softer gold text for rich appearance
     },
     balance: {
       fontSize: "26px",
       fontWeight: "700",
       fontFamily: "'Merriweather', serif",
-      color: "#2c3e50",
+      color: "#CBA135", // Softer gold balance text
       marginBottom: "10px",
     },
     buttons: {
@@ -182,59 +190,54 @@ const Profile = () => {
       flexGrow: "1",
       margin: "0 5px",
       padding: "10px 20px",
-    },
-    select: {
-      margin: "10px 0",
-      minWidth: "120px",
+      backgroundColor: "#CBA135", // Softer gold button
+      color: "#1C1C1E", // Dark text on gold
+      boxShadow: "0 0 8px rgba(203, 161, 53, 0.5)", // Subtle glow effect
+      "&:hover": {
+        backgroundColor: "#CBA135", // Same gold button on hover
+        boxShadow: "0 0 12px rgba(203, 161, 53, 0.7)", // Softer glow on hover
+      },
     },
     referralCard: {
       marginTop: "20px",
       width: "100%",
       maxWidth: "600px",
-      backgroundColor: "#fff",
+      backgroundColor: "#112240", // Darker metal blue for card background
       borderRadius: "12px",
-      boxShadow: "0 6px 15px rgba(0, 0, 0, 0.08)",
+      border: "2px solid #CBA135", // Softer gold border
+      boxShadow: "0 8px 18px rgba(0, 0, 0, 0.6)", // Stronger shadow for depth
       padding: "20px",
       textAlign: "center",
+      color: "#CBA135", // Softer gold text for referral card
     },
     referralHeader: {
       fontSize: "20px",
       fontWeight: "600",
       marginBottom: "10px",
-      color: "#00796b",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-    },
-    emoji: {
-      marginLeft: "5px",
-    },
-    referralText: {
-      fontSize: "16px",
-      fontWeight: "500",
-      marginBottom: "10px",
-      color: "#333",
     },
     referralLink: {
       fontSize: "14px",
       fontWeight: "400",
-      color: "#2c3e50",
+      color: "#ADD8E6", // Blue for the link
       wordBreak: "break-all",
       marginTop: "10px",
     },
-    referralButton: {
-      marginTop: "15px",
-    },
     adminButton: {
       marginTop: "60px",
+      backgroundColor: "#CBA135", // Softer gold button
+      color: "#1C1C1E", // Dark text
       marginRight: "450px",
+      boxShadow: "0 0 8px rgba(203, 161, 53, 0.5)", // Subtle glow effect
+      "&:hover": {
+        backgroundColor: "#CBA135", // Same gold on hover
+        boxShadow: "0 0 12px rgba(203, 161, 53, 0.7)", // Subtle hover glow
+      },
     },
   };
 
+
   return (
     <div style={profileStyles.container}>
-      <ConnectButton />
-      {/* User Info */}
       <div style={profileStyles.userInfo}>
         <img src={profile} alt="User Avatar" style={profileStyles.avatar} />
         <div style={profileStyles.userDetails}>
@@ -244,7 +247,6 @@ const Profile = () => {
           <div style={profileStyles.publicKey}>Public Key: {publicKey}</div>
           <Button
             variant="contained"
-            color="primary"
             style={profileStyles.privateKeyButton}
             onClick={handlePrivateKeyCopy}
           >
@@ -256,7 +258,8 @@ const Profile = () => {
         </div>
       </div>
 
-      {/* Earnings Info */}
+      <RoleUpdate />
+
       <Card style={profileStyles.netWorthCard}>
         <CardContent>
           <Typography variant="h5" style={profileStyles.balance}>
@@ -265,93 +268,53 @@ const Profile = () => {
           <Typography>Referral Earnings: ${referralEarnings}</Typography>
           <Typography>Matrix Earnings: ${matrixEarnings}</Typography>
         </CardContent>
-      </Card>
-
-      {/* Net Worth and Token Balances */}
-      <div style={profileStyles.netWorthCard}>
-        <Typography style={profileStyles.balance}>Net Worth</Typography>
-
-        <Select
-          value={selectedCurrency}
-          onChange={handleCurrencyChange}
-          style={profileStyles.select}
-        >
-          {tokenOptions.map((token) => (
-            <MenuItem key={token} value={token}>
-              {token}
-            </MenuItem>
-          ))}
-        </Select>
-
-        {/* Display the Balance based on Selected Token */}
-        <div>
-          {parseFloat(tokenBalances[selectedCurrency]).toFixed(8)}{" "}
-          {selectedCurrency}
-        </div>
-
         <div style={profileStyles.buttons}>
           <Button
-            variant="outlined"
-            color="primary"
+            variant="contained"
             style={profileStyles.button}
-            onClick={handleDepositClick}
+
           >
-            Deposit
+            <ConnectButton />
           </Button>
           <Button
-            variant="outlined"
-            color="secondary"
+            variant="contained"
             style={profileStyles.button}
             onClick={handleWithdrawClick}
           >
             Withdraw
           </Button>
         </div>
-      </div>
-
-      {/* Refer a Friend Card */}
-      <Card style={profileStyles.referralCard}>
-        <CardContent>
-          <Typography style={profileStyles.referralHeader}>
-            Refer a Friend 🎉 <span style={profileStyles.emoji}>🤝</span>
-          </Typography>
-          <Typography style={profileStyles.referralText}>
-            Share your referral link and earn rewards:
-          </Typography>
-          <Typography style={profileStyles.referralLink}>
-            {referralLink}
-          </Typography>
-          <Button
-            variant="contained"
-            color="primary"
-            style={profileStyles.referralButton}
-            onClick={handleReferralCopy}
-          >
-            Copy Referral Link 🚀
-          </Button>
-        </CardContent>
       </Card>
 
-      {/* Admin Dashboard Button (visible only for admins) */}
+      <div style={profileStyles.referralCard}>
+        <div style={profileStyles.referralHeader}>Your Referral Link</div>
+        <div style={profileStyles.referralLink}>{referralLink}</div>
+        <Button
+          variant="contained"
+          style={profileStyles.privateKeyButton}
+          onClick={handleReferralCopy}
+        >
+          Copy Referral Link
+        </Button>
+      </div>
+
       {role === "admin" && (
         <Button
           variant="contained"
-          color="secondary"
           style={profileStyles.adminButton}
           onClick={handleAdminDashboardClick}
         >
-          Go to Admin Dashboard
+          Admin Dashboard
         </Button>
       )}
 
-      {/* Notification */}
-      <Snackbar
-        open={showNotification}
-        onClose={() => setShowNotification(false)}
-        message="Activate your business partner or sourcing partner role today and unlock profit-making opportunities!"
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-        autoHideDuration={6000}
-      />
+      {showNotification && (
+        <Snackbar
+          open={showNotification}
+          onClose={() => setShowNotification(false)}
+          message="You need to complete the approval process."
+        />
+      )}
     </div>
   );
 };

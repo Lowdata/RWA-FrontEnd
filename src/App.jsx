@@ -45,7 +45,6 @@ const App = () => {
       >
         <Header />
         <Box sx={{ flex: 1, display: "flex", flexDirection: "column" }}>
-          <AuthDebug />
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route

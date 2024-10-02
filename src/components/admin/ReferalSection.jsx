@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchReferralDetails,
   fetchUserEarnings,
-} from "../../store/adminSlice";
+} from "../../store/api/admin";
 import LoadingSpinner from "../loading/Loading";
 
 const ReferralSection = () => {

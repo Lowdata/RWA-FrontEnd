@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import ProductPipeline from "./productPipeline";
 import "./admin.css";
-import { fetchUsers, fetchSourcingPartners } from "../../store/adminSlice";
+import { fetchUsers } from "../../store/api/admin";
 import ApproveBusinessPartner from "./approval";
 import ReferralSection from "./ReferalSection";
 import DeleteUserCard from "./deleteUser"; 
+import TokenManagement from "./Token";
 import LoadingSpinner from "../loading/Loading"
 
 const AdminDashboard = () => {
@@ -19,8 +20,6 @@ const AdminDashboard = () => {
   useEffect(() => {
     if (activeSection === "business") {
       dispatch(fetchUsers());
-    } else if (activeSection === "sourcing") {
-      dispatch(fetchSourcingPartners());
     }
   }, [activeSection, dispatch]);
 
@@ -35,6 +34,7 @@ const AdminDashboard = () => {
             Product Pipeline
           </li>
           <li onClick={() => setActiveSection("referrals")}>Referral</li>
+          <li onClick={() => setActiveSection("tokens")}>Tokens</li>
         </ul>
       </div>
 
@@ -71,6 +71,7 @@ const AdminDashboard = () => {
           </div>
         )}
         {activeSection === "product-pipeline" && <ProductPipeline />}
+        {activeSection === "tokens" && <TokenManagement />}
         {activeSection === "referrals" && <ReferralSection />}
         {activeSection === "delete-user" && <DeleteUserCard />} {/* New card */}
       </div>

@@ -9,5 +9,10 @@ import facebook from "./facebook.svg";
 import telegram from "./telegram.svg";
 import profile from "./profile.jpeg";
 import edit from "./edit.png"
+import house from "./house.jpg"
+import solar from "./solar.jpg"
+import building from "./building.jpg"
+import cosmetics from "./cosmetics.jpg"
+import co from "./co.jpg"
 
-export { logo, bg, coin, nft, investment, stable, twitter, facebook, telegram, profile, edit };
+export { logo, bg, coin, nft, investment, stable, twitter, facebook, telegram, profile, edit,house,solar,building,cosmetics, co };

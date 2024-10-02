@@ -20,7 +20,20 @@ const metadata = {
   icons: ["https://assets.reown.com/reown-profile-pic.png"],
 };
 
-const chains = [bsc, bscTestnet];
+const chains = [
+  {
+    ...bsc,
+    rpcUrls: {
+      default: "https://bsc-dataseed.binance.org", // BSC Mainnet
+    },
+  },
+  {
+    ...bscTestnet,
+    rpcUrls: {
+      default: "https://data-seed-prebsc-1-s1.binance.org:8545", // BSC Testnet
+    },
+  },
+];
 const config = defaultWagmiConfig({
   chains,
   projectId,
@@ -28,12 +41,16 @@ const config = defaultWagmiConfig({
 });
 
 // 3. Create modal
-createWeb3Modal({
-  wagmiConfig: config,
-  projectId,
-  enableAnalytics: true, // Optional - defaults to your Cloud configuration
-  enableOnramp: true, // Optional - false as default
-});
+try {
+  createWeb3Modal({
+    wagmiConfig: config,
+    projectId,
+    enableAnalytics: true,
+    enableOnramp: true,
+  });
+} catch (error) {
+  console.error("Error creating Web3Modal:", error);
+}
 
 export function Web3ModalProvider({ children }) {
   return (
