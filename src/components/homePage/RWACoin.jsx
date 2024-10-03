@@ -14,7 +14,7 @@ liquidity, fractional ownership, and transparent asset management.`;
         title="RWA Coin"
         description={data}
         reverse={true}
-       
+        route="/coins"
       />
     </section>
   );

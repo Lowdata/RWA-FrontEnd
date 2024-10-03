@@ -14,6 +14,7 @@ set it apart in the digital asset landscape`;
         title="RWA NFTs"
         description={data}
         reverse={false}
+        route="/rwa-nft"
       />
     </section>
   );

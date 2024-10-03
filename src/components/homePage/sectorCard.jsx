@@ -65,13 +65,13 @@ const baseStyles = {
   },
 };
 
-const SectorBanner = ({ image, title, description, reverse }) => {
+const SectorBanner = ({ image, title, description, reverse, route }) => {
   const navigate = useNavigate();
   const bannerRef = useRef(null);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  const handleNavigate = () => {
-    navigate("/about");
+  const handleButtonClick = () => {
+    navigate(route); // Use the passed route prop for navigation
   };
 
   const onMouseEnter = () => {
@@ -192,7 +192,7 @@ const SectorBanner = ({ image, title, description, reverse }) => {
             (e.currentTarget.style.transform = "scale(1.05)")
           }
           onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
-          onClick={handleNavigate}
+          onClick={handleButtonClick} // Updated to use dynamic route
         >
           Learn More
         </button>

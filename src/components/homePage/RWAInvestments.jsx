@@ -14,8 +14,7 @@ assets that exist in the physical world.`;
         title="RWA Investment"
         description={data}
         reverse={false}
-        
-
+        route="/rwa-investment"
       />
     </section>
   );

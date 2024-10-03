@@ -32,6 +32,10 @@ import LearnMore from "./pages/LearnMore";
 import DevelopPage from "./pages/develop";
 import ParticipateSection from "./pages/Participate";
 import { Web3ModalProvider } from "./utils/walletConnectors";
+import RWAInvestment from "./pages/RwaInvestment";
+import RWANFTPackage from "./pages/RwaNft"
+import RWATokenPage from "./pages/RwaCoins"
+
 const App = () => {
   return (
     <Web3ModalProvider>
@@ -63,8 +67,12 @@ const App = () => {
               path="/nft/:id"
               element={<PrivateRouteMarketPlace element={NFTDetails} />}
             />
+            <Route path="/rwa-investment" element={<RWAInvestment />} />
+            <Route path="/about" element={<AboutUs />} />
+            <Route path="/rwa-nft" element={<RWANFTPackage />} />
             <Route path="/about" element={<AboutUs />} />
             <Route path="/package" element={<PackagesPage />} />
+            <Route path="/coins" element={<RWATokenPage />} />
             <Route path="/learnmore" element={<LearnMore />} />
             <Route path="/develop" element={<DevelopPage />} />
             <Route path="/participate" element={<ParticipateSection />} />
