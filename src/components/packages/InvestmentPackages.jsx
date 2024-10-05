@@ -49,7 +49,7 @@ const InvestmentPackage = () => {
         <li style={listItemStyle}>Price: $50 per unit</li>
         <li style={listItemStyle}>Commissionable Value: 40%</li>
         <li style={listItemStyle}>Every Day Earning: 0.1% RSP for 4 years</li>
-        <li style={listItemStyle}>Sell: Sell WRATOKEN 5% on the exchange</li>
+        <li style={listItemStyle}>Sell: Sell RWATOKEN 5% on the exchange</li>
       </ul>
     </section>
   );

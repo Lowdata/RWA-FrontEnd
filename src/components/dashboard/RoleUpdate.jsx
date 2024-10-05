@@ -25,12 +25,12 @@ const RoleUpdate = () => {
       // Deduct 1 unit of selected currency before updating role
       await dispatch(
         deductTokens({ publicKey, amount: 0.0001, currency: selectedCurrency })
-      ).unwrap();
+      ).unRWAp();
 
       // Update the user's role
       await dispatch(
         updateUser({ rwaId: userId, role: selectedRole })
-      ).unwrap();
+      ).unRWAp();
 
       alert(`Role updated to ${selectedRole} successfully!`);
     } catch (error) {

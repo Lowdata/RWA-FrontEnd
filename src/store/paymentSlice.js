@@ -1,4 +1,4 @@
-import { makePayment, tokenPayment } from "./api/payments";
+import { makePayment, tokenPayment,buyTokens } from "./api/payments";
 import { createSlice } from "@reduxjs/toolkit";
 
 const paymentSlice = createSlice({
@@ -16,7 +16,7 @@ const paymentSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    // Handling makePayment actions
+    // Handling makePayment actions NFT STAKING
     builder
       .addCase(makePayment.pending, (state) => {
         state.status = "loading";
@@ -30,7 +30,7 @@ const paymentSlice = createSlice({
         state.error = action.payload;
       });
 
-    // Handling tokenPayment actions
+    // Handling tokenPayment actions TOKENS STAKING
     builder
       .addCase(tokenPayment.pending, (state) => {
         state.status = "loading";
@@ -43,6 +43,20 @@ const paymentSlice = createSlice({
         state.status = "failed";
         state.error = action.payload;
       });
+
+      //handling buy tokens BUYING TOKENS
+      builder
+        .addCase(buyTokens.pending, (state)=> {
+            state.status = "loading";
+        })
+        .addCase(buyTokens.fulfilled, (state, action)=> {
+            state.status = "succeeded";
+            state.paymentDetails = action.payload;
+        })
+        .addCase(buyTokens.rejected, (state,action)=> {
+            state.status = "failed";
+            state.error = action.payload;
+        })
   },
 });
 

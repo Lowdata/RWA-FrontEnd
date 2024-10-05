@@ -81,6 +81,24 @@ const Profile = () => {
   const handleAdminDashboardClick = () => {
     navigate("/admin");
   };
+//whats app share 
+  const handleWhatsAppShare = () => {
+    const message = `Check out this great platform! Here's my referral link: ${referralLink}`;
+    const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(
+      message
+    )}`;
+    window.open(whatsappUrl, "_blank");
+  };
+
+  // Function to handle Email sharing
+  const handleEmailShare = () => {
+    const subject = "Join this amazing platform!";
+    const body = `Hello,\n\nCheck out this great platform! Here's my referral link: ${referralLink}`;
+    const mailtoLink = `mailto:?subject=${encodeURIComponent(
+      subject
+    )}&body=${encodeURIComponent(body)}`;
+    window.open(mailtoLink, "_blank");
+  };
 
   // Updated styles with matte, gold, blue, and dark metal
   // Updated styles
@@ -93,6 +111,25 @@ const Profile = () => {
       width: "100%",
       padding: "20px",
       color: "#E0E0E0", // Light text
+    },
+    shareButtonsContainer: {
+      display: "flex",
+      justifyContent: "space-between",
+      width: "100%",
+      maxWidth: "600px",
+      marginTop: "20px",
+    },
+    shareButton: {
+      flexGrow: 1,
+      margin: "0 5px",
+      padding: "10px 20px",
+      backgroundColor: "#CBA135", // Softer gold button
+      color: "#1C1C1E", // Dark text on gold
+      boxShadow: "0 0 8px rgba(203, 161, 53, 0.5)", // Subtle glow effect
+      "&:hover": {
+        backgroundColor: "#CBA135", // Same gold button on hover
+        boxShadow: "0 0 12px rgba(203, 161, 53, 0.7)", // Softer glow on hover
+      },
     },
     walletConnection: {
       marginBottom: "20px",
@@ -269,11 +306,7 @@ const Profile = () => {
           <Typography>Matrix Earnings: ${matrixEarnings}</Typography>
         </CardContent>
         <div style={profileStyles.buttons}>
-          <Button
-            variant="contained"
-            style={profileStyles.button}
-
-          >
+          <Button variant="contained" style={profileStyles.button}>
             <ConnectButton />
           </Button>
           <Button
@@ -295,6 +328,22 @@ const Profile = () => {
           onClick={handleReferralCopy}
         >
           Copy Referral Link
+        </Button>
+      </div>
+      <div style={profileStyles.shareButtonsContainer}>
+        <Button
+          variant="contained"
+          style={profileStyles.shareButton}
+          onClick={handleWhatsAppShare}
+        >
+          Invite via WhatsApp
+        </Button>
+        <Button
+          variant="contained"
+          style={profileStyles.shareButton}
+          onClick={handleEmailShare}
+        >
+          Invite via Email
         </Button>
       </div>
 

@@ -50,3 +50,25 @@ export const tokenPayment = createAsyncThunk(
     }
   }
 );
+
+export const buyTokens = createAsyncThunk(
+  "payments/buyTokens",
+  async({userAddress, tokenType, buyAmount}, {rejectWithValue}
+
+  )=> {
+    try{
+        const response = await axios.post(
+          "https://rwa-backend.onrender.com/api/users/buyToken",
+          {
+            userAddress,
+            tokenType,
+            buyAmount,
+          }
+        );
+        return response.data;
+        
+    }catch(error){
+        return rejectWithValue(error.response.data|| "Payment Failes")
+    }
+  }
+);

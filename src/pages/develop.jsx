@@ -7,12 +7,12 @@ import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism"; //
 const DevelopSection = () => (
   <section style={styles.section}>
     <Typography variant="h2" style={styles.mainTitle}>
-      Develop: Start Coding with WRA & RWA
+      Develop: Start Coding with RWA
     </Typography>
     <Typography variant="body1" style={styles.paragraph}>
       Whether you&apos;re an experienced blockchain developer or just starting
       out, we provide the tools and resources to build innovative applications
-      with WRA (Wealth Real Assets) and RWA (Real World Assets). Let&apos;s get
+      with RWA (Real World Assets). Let&apos;s get
       coding!
     </Typography>
   </section>
@@ -25,8 +25,7 @@ const ResourcesSection = () => (
         Developers&apos; Documentation
       </Typography>
       <Typography variant="body1" style={styles.paragraph}>
-        Dive into the technical documentation and learn how to integrate WRA and
-        RWA tokens into your dApps. Access smart contracts, API documentation,
+        Dive into the technical documentation and learn how to integrate RWA tokens into your dApps. Access smart contracts, API documentation,
         and sample projects.
       </Typography>
       <Button
@@ -48,9 +47,8 @@ const SampleCodeSection = () => (
         Sample Code
       </Typography>
       <Typography variant="body1" style={styles.paragraph}>
-        Here&apos;s a sample of how to interact with WRA and RWA tokens on
-        Binance Smart Chain using Web3.js. This code fetches a balance and
-        transfers tokens.
+        Here&apos;s a sample of how to interact with RWA tokens on Binance Smart
+        Chain using Web3.js. This code fetches a balance and transfers tokens.
       </Typography>
 
       <SyntaxHighlighter
@@ -64,21 +62,20 @@ const SampleCodeSection = () => (
         const web3 = new Web3('https://data-seed-prebsc-1-s1.binance.org:8545');
 
         // Token contract addresses
-        const WRA_TOKEN_ADDRESS = '0x5f6cefa2526c830901a3f8ce048c466142a617b5';
         const RWA_TOKEN_ADDRESS = '0xa4abedf4c304808a137640f2d6cf3342bdd84072';
 
         // Token ABI (truncated for brevity)
         const TOKEN_ABI = [...];
 
 
-        // Example: Fetch balance of WRA token holder
+        // Example: Fetch balance of token holder
         async function getBalance(tokenAddress, account) {
           const tokenContract = new web3.eth.Contract(TOKEN_ABI, tokenAddress);
           const balance = await tokenContract.methods.balanceOf(account).call();
           console.log('Token balance:', balance);
         }
 
-        // Example: Transfer WRA tokens
+        // Example: Transfer tokens
         async function transferTokens(tokenAddress, fromAddress, toAddress, amount, privateKey) {
           const tokenContract = new web3.eth.Contract(TOKEN_ABI, tokenAddress);
           const tx = tokenContract.methods.transfer(toAddress, amount);
@@ -100,7 +97,7 @@ const SampleCodeSection = () => (
         }
 
         // Call the function for testnet
-        getBalance(WRA_TOKEN_ADDRESS, '0xYourWalletAddress');
+        getBalance(RWA_TOKEN_ADDRESS, '0xYourWalletAddress');
         `}
       </SyntaxHighlighter>
     </CardContent>
@@ -114,7 +111,7 @@ const InspirationSection = () => (
         Get Inspired by Existing Projects
       </Typography>
       <Typography variant="body1" style={styles.paragraph}>
-        Discover how developers are using WRA and RWA tokens for real-world
+        Discover how developers are using and RWA tokens for real-world
         applications. From tokenized real estate to DeFi staking, the
         possibilities are endless.
       </Typography>
@@ -122,6 +119,9 @@ const InspirationSection = () => (
         <li style={styles.listItem}>Real estate tokenization platforms</li>
         <li style={styles.listItem}>Decentralized finance (DeFi) staking</li>
         <li style={styles.listItem}>Cross-border asset transfers</li>
+        <li style={styles.listItem}>RWA Investments</li>
+        <li style={styles.listItem}>RWA Coins</li>
+        <li style={styles.listItem}>RWA Nfts</li>
       </ul>
     </CardContent>
   </Card>

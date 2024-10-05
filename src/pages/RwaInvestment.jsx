@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 
 const RWAInvestment = () => {
-    const navigate = useNavigate();
-    const handleButtonClick = () => {
-      navigate("/marketplace"); // Redirect to /marketplace when the button is clicked
-    };
+  const navigate = useNavigate();
+  const handleButtonClick = () => {
+    navigate("/marketplace"); // Redirect to /marketplace when the button is clicked
+  };
   return (
     <div style={styles.container}>
       <div style={styles.header}>
@@ -47,7 +47,7 @@ const RWAInvestment = () => {
         <p style={styles.packageDetails}>
           Package Details: Cv (Commissionable Value) 40%, Price: $50 Per Unit,
           Every Day Earning 0.1% RSP For Next 4 Years. After Listing User Can
-          Sell The Wratoken 5% On Exchange.
+          Sell The RWAtoken 5% On Exchange.
         </p>
         <ul style={styles.packageList}>
           <li style={styles.listItem}>Overview Of Benefits And Returns</li>
@@ -66,9 +66,9 @@ const RWAInvestment = () => {
         </ul>
       </div>
 
-      <button style={styles.button}
-      onClick={handleButtonClick}
-      >Start Investing</button>
+      <button style={styles.button} onClick={handleButtonClick}>
+        Start Investing
+      </button>
     </div>
   );
 };
@@ -79,7 +79,7 @@ const styles = {
     fontFamily: "Arial, sans-serif",
     color: "#fff",
     padding: "20px",
-    background: "linear-gradient(135deg, #1f1c2c, #928DAB)", 
+    background: "linear-gradient(135deg, #1f1c2c, #928DAB)",
     boxShadow: "0 10px 30px rgba(0, 0, 0, 0.1)",
     margin: " auto",
     maxWidth: "900px",

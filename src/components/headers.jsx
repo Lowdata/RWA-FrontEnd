@@ -55,29 +55,38 @@ function Header() {
 
   const menuItems = isLoggedIn
     ? [
+        { label: "Home", path: "/" },
+        { label: "About Us", path: "/about" },
+        { label: "Learn More", path: "/learnmore" },
         { label: "Dashboard", path: "/dashboard" },
-        { label: "Marketplace", path: "/marketplace" },
         {
           label: "WhitePaper",
           onClick: () => window.open("https://example.com/whitepaper"),
         },
+        { label: "Develop", path: "/develop" },
+        { label: "Participate", path: "/participate" },
+        { label: "Marketplace", path: "/marketplace" },
+
         { label: "Packages", path: "/package" },
       ]
     : [
-        { label: "Sign Up", path: "/register" },
+        { label: "Home", path: "/" },
+        { label: "About Us", path: "/about" },
+        { label: "Learn More", path: "/learnmore" },
+        { label: "Dashboard", path: "/dashboard" },
         {
           label: "WhitePaper",
-          onClick: () => window.open("https://example.com/whitepaper"),
+          onClick: () =>
+            window.open(
+              "https://1drv.ms/b/c/4de4945333881226/Ef8ogLf-1p1JgV5SnkAh_1QBW-0iDbeIU2RoSUEOnETn6Q?e=yXBSml"
+            ),
         },
+        { label: "Develop", path: "/develop" },
+        { label: "Participate", path: "/participate" },
+        { label: "Sign Up", path: "/register" },
       ];
 
-  const additionalItems = [
-    { label: "Learn More", path: "/learnmore" },
-    { label: "About Us", path: "/about" },
-    { label: "Develop", path: "/develop" },
-    { label: "Participate", path: "/participate" },
-    { label: "Home", path: "/" },
-  ];
+  const additionalItems = [];
 
   return (
     <>

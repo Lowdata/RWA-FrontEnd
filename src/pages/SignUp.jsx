@@ -1,4 +1,4 @@
-import  { useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
 import { coin } from "../assets/images";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -10,8 +10,10 @@ import {
   Box,
   Alert,
   AlertTitle,
+  Checkbox,
+  FormControlLabel,
 } from "@mui/material";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom"; // Import Link for navigation
 import { validateEmail, validatePassword } from "../utils/validation";
 import {
   setEmail,
@@ -28,13 +30,19 @@ import {
   Facebook as FacebookIcon,
   Twitter as TwitterIcon,
 } from "@mui/icons-material";
+import { GoogleLogin } from "react-google-login";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const SignUp = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const authState = useSelector((state) => state.auth);
+
+  const [verified, setVerified] = useState(false);
+  const recaptchaRef = useRef(null);
+  const [acceptedTerms, setAcceptedTerms] = useState(false); // New state for checkbox
+  const [termsError, setTermsError] = useState(""); // State to track error for checkbox
 
   const {
     email,
@@ -59,7 +67,7 @@ const SignUp = () => {
     dispatch(setRole("user")); // Set the default role to "user"
   }, [location, dispatch]);
 
-  const handleSignUp = () => {
+  const handleSignUp = async () => {
     if (!email || !password || !userName) {
       dispatch(setError("Email, username, and password are required."));
       return;
@@ -76,6 +84,12 @@ const SignUp = () => {
       );
       return;
     }
+    // Check if terms are accepted
+    if (!acceptedTerms) {
+      setTermsError("You must accept the terms and conditions to sign up.");
+      return;
+    }
+
     dispatch(
       registerUser({
         email,
@@ -91,6 +105,26 @@ const SignUp = () => {
         dispatch(clearForm());
       }
     });
+  };
+
+  const handleGoogleSuccess = (response) => {
+    console.log("GOOGLE LOGIN RESPONSE", response);
+    const { email, name } = response.profileObj;
+
+    dispatch(setEmail(email));
+    dispatch(setUserName(name));
+    const redirectTo = location.state?.from;
+    navigate(redirectTo, { state: { email, name } });
+  };
+
+  const onchange = () => {
+    setVerified(true);
+  };
+
+  const handleCaptchaExpired = () => {
+    // Reset the verification state when CAPTCHA expires
+    setVerified(false);
+    alert("CAPTCHA expired. Please complete it again.");
   };
 
   return (
@@ -224,7 +258,7 @@ const SignUp = () => {
           }}
         />
         <TextField
-          label="Referrer ID (optional)"
+          label="Referral ID (optional)"
           fullWidth
           margin="normal"
           value={referrerId}
@@ -262,6 +296,44 @@ const SignUp = () => {
           </Alert>
         )}
 
+        {/* Terms and Conditions Checkbox */}
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={acceptedTerms}
+              onChange={(e) => {
+                setAcceptedTerms(e.target.checked);
+                setTermsError(""); // Reset error when checkbox is clicked
+              }}
+              color="primary"
+            />
+          }
+          label={
+            <Typography sx={{ color: "#e2b857" }}>
+              I accept the{" "}
+              <Link
+                to="/terms"
+                style={{ color: "#e2b857", textDecoration: "underline" }}
+              >
+                Terms and Conditions
+              </Link>
+            </Typography>
+          }
+        />
+        {termsError && (
+          <Alert severity="error" sx={{ mb: 2 }}>
+            <AlertTitle>Error</AlertTitle>
+            {termsError}
+          </Alert>
+        )}
+
+        <ReCAPTCHA
+          sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+          onChange={onchange}
+          ref={recaptchaRef}
+          onExpired={handleCaptchaExpired} // Captures the expiration event
+        />
+
         {/* Sign Up Button */}
         <Box mt={2}>
           <Button
@@ -269,7 +341,7 @@ const SignUp = () => {
             color="primary"
             variant="contained"
             fullWidth
-            disabled={isLoading}
+            disabled={!verified}
             sx={{
               backgroundColor: "#e2b857",
               color: "#1a2b48",
@@ -289,24 +361,35 @@ const SignUp = () => {
           <Typography variant="body1" sx={{ color: "#e2b857", mb: 1 }}>
             Other Sign Up options:
           </Typography>
-          <Box display="flex" justifyContent="space-between" flexWrap="wrap">
-            <Button
-              variant="outlined"
-              sx={{
-                color: "#4285F4",
-                borderColor: "#4285F4",
-                mx: 1,
-                mb: 1,
-                flex: { xs: "1 1 45%", sm: "1 1 30%" }, // Responsive flex
-                "&:hover": {
-                  backgroundColor: "rgba(66, 133, 244, 0.1)",
-                  borderColor: "#4285F4",
-                },
-              }}
-              startIcon={<GoogleIcon />}
-            >
-              Google
-            </Button>
+          <Box display="flex" justifyContent="space-between">
+            <GoogleLogin
+              clientId="1020245847291-dkcn1ibl4e2nq3bu2po7m6dtlq19kc4f.apps.googleusercontent.com"
+              onSuccess={handleGoogleSuccess}
+              onError={() => console.log("Login Failed")}
+              onFailure={() => console.log("Login Failed")}
+              buttonText="SignUp with Google"
+              cookiePolicy={"single_host_origin"}
+              render={(renderProps) => (
+                <Button
+                  onClick={renderProps.onClick}
+                  variant="outlined"
+                  sx={{
+                    color: "#1DA1F2",
+                    borderColor: "#1DA1F2",
+                    mx: 1,
+                    mb: 1,
+                    flex: { xs: "1 1 45%", sm: "1 1 30%" },
+                    "&:hover": {
+                      backgroundColor: "rgba(29, 161, 242, 0.1)",
+                      borderColor: "#1DA1F2",
+                    },
+                  }}
+                  startIcon={<GoogleIcon />}
+                >
+                  Google
+                </Button>
+              )}
+            />
             <Button
               variant="outlined"
               sx={{
@@ -321,6 +404,9 @@ const SignUp = () => {
                 },
               }}
               startIcon={<FacebookIcon />}
+              onClick={() => {
+                alert("Temporarily under Maintainence");
+              }}
             >
               Facebook
             </Button>
@@ -338,6 +424,9 @@ const SignUp = () => {
                 },
               }}
               startIcon={<TwitterIcon />}
+              onClick={() => {
+                alert("Temporarily under Maintainence");
+              }}
             >
               Twitter
             </Button>

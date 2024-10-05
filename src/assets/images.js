@@ -14,5 +14,6 @@ import solar from "./solar.jpg"
 import building from "./building.jpg"
 import cosmetics from "./cosmetics.jpg"
 import co from "./co.jpg"
+import tokenomics from "./tokenomics.png"
 
-export { logo, bg, coin, nft, investment, stable, twitter, facebook, telegram, profile, edit,house,solar,building,cosmetics, co };
+export { logo, bg, coin, nft, investment, stable, twitter, facebook, telegram, profile, edit,house,solar,building,cosmetics, co, tokenomics };

@@ -39,7 +39,7 @@ const OTPScreen = () => {
     }
 
     dispatch(verifyOtp({ email, otp }))
-      .unwrap()
+      .unRWAp()
       .then(() => {
         handleResetPassword();
       })
@@ -50,7 +50,7 @@ const OTPScreen = () => {
 
   const handleResetPassword = () => {
     dispatch(resetPassword({ email, newPassword }))
-      .unwrap()
+      .unRWAp()
       .then(() => {
         alert("Password reset successfully");
         navigate("/login");

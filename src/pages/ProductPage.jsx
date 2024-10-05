@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getApprovedProducts } from "./Marketplace";
 import { LinearProgress } from "@mui/material";
-import {  resetPaymentState } from "../store/paymentSlice";
+import { resetPaymentState } from "../store/paymentSlice";
 
 import { useDispatch, useSelector } from "react-redux";
 import LoadingSpinner from "../components/loading/Loading";
@@ -91,8 +91,8 @@ const NFTDetails = () => {
       lockTime,
       purchaseDate: new Date().toISOString(),
     };
-    const newRaisedAmount = raisedFunds + totalPrice;
-    setRaisedFunds(newRaisedAmount);
+    const neRWAisedAmount = raisedFunds + totalPrice;
+    setRaisedFunds(neRWAisedAmount);
 
     stake.push(purchaseDetails);
 

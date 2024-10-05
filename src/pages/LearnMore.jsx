@@ -1,39 +1,16 @@
 import YouTubeIcon from "@mui/icons-material/YouTube"; // Material UI YouTube icon
+import {tokenomics} from "../assets/images"
 
 const IntroSection = () => (
   <section style={styles.section}>
-    <h1 style={styles.mainTitle}>Get to Know WRA and RWA</h1>
+    <h1 style={styles.mainTitle}>Get to Know RWA</h1>
     <p style={styles.paragraph}>
-      Welcome to the world of RWA (Real World
-      Assets). These innovative platforms are designed to bridge the gap between
-      traditional assets and digital transformation. By leveraging blockchain
-      technology, we aim to bring transparency, security, and access to a wide
-      range of financial tools. It&apos;s a great opportunity!
+      Welcome to the world of RWA (Real World Assets). These innovative
+      platforms are designed to bridge the gap between traditional assets and
+      digital transformation. By leveraging blockchain technology, we aim to
+      bring transparency, security, and access to a wide range of financial
+      tools. It&apos;s a great opportunity!
     </p>
-  </section>
-);
-
-const WhatIsWRA = () => (
-  <section style={styles.card}>
-    <h2 style={styles.sectionTitle}>What is WRA: Wealth Real Assets</h2>
-    <p style={styles.paragraph}>
-      WRA is a comprehensive digital ecosystem offering financial instruments
-      tied to real-world assets. It empowers users by offering investment
-      opportunities that are typically reserved for institutional investors.
-    </p>
-    <ul style={styles.list}>
-      <li style={styles.listItem}>
-        <span style={styles.bullet}>•</span> Decentralized asset management
-        platform.
-      </li>
-      <li style={styles.listItem}>
-        <span style={styles.bullet}>•</span> Maximizing investment potential.
-      </li>
-      <li style={styles.listItem}>
-        <span style={styles.bullet}>•</span> Access to tokenized assets with
-        global security standards.
-      </li>
-    </ul>
   </section>
 );
 
@@ -56,6 +33,10 @@ const WhatIsRWA = () => (
         <span style={styles.bullet}>•</span> Promotes liquidity in traditionally
         illiquid markets.
       </li>
+      <li style={styles.listItem}>
+        <span style={styles.bullet}>•</span>
+        Total Supply = 100 BILLION (Capped/Locked supply)
+      </li>
     </ul>
   </section>
 );
@@ -64,7 +45,7 @@ const HowItWorks = () => (
   <section style={styles.card}>
     <h2 style={styles.sectionTitle}>How It Works: Integrity at the Core</h2>
     <p style={styles.paragraph}>
-      The WRA and RWA platforms are designed with integrity as the central
+      The RWA and RWA platforms are designed with integrity as the central
       pillar. Utilizing blockchain technology, every transaction is secure,
       verifiable, and transparent. This ensures that all investments made are
       backed by actual assets with rigorous auditing.
@@ -91,7 +72,7 @@ const TechnicalRoadmap = () => (
     <div style={styles.roadmapStep}>
       <h3 style={styles.roadmapTitle}>Q1 2024: Launch</h3>
       <p style={styles.paragraph}>
-        Launch of the WRA platform with initial asset offerings.
+        Launch of the RWA platform with initial asset offerings.
       </p>
     </div>
     <div style={styles.roadmapStep}>
@@ -117,10 +98,10 @@ const TechnicalRoadmap = () => (
 
 const YouTubeSection = () => (
   <section style={styles.youtubeSection}>
-    <h2 style={styles.sectionTitle}>Learn More: WRA and RWA on YouTube</h2>
+    <h2 style={styles.sectionTitle}>Learn More: RWA and RWA on YouTube</h2>
     <p style={styles.paragraph}>
       Stay informed by visiting our YouTube channel. Watch insightful videos
-      that cover the full spectrum of WRA and RWA, from beginner guides to
+      that cover the full spectrum of RWA and RWA, from beginner guides to
       advanced tutorials on how to make the most of your investments.
     </p>
     <button style={styles.youtubeButton}>
@@ -130,11 +111,90 @@ const YouTubeSection = () => (
   </section>
 );
 
+const ProductsAndServices = () => (
+  <section style={styles.card}>
+    <h2 style={styles.sectionTitle}>Products and Services Overview</h2>
+    <ul style={styles.list}>
+      <li style={styles.listItem}>
+        RWATOKEN: Description of benefits and utility.
+      </li>
+      <li style={styles.listItem}>RWAUSD: Details on stability and usage.</li>
+      <li style={styles.listItem}>
+        RWA Investment: Explanation of investment opportunities.
+      </li>
+      <li style={styles.listItem}>
+        RWANFT: Features and benefits related to non-fungible tokens.
+      </li>
+      <li style={styles.listItem}>
+        Founder Member: Privileges and benefits for early adopters.
+      </li>
+      <li style={styles.listItem}>
+        RWA Sourcing Partner: Role and benefits within the ecosystem.
+      </li>
+      <li style={styles.listItem}>
+        Business Partner: Opportunities and advantages for partners.
+      </li>
+    </ul>
+  </section>
+);
+
+const CommissionStructure = () => (
+  <section style={styles.card}>
+    <h2 style={styles.sectionTitle}>Commission Structure</h2>
+    <p style={styles.paragraph}>
+      Participants can earn commissions across 12 levels, benefiting from
+      referrals made by their direct connections and those further down the
+      referral chain.
+    </p>
+    <ul style={styles.list}>
+      <li style={styles.listItem}>
+        Reward Share Points (RSP) and Commissionable Volume (CV)
+      </li>
+      <li style={styles.listItem}>Lock % RSP Commission</li>
+      <li style={styles.listItem}>1-year: 15%, CV: 2%</li>
+      <li style={styles.listItem}>2-year: 30%, CV: 3%</li>
+      <li style={styles.listItem}>3-year: 60%, CV: 4%</li>
+      <li style={styles.listItem}>4-year: 100%, CV: 5%</li>
+    </ul>
+  </section>
+);
+
+const Tokenomics = () => (
+  <section style={styles.card}>
+    <h2 style={styles.sectionTitle}>Tokenomics Overview</h2>
+    <p style={styles.paragraph}>
+      Here is the breakdown of the detailed profit distribution and tokenomics
+      for RWA.
+    </p>
+    <img
+      src={tokenomics}
+      alt="Tokenomics chart"
+      style={styles.image}
+    />
+  </section>
+);
+
+const StableToken = () => (
+  <section style={styles.card}>
+    <h2 style={styles.sectionTitle}>RWAUSD: Stable Token Locked for 4 Years</h2>
+    <p style={styles.paragraph}>
+      RWAUSD is a stable token locked for four years, designed to minimize price
+      volatility by being pegged to a stable asset such as USD.
+    </p>
+    <p>
+        Total Supply = 500 Billion (No capping/Locking of stable coin supply)
+    </p>
+  </section>
+);
+
 const LearnMore = () => (
   <div style={styles.pageContainer}>
     <IntroSection />
-    <WhatIsWRA />
     <WhatIsRWA />
+    <Tokenomics />
+    <StableToken />
+    <CommissionStructure />
+    <ProductsAndServices />
     <HowItWorks />
     <TechnicalRoadmap />
     <YouTubeSection />
@@ -224,6 +284,9 @@ const styles = {
     cursor: "pointer",
     display: "inline-flex",
     alignItems: "center", // Align text and icon in the center
+  },
+  image:{
+    borderRadius: "50px"
   },
   youtubeIcon: {
     fontSize: "2rem", // Larger icon size

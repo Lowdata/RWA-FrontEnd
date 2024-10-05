@@ -1,5 +1,5 @@
-
 import { useDispatch, useSelector } from "react-redux";
+import { useState,useRef } from "react";
 import {
   Button,
   TextField,
@@ -18,10 +18,24 @@ import {
   Facebook as FacebookIcon,
   Twitter as TwitterIcon,
 } from "@mui/icons-material";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [verified, setVerified] = useState(false);
+  const recaptchaRef = useRef(null);
+   const handleCaptchaExpired = () => {
+     // Reset the verification state when CAPTCHA expires
+     setVerified(false);
+     alert("CAPTCHA expired. Please complete it again.");
+   };
+
+  const onchange = (value) => {
+    console.log("CAPTCHA value", value);
+    setVerified(true);
+  };
 
   const email = useSelector((state) => state.auth.email);
   const password = useSelector((state) => state.auth.password);
@@ -39,7 +53,7 @@ const Login = () => {
     }
 
     dispatch(loginUser({ email, password }))
-      .unwrap()
+      .unRWAp()
       .then(() => {
         navigate("/dashboard");
         dispatch(clearForm());
@@ -170,11 +184,18 @@ const Login = () => {
             color: "#e2b857",
             display: "block",
             marginTop: "10px",
+            marginBottom: "10px",
             textAlign: "right",
           }}
         >
           Forgot Password?
         </Link>
+        <ReCAPTCHA
+          sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+          onChange={onchange}
+          ref={recaptchaRef}
+          onExpired={handleCaptchaExpired}
+        />
 
         {/* Login Button */}
         <Box mt={3}>
@@ -183,7 +204,7 @@ const Login = () => {
             color="primary"
             variant="contained"
             fullWidth
-            disabled={isLoading}
+            disabled={!verified}
             sx={{
               backgroundColor: "#e2b857",
               color: "#1a2b48",
