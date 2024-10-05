@@ -15,5 +15,7 @@ import building from "./building.jpg"
 import cosmetics from "./cosmetics.jpg"
 import co from "./co.jpg"
 import tokenomics from "./tokenomics.png"
+import fashion from "./fashion.jpeg"
+import watch from "./watch.jpeg"
 
-export { logo, bg, coin, nft, investment, stable, twitter, facebook, telegram, profile, edit,house,solar,building,cosmetics, co, tokenomics };
+export { logo, bg, coin, nft, investment, stable, twitter, facebook, telegram, profile, edit,house,solar,building,cosmetics, co, tokenomics,fashion,watch };

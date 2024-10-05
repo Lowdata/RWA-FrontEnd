@@ -36,14 +36,12 @@ import RWANFTPackage from "./pages/RwaNft"
 import RWATokenPage from "./pages/RwaCoins"
 import { gapi } from "gapi-script";
 import { useEffect } from "react";
-import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 
 
 const App = () => {
  
     const clientId =
       "1020245847291-dkcn1ibl4e2nq3bu2po7m6dtlq19kc4f.apps.googleusercontent.com";
-      const recaptcha = "6LdutlcqAAAAAN56xfYvDUVj7H5_VUa8GcTZWAe8"
       useEffect(()=>{
         function start(){
             gapi.client.init({

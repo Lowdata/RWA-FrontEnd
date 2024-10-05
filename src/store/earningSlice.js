@@ -15,7 +15,7 @@ const initialState = {
   rwaTokenBalance: null,
   rwaUsdBalance: null,
   loading: false,
-  error:null,
+  error: null,
 };
 
 // Thunk to fetch earnings data
@@ -36,15 +36,27 @@ export const fetchUserBalance = createAsyncThunk(
       const response = await axios.get(
         `https://rwa-backend.onrender.com/users/balance/${userId}`
       );
-       const { nativeBnbBalance, usdtBalance, rwaUsdBalance, rwaTokenBalance } =
-         response.data;
-         console.log("Balances",response.data);
-         return {
-           nativeBnbBalance,
-           usdtBalance,
-           rwaUsdBalance,
-           rwaTokenBalance,
-         };
+      const { nativeBnbBalance, usdtBalance, rwaUsdBalance, rwaTokenBalance } =
+        response.data;
+      console.log("Fetched Balances", response.data); // Log the fetched balances
+
+      // Save balances to localStorage
+      localStorage.setItem(
+        "userBalances",
+        JSON.stringify({
+          nativeBnbBalance,
+          usdtBalance,
+          rwaUsdBalance,
+          rwaTokenBalance,
+        })
+      );
+
+      return {
+        nativeBnbBalance,
+        usdtBalance,
+        rwaUsdBalance,
+        rwaTokenBalance,
+      };
     } catch (error) {
       console.error("Failed to fetch user balance:", error);
       throw error;
@@ -72,17 +84,19 @@ const earningsSlice = createSlice({
         action.payload.directRoyaltyEarnings || state.directRoyaltyEarnings;
       state.totalEarnings = action.payload.totalEarnings || state.totalEarnings;
     });
+
+    builder.addCase(fetchUserBalance.fulfilled, (state, action) => {
+      state.nativeBnbBalance = action.payload.nativeBnbBalance ?? "0.00";
+      state.usdtBalance = action.payload.usdtBalance ?? "0.00";
+      state.rwaUsdBalance = action.payload.rwaUsdBalance ?? "0.00";
+      state.rwaTokenBalance = action.payload.rwaTokenBalance ?? "0.00";
+      state.loading = false;
+    });
+
     builder.addCase(fetchUserBalance.pending, (state) => {
       state.loading = true;
     });
-    //fulfilled
-    builder.addCase(fetchUserBalance.fulfilled, (state,action)=>{
-         state.nativeBnbBalance = action.payload.nativeBnbBalance ?? "0.00";
-         state.usdtBalance = action.payload.usdtBalance ?? "0.00";
-         state.rwaUsdBalance = action.payload.rwaUsdBalance ?? "0.00";
-         state.rwaTokenBalance = action.payload.rwaTokenBalance ?? "0.00";
-    });
-    //rejected
+
     builder.addCase(fetchUserBalance.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;

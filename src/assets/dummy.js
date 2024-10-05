@@ -1,33 +1,6 @@
-import { coin, nft, stable, co,solar,house,building,cosmetics } from "../assets/images";
+import { co,solar,house,building,cosmetics, fashion, watch } from "../assets/images";
 
 export const dummyProducts = [
-  {
-    id: 1001,
-    name: "Crypto Coin Alpha",
-    image: coin,
-    description: `Crypto Coin Alpha is a pioneering cryptocurrency that aims to redefine the financial landscape by offering a decentralized, secure, and scalable digital currency solution...`,
-    category: "Coin",
-    amount: 10000000000000,
-    raised: 2000,
-  },
-  {
-    id: 1002,
-    name: "Virtual NFT Art #1",
-    image: nft,
-    description: `Virtual NFT Art #1 is a groundbreaking digital artwork that represents a new era in the world of art and collectibles...`,
-    category: "NFT",
-    amount: 5000000000,
-    raised: 2500,
-  },
-  {
-    id: 1003,
-    name: "Stable Asset Gold",
-    image: stable,
-    description: `Stable Asset Gold is a stablecoin backed by physical gold reserves, offering a secure and reliable store of value...`,
-    category: "Stablecoin",
-    amount: 2000000,
-    raised: 1000,
-  },  // New items with amounts below 10 million
   {
     id: 1006,
     name: "Fashion Brand Collection",
@@ -47,18 +20,9 @@ export const dummyProducts = [
     raised: 900000,
   },
   {
-    id: 1008,
-    name: "Art NFT Series #88",
-    image: nft,
-    description: `Art NFT Series #88 is part of a collection of exclusive digital artworks. These NFTs feature complex designs that blend traditional artistry with cutting-edge digital techniques. Each NFT is unique and highly sought after in the burgeoning world of digital collectibles, making it a valuable addition to any collection.`,
-    category: "NFT",
-    amount: 4000000,
-    raised: 1500000,
-  },
-  {
     id: 1009,
-    name: "Virtual Fashion NFT #12",
-    image: nft,
+    name: "Virtual Fashion NFT",
+    image: fashion,
     description: `Virtual Fashion NFT #12 is a digital fashion piece crafted for the virtual fashion industry. As the concept of virtual wearables grows, this NFT provides collectors with a highly unique, fully customizable virtual garment that can be worn across the metaverse. It is one of the first designs of its kind and is expected to set trends in the virtual fashion world.`,
     category: "NFT",
     amount: 950000,
@@ -67,7 +31,7 @@ export const dummyProducts = [
   {
     id: 1010,
     name: "NFT Collectible Watch",
-    image: nft,
+    image: watch,
     description: `This digital collectible watch NFT is a one-of-a-kind virtual timepiece representing luxury and cutting-edge digital design. Featuring intricate animations and rare design elements, this NFT collectible is perfect for tech enthusiasts and luxury watch collectors.`,
     category: "NFT",
     amount: 3000000,

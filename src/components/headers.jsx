@@ -61,7 +61,10 @@ function Header() {
         { label: "Dashboard", path: "/dashboard" },
         {
           label: "WhitePaper",
-          onClick: () => window.open("https://example.com/whitepaper"),
+          onClick: () =>
+            window.open(
+              "https://drive.google.com/file/d/1Biawk38ez0I69GpjNDmusTwUdnlRkdkq/view?usp=drive_link"
+            ),
         },
         { label: "Develop", path: "/develop" },
         { label: "Participate", path: "/participate" },
@@ -133,7 +136,7 @@ function Header() {
                 style={{
                   fontFamily: "Roboto, sans-serif",
                   fontWeight: 700,
-                  fontSize: isMobile || isMediumDesktop ? "1.2rem" : "1.8rem",
+                  fontSize: isMobile || isMediumDesktop ? "1rem" : "1rem",
                   color: "#f5f5f5",
                 }}
               >

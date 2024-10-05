@@ -1,135 +1,129 @@
 import { useEffect, useState } from "react";
-import { Card, CardContent, Typography, Button } from "@mui/material";
-import { stake } from "../../pages/ProductPage"; // Assuming stake is an array with the purchase data
+import { Card, CardContent, Typography, Button, Alert } from "@mui/material";
+import {  stakeCoins } from "../../pages/Marketplace"; 
+import { stake } from "../../pages/ProductPage";
 
 const StakingPage = () => {
   const [purchasedNFTs, setPurchasedNFTs] = useState([]);
-
-  // Function to calculate time left for the lock-in based on the selected lockTime
+  const [stakedCoins, setStakedCoins] = useState([]);
+ const [alert, setAlert] = useState(null);
+  // Function to calculate time left for the lock-in
   const calculateTimeLeft = (purchaseDate, lockTime) => {
     const lockDuration = lockTime * 365 * 24 * 60 * 60 * 1000; // Convert lockTime in years to milliseconds
     const timeElapsed = Date.now() - new Date(purchaseDate).getTime();
     const timeLeft = lockDuration - timeElapsed;
 
-    if (timeLeft <= 0) return "Unlocked"; // Timer has passed lockTime
-    const daysLeft = Math.floor(timeLeft / (1000 * 60 * 60 * 24)); // Convert to days
+    if (timeLeft <= 0) return "Unlocked";
+    const daysLeft = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
     const hoursLeft = Math.floor(
       (timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
     );
     const minutesLeft = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
     const secondsLeft = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
-    // Display time left in days, hours, minutes, and seconds
     return `${daysLeft}d ${hoursLeft}h ${minutesLeft}m ${secondsLeft}s`;
   };
 
   useEffect(() => {
-    // Set the initial staked NFTs from the stake array
+    // Set the initial staked NFTs and coins
     setPurchasedNFTs(stake);
+    setStakedCoins(stakeCoins);
 
-    // Create an interval to update the timers every second
     const intervalId = setInterval(() => {
-      setPurchasedNFTs((prevNFTs) => [...prevNFTs]); // Trigger re-render for timer updates
+      setPurchasedNFTs((prevNFTs) => [...prevNFTs]);
+      setStakedCoins((prevCoins) => [...prevCoins]);
     }, 1000);
 
-    // Cleanup the interval on component unmount
     return () => clearInterval(intervalId);
   }, []);
+  const handleUnstake = (id, type) => {
+    if (type === "coin") {
+      // Remove the coin with the matching ID from stakedCoins
+      const updatedCoins = stakedCoins.filter((coin) => coin.id !== id);
+      setStakedCoins(updatedCoins);
+      setAlert({ type: "success", message: "Coin unstaked successfully!" });
+    } else if (type === "nft") {
+      // Remove the NFT with the matching ID from purchasedNFTs
+      const updatedNFTs = purchasedNFTs.filter((nft) => nft.id !== id);
+      setPurchasedNFTs(updatedNFTs);
+      setAlert({ type: "success", message: "NFT unstaked successfully!" });
+    }
 
+    // Optionally, you can update the localStorage if you are storing the staked data
+    // localStorage.setItem('stakedCoins', JSON.stringify(updatedCoins));
+    // localStorage.setItem('purchasedNFTs', JSON.stringify(updatedNFTs));
+
+    // Hide alert after 3 seconds
+    setTimeout(() => {
+      setAlert(null);
+    }, 3000);
+  };
   const styles = {
-    page: {
-      maxWidth: "1200px",
-      margin: "0 auto",
-      padding: "20px",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      fontFamily: "'Roboto', sans-serif",
-      color: "#E0E0E0", // Light text
-    },
-    header: {
-      fontSize: "2rem",
-      fontWeight: "bold",
-      textAlign: "center",
-      marginBottom: "20px",
-      color: "#CBA135", // Softer gold text
+    page: { maxWidth: "1200px", margin: "0 auto", padding: "20px" },
+    sectionHeader: {
+      fontSize: "1.8rem",
+      marginBottom: "15px",
+      color: "#CBA135",
     },
     nftCard: {
-      width: "100%",
       maxWidth: "400px",
-      backgroundColor: "#112240", // Darker metal blue for card background
-      borderRadius: "12px",
-      border: "2px solid #CBA135", // Softer gold border
-      boxShadow: "0 8px 18px rgba(0, 0, 0, 0.6)", // Stronger shadow for depth
+      backgroundColor: "#112240",
       marginBottom: "20px",
     },
-    cardContent: {
-      padding: "20px",
-      textAlign: "center",
-      color: "#F5E6C5", // Softer gold text for a luxurious feel
-    },
-    nftImage: {
-      width: "100%",
-      borderRadius: "8px",
-      marginBottom: "15px",
-    },
-    nftName: {
-      fontSize: "1.5rem",
-      fontWeight: "bold",
-      color: "#CBA135", // Softer gold text for the name
-    },
-    units: {
-      fontSize: "1.1rem",
-      color: "#ADD8E6", // Matte blue for units
-    },
-    lockTimer: {
-      fontSize: "1rem",
-      color: "#CBA135", // Softer gold for lock timer
-      marginTop: "10px",
-    },
-    noNFTMessage: {
-      textAlign: "center",
-      fontSize: "1.2rem",
-      color: "#666",
-      marginBottom: "20px",
-    },
-    button: {
-      marginTop: "10px",
-      padding: "10px 20px",
-      backgroundColor: "#CBA135", // Softer gold button
-      color: "#1C1C1E", // Dark text on gold
-      boxShadow: "0 0 8px rgba(203, 161, 53, 0.5)", // Subtle glow effect
-      "&:hover": {
-        backgroundColor: "#CBA135", // Same gold button on hover
-        boxShadow: "0 0 12px rgba(203, 161, 53, 0.7)", // Softer glow on hover
-      },
-    },
+    cardContent: { padding: "20px", textAlign: "center" },
+    lockTimer: { marginTop: "10px", color: "#CBA135" },
+    noNFTMessage: { fontSize: "1.2rem", color: "#666" },
+    button: { marginTop: "10px", backgroundColor: "#CBA135" },
   };
 
   return (
     <div style={styles.page}>
-      <h1 style={styles.header}>My Staked NFTs</h1>
+      {alert && (
+        <Alert variant="filled" severity={alert.type}>
+          {alert.message}
+        </Alert>
+      )}
+      <h1 style={styles.sectionHeader}>Staked Coins</h1>
+      {stakedCoins.length === 0 ? (
+        <p style={styles.noNFTMessage}>You have no staked coins.</p>
+      ) : (
+        stakedCoins.map((coin) => (
+          <Card key={coin.id} style={styles.nftCard}>
+            <CardContent style={styles.cardContent}>
+              <Typography variant="h6">{coin.name}</Typography>
+              <Typography>Amount: {coin.amount}</Typography>
+              <Typography style={styles.lockTimer}>
+                Lock-in Timer:{" "}
+                {calculateTimeLeft(coin.purchaseDate, coin.lockTime)}
+              </Typography>
+              <Button variant="contained" style={styles.button}>
+                Unstake
+              </Button>
+            </CardContent>
+          </Card>
+        ))
+      )}
 
+      <h1 style={styles.sectionHeader}>Staked NFTs</h1>
       {purchasedNFTs.length === 0 ? (
         <p style={styles.noNFTMessage}>You have no staked NFTs.</p>
       ) : (
         purchasedNFTs.map((nft) => (
           <Card key={nft.id} style={styles.nftCard}>
             <CardContent style={styles.cardContent}>
-              {nft.image && (
-                <img src={nft.image} alt={nft.name} style={styles.nftImage} />
-              )}
-              <Typography variant="h6" style={styles.nftName}>
-                {nft.name}
-              </Typography>
-              <Typography style={styles.units}>Units: {nft.units}</Typography>
+              {nft.image && <img src={nft.image} alt={nft.name} />}
+              <Typography variant="h6">{nft.name}</Typography>
+              <Typography>Units: {nft.units}</Typography>
               <Typography style={styles.lockTimer}>
                 Lock-in Timer:{" "}
                 {calculateTimeLeft(nft.purchaseDate, nft.lockTime)}
               </Typography>
-              <Button variant="contained" style={styles.button}>
-                View Details
+              <Button
+                variant="contained"
+                style={styles.button}
+                onClick={() => handleUnstake(nft.id, "nft")}
+              >
+                Unstake
               </Button>
             </CardContent>
           </Card>

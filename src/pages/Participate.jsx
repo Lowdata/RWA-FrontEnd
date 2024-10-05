@@ -51,7 +51,7 @@ const HowItWorks = () => (
 const RWAInvestment = () => {
   return (
     <div style={styles.investmentContainer}>
-      <h1 style={styles.investmentTitle}>RWA Investment Opportunities</h1>
+      <h1 style={styles.investmentTitle}>What is RWA Investment</h1>
       <p style={styles.investmentSubtitle}>
         Explore investment products with over $10 million market cap
       </p>
@@ -110,13 +110,20 @@ const RWAInvestment = () => {
       </div>
 
       {/* Package Staking Section */}
-      <div style={{display:"flex", flexDirection:"row", justifyContent: "center"}}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+        }}
+      >
         <div style={styles.stakingContainer}>
-          <h2 style={styles.stakingTitle}>RWA Investment Package Staking</h2>
+          <h2 style={styles.stakingTitle}>RWA Investment Staking</h2>
           <p style={styles.stakingDetails}>
-            Package Details: Cv (Commissionable Value) 40%, Price: $50 Per Unit,
-            Every Day Earning 0.1% RSP For Next 4 Years. After Listing, users
-            can sell the RWA token with a 5% fee on the exchange.
+            • Definition: Real World Asset Investment involves allocating
+            capital to tangible assets that exist in the physical world. • Goal:
+            To diversify portfolios and achieve stable, long-term returns by
+            investing in a variety of asset classes.
           </p>
           <ul style={styles.stakingList}>
             <li style={styles.stakingListItem}>

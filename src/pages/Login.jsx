@@ -53,10 +53,12 @@ const Login = () => {
     }
 
     dispatch(loginUser({ email, password }))
-      .unRWAp()
       .then(() => {
+        dispatch(()=>{
+            clearForm();
+        });
         navigate("/dashboard");
-        dispatch(clearForm());
+        
       })
       .catch((err) => {
         console.error("Error logging in:", err);

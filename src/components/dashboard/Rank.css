@@ -1,36 +1,50 @@
 .rank-rewards-container {
   padding: 30px;
-  background-color: #f9f9f9;
+  background-color: #112240; /* Darker metal blue */
   border-radius: 12px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-  color: #333;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3); /* Deeper shadow for rich effect */
+  color: #E0E0E0; /* Light text for better contrast */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animations */
+}
+
+.rank-rewards-container:hover {
+  transform: scale(1.01);
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.5);
 }
 
 .heading {
   font-size: 32px;
-  color: #1f3a93;
+  color: #CBA135; /* Gold text for luxury feel */
   margin-bottom: 20px;
 }
 
 .description {
   margin-bottom: 30px;
   font-size: 18px;
-  color: #777;
+  color: #ADD8E6; /* Light blue for secondary text */
 }
 
 .user-rank-card {
   padding: 20px;
-  border-radius: 8px;
+  border-radius: 12px;
   color: white;
   margin-bottom: 30px;
   width: 100%;
   max-width: 400px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3); /* Shadow for depth */
+  background-color: #1C1C1E; /* Dark background */
+  border: 2px solid #CBA135; /* Gold border */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animation */
+}
+
+.user-rank-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 12px 24px rgba(203, 161, 53, 0.7); /* Gold glow on hover */
 }
 
 .table-heading {
   font-size: 24px;
-  color: #1f3a93;
+  color: #CBA135; /* Gold for table heading */
   margin-bottom: 20px;
 }
 
@@ -38,24 +52,25 @@
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 40px;
-  background-color: #fff;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  background-color: #1C1C1E; /* Dark table background */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Strong shadow for tables */
 }
 
 .rank-table th,
 .rank-table td {
   padding: 15px;
   text-align: left;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #555; /* Subtle border for cells */
 }
 
 .rank-table th {
-  background-color: #1f3a93;
-  color: white;
+  background-color: #CBA135; /* Gold table header */
+  color: #1C1C1E; /* Dark text on gold */
 }
 
 .rank-table td {
-  color: #333;
+  color: #E0E0E0; /* Light text for table data */
+  background-color: #112240; /* Metal background */
 }
 
 .rank-table tr {
@@ -63,11 +78,11 @@
 }
 
 .rank-table tr:hover {
-  background-color: #f1f1f1;
+  background-color: #2B2B30; /* Slightly lighter on hover */
 }
 
 .highlighted-row {
-  background-color: #ffedcc !important;
+  background-color: rgba(203, 161, 53, 0.2) !important; /* Highlighted row with gold tint */
 }
 
 .bonus-section {
@@ -78,21 +93,44 @@
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Shadow for depth */
 }
 
 .bonus-table th,
 .bonus-table td {
   padding: 15px;
-  border: 1px solid #ddd;
+  border: 1px solid #555; /* Darker border */
   text-align: left;
 }
 
 .bonus-table th {
-  background-color: #1f3a93;
-  color: white;
+  background-color: #CBA135; /* Gold header */
+  color: #1C1C1E; /* Dark text */
 }
 
 .bonus-table td {
-  color: #333;
+  color: #E0E0E0; /* Light text */
+  background-color: #112240; /* Darker background */
+}
+
+.bonus-table tr {
+  transition: background-color 0.3s ease;
+}
+
+.bonus-table tr:hover {
+  background-color: #2B2B30; /* Slightly lighter on hover */
+}
+
+/* Animation for hovering on user rank card and table rows */
+@keyframes glowing {
+  0% {
+    box-shadow: 0 0 8px rgba(203, 161, 53, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(203, 161, 53, 0.8);
+  }
+}
+
+.user-rank-card:hover {
+  animation: glowing 0.5s ease-in-out forwards;
 }

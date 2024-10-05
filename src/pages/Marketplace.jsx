@@ -1,8 +1,19 @@
+/* eslint-disable no-undef */
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { coin, nft, stable } from "../assets/images";
 import { dummyProducts } from "../assets/dummy";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Button,
+  Alert,
+} from "@mui/material"; 
 
+
+export const stakeCoins = [];
 // Color scheme from your image (example colors)
 const colors = {
   background: "#2C3E50", // Dark background
@@ -194,11 +205,20 @@ const getFallbackImage = (product) => {
 };
 
 const Marketplace = () => {
+
   const [products, setProducts] = useState([]);
    const [activeSection, setActiveSection] = useState(
      location.state?.activeSection || "Coins"
    );
+   const [openDialog, setOpenDialog] = useState(false);
+   const [dialogType, setDialogType] = useState(""); // "buy" or "stake"
+   const [selectedProduct, setSelectedProduct] = useState(null);
+   const [units, setUnits] = useState(0);
+   const [currency, setCurrency] = useState("USDT");
+   const [stakeTime, setStakeTime] = useState(1); // For staking years
+   const [alert, setAlert] = useState({ type: "", message: "" });
   const navigate = useNavigate();
+
 
   useEffect(() => {
     const loadProducts = async () => {
@@ -209,12 +229,34 @@ const Marketplace = () => {
     addGlobalStyles(); // Add keyframes on load
   }, []);
 
+  const handleDialogOpen = (type, product) => {
+     if (!product) {
+       setAlert({ type: "error", message: "Product not found!" });
+       return;
+     }
+     setDialogType(type);
+     setSelectedProduct(product); // Ensure product is set
+     setOpenDialog(true);
+  };
+    const goToStaking = () => {
+      navigate("/dashboard", { state: { currentPage: "Staking" } });
+    };
+
+  const handleDialogClose = () => {
+   setOpenDialog(false);
+   setUnits(0);
+   setCurrency("USDT");
+   setStakeTime(1);
+   setSelectedProduct(null);
+  };
+
   const handleProductClick = (id, category) => {
     if (category !== "Coin") {
 
       navigate(`/nft/${id}`, { state: { activeSection } });
     }
   };
+
 
   const filterProducts = (section) => {
     if (section === "Coins") {
@@ -253,26 +295,71 @@ const Marketplace = () => {
     }
   };
 
-  const handleStake = (tokenName, stakeOptions) => {
-    console.log(`Staking ${tokenName}...`);
-    const selectedOption = window.prompt(
-      `Select staking period for ${tokenName} (${stakeOptions.join(
-        ", "
-      )} years):`
-    );
-    if (selectedOption && stakeOptions.includes(Number(selectedOption))) {
-      console.log(`Staking ${tokenName} for ${selectedOption} year(s)`);
-    } else {
-      alert("Invalid selection.");
+  const handleStake = () => {
+    if (!selectedProduct || !selectedProduct.amount) {
+      setAlert({ type: "error", message: "Invalid product or amount." });
+      return;
     }
+
+    const userBalance = JSON.parse(localStorage.getItem("userBalance")) || {};
+    const cost = units * selectedProduct.amount;
+
+    if (userBalance[currency] >= cost) {
+      userBalance[currency] -= cost;
+      localStorage.setItem("userBalance", JSON.stringify(userBalance));
+
+      if (selectedProduct.category === "Coin") {
+        const newStakedCoin = {
+          id: selectedProduct.id,
+          name: selectedProduct.name,
+          amount: units,
+          purchaseDate: new Date(),
+          lockTime: stakeTime, // In years
+        };
+        localStorage.setItem(
+          "stakedCoins",
+          JSON.stringify([...stakedCoins, newStakedCoin])
+        );
+      } else {
+        const newStakedNFT = {
+          id: selectedProduct.id,
+          name: selectedProduct.name,
+          units,
+          purchaseDate: new Date(),
+          lockTime: stakeTime,
+        };
+        localStorage.setItem(
+          "stakeNFTs",
+          JSON.stringify([...purchasedNFTs, newStakedNFT])
+        );
+      }
+
+      setAlert({ type: "success", message: "Staking successful!" });
+    } else {
+      setAlert({ type: "error", message: "Insufficient balance!" });
+    }
+
+    handleDialogClose();
   };
 
-  const handleBuy = (tokenName) => {
-    console.log(`Buying ${tokenName}...`);
-  };
+  const handleBuy = () => {
+    if (!selectedProduct || !selectedProduct.amount) {
+      setAlert({ type: "error", message: "Invalid product or amount." });
+      return;
+    }
+    const userBalance = JSON.parse(localStorage.getItem("userBalance")) || {};
+    const cost = units * selectedProduct.amount;
 
-  const goToStaking = () => {
-    navigate("/dashboard", { state: { currentPage: "Staking" } });
+    if (userBalance[currency] >= cost) {
+      // Deduct the cost and update local storage
+      userBalance[currency] -= cost;
+      localStorage.setItem("userBalance", JSON.stringify(userBalance));
+      setAlert({ type: "success", message: "Purchase successful!" });
+    } else {
+      setAlert({ type: "error", message: "Insufficient balance!" });
+    }
+
+    handleDialogClose();
   };
 
   const filteredProducts = filterProducts(activeSection);
@@ -290,7 +377,7 @@ const Marketplace = () => {
         onMouseLeave={(e) =>
           Object.assign(e.currentTarget.style, marketplaceStyles.stakingButton)
         }
-        onClick={() => handleBuy(product.name)}
+        onClick={() => handleDialogOpen("buy", product)}
       >
         Buy
       </button>
@@ -305,7 +392,7 @@ const Marketplace = () => {
         onMouseLeave={(e) =>
           Object.assign(e.currentTarget.style, marketplaceStyles.stakingButton)
         }
-        onClick={() => handleStake(product.name, product.stakeOptions)}
+        onClick={() => handleDialogOpen("stake", product)}
       >
         Stake
       </button>
@@ -342,6 +429,7 @@ const Marketplace = () => {
           Investments
         </span>
       </div>
+      {alert.message && <Alert severity={alert.type}>{alert.message}</Alert>}
 
       <main style={marketplaceStyles.main}>
         <div style={marketplaceStyles.productGrid}>
@@ -375,8 +463,45 @@ const Marketplace = () => {
               {activeSection === "Coins" && renderCoinButtons(product)}
             </div>
           ))}
+          
         </div>
       </main>
+      {/* Dialog for Buy/Staking */}
+      <Dialog open={openDialog} onClose={handleDialogClose}>
+        <DialogTitle>{dialogType === "buy" ? "Buy Coin" : "Stake Coin"}</DialogTitle>
+        <DialogContent>
+          <input
+            type="number"
+            placeholder="Units"
+            value={units}
+            onChange={(e) => setUnits(e.target.value)}
+            min="1"
+            style={{ marginBottom: "10px" }}
+          />
+          <select value={currency} onChange={(e) => setCurrency(e.target.value)}>
+            <option value="USDT">USDT</option>
+            <option value="BNB">BNB</option>
+          </select>
+
+          {dialogType === "stake" && selectedProduct?.name === "RWA Token" && (
+            <select value={stakeTime} onChange={(e) => setStakeTime(e.target.value)}>
+              <option value={1}>1 year</option>
+              <option value={2}>2 years</option>
+              <option value={3}>3 years</option>
+              <option value={4}>4 years</option>
+            </select>
+          )}
+          {dialogType === "stake" && selectedProduct?.name === "RWA USD" && (
+            <p>4-year staking only</p>
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDialogClose}>Cancel</Button>
+          <Button onClick={dialogType === "buy" ? handleBuy : handleStake} color="primary">
+            Confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };

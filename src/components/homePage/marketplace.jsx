@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { coin, nft, stable, logo } from "../../assets/images";
+import { coin, nft, stable,investment } from "../../assets/images";
 
 const Marketplace = () => {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ const Marketplace = () => {
         backgroundColor: "#12141d",
         color: "#ffffff",
         fontFamily: "Roboto, sans-serif",
-        margin: "0 auto",
+        margin: "30px auto",
         maxWidth: "90%",
         textAlign: "center",
         borderRadius: "20px",
@@ -50,7 +50,7 @@ const Marketplace = () => {
           justifyItems: "center",
         }}
       >
-        {[logo, nft, stable, coin].map((image, index) => (
+        {[investment, nft, stable, coin].map((image, index) => (
           <div
             key={index}
             style={{

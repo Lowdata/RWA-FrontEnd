@@ -6,8 +6,10 @@ import BusinessPage from "./BusinessPage";
 import RankAndRewardsPage from "../components/dashboard/Rank";
 import StakingPage from "../components/dashboard/Staking";
 import { useLocation } from "react-router-dom";
-import TokenPage from "../components/dashboard/Tokens";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa"; // Import arrow icons
+import { Alert, IconButton } from "@mui/material"; // Import Alert and IconButton
+import CheckIcon from "@mui/icons-material/Check"; // Import the success icon
+import CloseIcon from "@mui/icons-material/Close"; // Import the close icon for dismissing the alert
 
 const styles = {
   dashboardContainer: {
@@ -79,12 +81,27 @@ const styles = {
     border: "none", // Remove default button styling
     transition: "left 0.3s ease-in-out",
   },
+  alert: {
+    marginBottom: "20px", // Add spacing for the alert at the top of the page
+  },
 };
 
 const Dashboard = () => {
   const location = useLocation();
   const [currentPage, setCurrentPage] = useState("Dashboard");
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [showAlert, setShowAlert] = useState(false); // Control the visibility of the alert
+
+  // Fetch the role from localStorage
+  const storedAuth = JSON.parse(localStorage.getItem("auth"));
+  const userRole = storedAuth?.role || "user"; // Default to "user" if no role is found
+
+  // Show alert only if the user's role is "user"
+  useEffect(() => {
+    if (userRole === "user") {
+      setShowAlert(true);
+    }
+  }, [userRole]);
 
   useEffect(() => {
     if (location.state && location.state.currentPage) {
@@ -101,12 +118,10 @@ const Dashboard = () => {
         return <StakingPage />;
       case "Purchases":
         return <div>You are on &quot;Purchases&quot; page</div>;
-      case "Tokens":
-        return <TokenPage />;
       case "Rank and Rewards":
         return <RankAndRewardsPage />;
       case "Business":
-        return <BusinessPage />;
+        return userRole === "business_partner" ? <BusinessPage /> : null; // Conditional render based on role
       case "Activity":
         return <ActivityPage />;
       default:
@@ -126,9 +141,32 @@ const Dashboard = () => {
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
           setSidebarOpen={setSidebarOpen}
+          userRole={userRole} // Pass the role as a prop to Sidebar
         />
       </div>
       <div style={styles.content}>
+        {/* Show Alert only if the role is "user" */}
+        {showAlert && (
+          <Alert
+            icon={<CheckIcon fontSize="inherit" />}
+            severity="info"
+            action={
+              <IconButton
+                aria-label="close"
+                color="inherit"
+                size="small"
+                onClick={() => setShowAlert(false)} // Close the alert
+              >
+                <CloseIcon fontSize="inherit" />
+              </IconButton>
+            }
+            style={styles.alert}
+          >
+            Upgrade to business partner or sourcing partner to earn more and
+            list your business with us.
+          </Alert>
+        )}
+
         <button
           style={styles.arrow}
           onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -142,15 +180,13 @@ const Dashboard = () => {
   );
 };
 
-const Sidebar = ({ currentPage, setCurrentPage, setSidebarOpen }) => {
-  const menuItems = [
-    "My Wallet",
-    "Staking",
-    "Tokens",
-    "Rank and Rewards",
-    "Business",
-    "Activity",
-  ];
+const Sidebar = ({ currentPage, setCurrentPage, setSidebarOpen, userRole }) => {
+  const menuItems = ["My Wallet", "Staking", "Rank and Rewards", "Activity"];
+
+  // Conditionally add the "Business" item if the user is a business partner
+  if (userRole === "business_partner") {
+    menuItems.push("Business");
+  }
 
   return (
     <aside>
@@ -182,6 +218,7 @@ Sidebar.propTypes = {
   currentPage: PropTypes.string.isRequired,
   setCurrentPage: PropTypes.func.isRequired,
   setSidebarOpen: PropTypes.func.isRequired,
+  userRole: PropTypes.string.isRequired, // Add the userRole prop validation
 };
 
 export default Dashboard;

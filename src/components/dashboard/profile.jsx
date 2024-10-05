@@ -1,52 +1,89 @@
+/* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
 import { profile } from "../../assets/images";
 import {
   Button,
-  Snackbar,
-  Card,
-  CardContent,
-  Typography,
 } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchUserEarnings, fetchUserBalance } from "../../store/earningSlice";
-import ConnectButton from "./ConnectButton";
 import RoleUpdate from "./RoleUpdate";
+import PrivateKeyDialog from "./PrivateKeyDialog";
+import UserBalanceCard from "./Profile/userBalance";
+import EarningsCard from "./Profile/earningsCard";
 
 const Profile = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [selectedCurrency, setSelectedCurrency] = useState("USDT");
+   const [dialogOpen, setDialogOpen] = useState(false);;
   const [showNotification, setShowNotification] = useState(false);
 
-  const { publicKey, privateKey, userId, userName, role, approval } =
+  const { publicKey, userId, userName, role, approval } =
     useSelector((state) => state.auth);
 
-  const {
-    rank = "Unranked",
-    totalEarnings = "0.00",
-    referralEarnings = "0.00",
-    matrixEarnings = "0.00",
-    nativeBnbBalance,
-    usdtBalance,
-    rwaUsdBalance,
-    rwaTokenBalance,
-  } = useSelector((state) => state.earnings || {});
+   const {
+     rank = "Unranked",
+     totalEarnings = "0.00",
+     referralEarnings = "0.00",
+     matrixEarnings = "0.00",
+     revenueEarnings = "0.00",
+     leadershipEarnings = "0.00",
+     dailyEarnings = "0.00",
+     directRoyaltyEarnings = "0.00",
+   } = useSelector((state) => state.earnings || {});
+
+   const [balances, setBalances] = useState({
+     nativeBnbBalance: "0.0000",
+     usdtBalance: "0.0000",
+     rwaUsdBalance: "0.0000",
+     rwaTokenBalance: "0.0000",
+   });
+
+  useEffect(() => {
+    const savedBalances = JSON.parse(localStorage.getItem("userBalances"));
+    if (savedBalances) {
+      setBalances({
+        nativeBnbBalance: parseFloat(savedBalances.nativeBnbBalance).toFixed(4),
+        usdtBalance: parseFloat(savedBalances.usdtBalance).toFixed(4),
+        rwaUsdBalance: parseFloat(savedBalances.rwaUsdBalance).toFixed(4),
+        rwaTokenBalance: parseFloat(savedBalances.rwaTokenBalance).toFixed(4),
+      });
+    }
+  }, []);
 
   useEffect(() => {
     if (userId) {
-      dispatch(fetchUserBalance(userId));
+      // Fetch balances and earnings
+      dispatch(fetchUserBalance(userId)).then((action) => {
+        // Ensure we update both Redux store and localStorage
+        const updatedBalances = action.payload || {};
+        setBalances({
+          nativeBnbBalance: parseFloat(
+            updatedBalances.nativeBnbBalance || 0
+          ).toFixed(4),
+          usdtBalance: parseFloat(updatedBalances.usdtBalance || 0).toFixed(4),
+          rwaUsdBalance: parseFloat(updatedBalances.rwaUsdBalance || 0).toFixed(
+            4
+          ),
+          rwaTokenBalance: parseFloat(
+            updatedBalances.rwaTokenBalance || 0
+          ).toFixed(4),
+        });
+
+        // Save updated balances to localStorage
+        localStorage.setItem("userBalances", JSON.stringify(updatedBalances));
+      });
       dispatch(fetchUserEarnings(userId));
+
+      const interval = setInterval(() => {
+        dispatch(fetchUserBalance(userId));
+        dispatch(fetchUserEarnings(userId));
+      }, 300000); // 300000ms = 5 minutes
+
+      return () => clearInterval(interval);
     }
   }, [dispatch, userId]);
-
-  const tokenBalances = {
-    RWA: rwaTokenBalance,
-    RWAUSD: rwaUsdBalance,
-    USDT: usdtBalance,
-    BNB: nativeBnbBalance,
-  };
 
   const referralLink = `${window.location.origin}/dashboard/?referId=${userId}`;
 
@@ -59,9 +96,7 @@ const Profile = () => {
     }
   }, [role, approval]);
 
-  const handleCurrencyChange = (event) => {
-    setSelectedCurrency(event.target.value);
-  };
+
 
   const handleReferralCopy = () => {
     navigator.clipboard.writeText(referralLink).then(() => {
@@ -73,15 +108,16 @@ const Profile = () => {
   };
 
   const handlePrivateKeyCopy = () => {
-    navigator.clipboard.writeText(privateKey).then(() => {
-      alert("Private key copied to clipboard!");
-    });
+    setDialogOpen(true);
+  };
+  const handleDialogClose = () => {
+    setDialogOpen(false);
   };
 
   const handleAdminDashboardClick = () => {
     navigate("/admin");
   };
-//whats app share 
+  //whats app share
   const handleWhatsAppShare = () => {
     const message = `Check out this great platform! Here's my referral link: ${referralLink}`;
     const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(
@@ -111,6 +147,21 @@ const Profile = () => {
       width: "100%",
       padding: "20px",
       color: "#E0E0E0", // Light text
+    },
+    accountBalanceContainer: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: "10px", // Add space between currency selector and balance display
+      marginBottom: "20px",
+    },
+    accountBalance: {
+      fontSize: "22px",
+      fontWeight: "600",
+      color: "#CBA135", // Softer gold text
+    },
+    selectDropdown: {
+      minWidth: "200px",
     },
     shareButtonsContainer: {
       display: "flex",
@@ -209,6 +260,7 @@ const Profile = () => {
       width: "100%",
       maxWidth: "600px",
       color: "#CBA135", // Softer gold text for rich appearance
+      marginTop:"20px"
     },
     balance: {
       fontSize: "26px",
@@ -272,7 +324,6 @@ const Profile = () => {
     },
   };
 
-
   return (
     <div style={profileStyles.container}>
       <div style={profileStyles.userInfo}>
@@ -289,6 +340,9 @@ const Profile = () => {
           >
             Copy Private Key
           </Button>
+
+          {/* Render the PrivateKeyDialog */}
+          <PrivateKeyDialog open={dialogOpen} onClose={handleDialogClose} />
         </div>
         <div style={profileStyles.rank}>
           <span>🏆 Rank: {rank}</span>
@@ -297,27 +351,20 @@ const Profile = () => {
 
       <RoleUpdate />
 
-      <Card style={profileStyles.netWorthCard}>
-        <CardContent>
-          <Typography variant="h5" style={profileStyles.balance}>
-            Total Earnings: ${totalEarnings}
-          </Typography>
-          <Typography>Referral Earnings: ${referralEarnings}</Typography>
-          <Typography>Matrix Earnings: ${matrixEarnings}</Typography>
-        </CardContent>
-        <div style={profileStyles.buttons}>
-          <Button variant="contained" style={profileStyles.button}>
-            <ConnectButton />
-          </Button>
-          <Button
-            variant="contained"
-            style={profileStyles.button}
-            onClick={handleWithdrawClick}
-          >
-            Withdraw
-          </Button>
-        </div>
-      </Card>
+      {/* Render the EarningsCard */}
+      <EarningsCard
+        totalEarnings={totalEarnings}
+        referralEarnings={referralEarnings}
+        matrixEarnings={matrixEarnings}
+        revenueEarnings={revenueEarnings}
+        leadershipEarnings={leadershipEarnings}
+        dailyEarnings={dailyEarnings}
+        directRoyaltyEarnings={directRoyaltyEarnings}
+        styles={profileStyles}
+      />
+
+      {/* Render the UserBalanceCard */}
+      <UserBalanceCard balances={balances} styles={profileStyles} />
 
       <div style={profileStyles.referralCard}>
         <div style={profileStyles.referralHeader}>Your Referral Link</div>
@@ -355,14 +402,6 @@ const Profile = () => {
         >
           Admin Dashboard
         </Button>
-      )}
-
-      {showNotification && (
-        <Snackbar
-          open={showNotification}
-          onClose={() => setShowNotification(false)}
-          message="You need to complete the approval process."
-        />
       )}
     </div>
   );
