@@ -6,11 +6,13 @@ import {
   Select,
   Typography,
   Button,
+  Alert, // Import Alert from Material-UI
 } from "@mui/material";
 import ConnectButton from "../ConnectButton";
 
 const UserBalanceCard = ({ balances, styles }) => {
   const [selectedCurrency, setSelectedCurrency] = useState("USDT");
+  const [showAlert, setShowAlert] = useState(false); // State to control alert visibility
 
   const tokenBalances = {
     BNB: balances.nativeBnbBalance,
@@ -29,8 +31,29 @@ const UserBalanceCard = ({ balances, styles }) => {
     alert(`Withdraw ${selectedCurrency} clicked`);
   };
 
+  const handleDepositClick = () => {
+    setShowAlert(true); // Show the alert when the Deposit button is clicked
+  };
+
   return (
     <div style={styles.netWorthCard}>
+      {/* Alert for adding money to RWA Wallet */}
+      {showAlert && (
+        <Alert
+          severity="info" // Set alert severity to info
+          onClose={() => setShowAlert(false)} // Close the alert
+          style={{ marginBottom: "16px" }} // Add some spacing below the alert
+        >
+          Steps to add money to your RWA Wallet:
+          <ol>
+            <li>Copy the RWA Public key from the profile</li>
+            <li>Click on Deposit button</li>
+            <li>Connect wallet</li>
+            <li>Transfer funds to the Wallet</li>
+          </ol>
+        </Alert>
+      )}
+
       {/* Currency Selector and Balance Display */}
       <div style={styles.accountBalanceContainer}>
         <FormControl style={styles.selectDropdown}>
@@ -57,8 +80,9 @@ const UserBalanceCard = ({ balances, styles }) => {
         <Button
           variant="contained"
           style={styles.button}
+          onClick={handleDepositClick} // Attach the deposit click handler
         >
-         <ConnectButton/>
+          <ConnectButton />
         </Button>
         <Button
           variant="contained"
