@@ -58,7 +58,7 @@ const RWAInvestment = () => {
         <p style={styles.packageDetails}>
           Package Details: Cv (Commissionable Value) 40%, Price: $50 Per Unit,
           Every Day Earning 0.1% RSP For Next 4 Years. After Listing User Can
-          Sell The RWAtoken 5% On Exchange.
+          Sell The RWACoin 5% On Exchange.
         </p>
         <ul style={styles.packageList}>
           <li style={styles.listItem}>Overview Of Benefits And Returns</li>

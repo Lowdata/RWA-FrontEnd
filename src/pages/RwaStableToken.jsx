@@ -19,24 +19,24 @@ const StableTokenPage = () => {
   return (
     <div style={styles.container}>
       <div style={styles.header}>
-        <h1 style={styles.title}>Real World Asset USD Stable Token (RWAUSD)</h1>
+        <h1 style={styles.title}>Real World Asset USD Stable coin (RWAUSD)</h1>
         <p style={styles.subtitle}>
-          Stable token designed to minimize price volatility.
+          Stable coin designed to minimize price volatility.
         </p>
       </div>
 
       <div style={styles.section}>
-        <h2 style={styles.sectionTitle}>Token Information</h2>
+        <h2 style={styles.sectionTitle}>Coin Information</h2>
         <p style={styles.description}>
           <strong>Stable Token:</strong> Locked for 4 years
         </p>
         <p style={styles.description}>
-          <strong>Total Supply:</strong> 500 billion tokens
+          <strong>Total Supply:</strong> 500 billion Coins
         </p>
       </div>
 
       <div style={styles.section}>
-        <h2 style={styles.sectionTitle}>Stable Token Characteristics</h2>
+        <h2 style={styles.sectionTitle}>Stable coin Characteristics</h2>
         <p style={styles.description}>
           RWAUSD is designed to minimize price volatility by being pegged to a
           stable asset, such as USD.
@@ -56,7 +56,7 @@ const StableTokenPage = () => {
           <li style={styles.listItem}>Company TO Pool Bonus</li>
           <li style={styles.listItem}>Global Matrix Bonus</li>
           <li style={styles.listItem}>Meeting Fund</li>
-          <li style={styles.listItem}>Trip and Token Reward Points</li>
+          <li style={styles.listItem}>Trip and Coin Reward Points</li>
         </ul>
       </div>
       {/* Material UI Alert component */}

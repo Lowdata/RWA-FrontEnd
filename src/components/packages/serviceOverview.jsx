@@ -2,7 +2,7 @@
 
 const services = [
   {
-    title: "RWATOKEN",
+    title: "RWA Coin",
     description:
       "A versatile digital asset offering significant utility in our ecosystem.",
   },

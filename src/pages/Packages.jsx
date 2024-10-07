@@ -1,6 +1,5 @@
 
 import ServiceOverview from "../components/packages/serviceOverview";
-import TokenPackages from "../components/packages/TokenPackages";
 import InvestmentPackage from "../components/packages/InvestmentPackages";
 import NftPackage from "../components/packages/NFTPackages";
 import Footer from "../components/packages/Footer";
@@ -17,7 +16,6 @@ const PackagesPage = () => {
   return (
     <div style={pageStyle}>
       <ServiceOverview />
-      <TokenPackages />
       <InvestmentPackage />
       <NftPackage />
       <Footer />

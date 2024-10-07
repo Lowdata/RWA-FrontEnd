@@ -42,7 +42,7 @@ const TermsAndConditions = () => {
           By accessing and using the services of Real World Asset Corp (the
           “Company”), you agree to comply with and be bound by these Terms and
           Conditions. These terms govern your use of the Company’s platform,
-          blockchain-based services, and digital assets such as RWATOKEN and
+          blockchain-based services, and digital assets such as RWAcoinand
           RWANFT.
         </p>
       </div>
@@ -71,7 +71,7 @@ const TermsAndConditions = () => {
         <h2 style={styles.title}>4. Use of the Platform</h2>
         <p style={styles.text}>
           The Company’s platform allows you to engage in blockchain-based
-          investments, token purchases, NFT acquisitions, and other related
+          investments, coinpurchases, NFT acquisitions, and other related
           activities. You agree not to use the platform for any unlawful or
           unauthorized purposes, including the violation of any intellectual
           property or privacy rights.
@@ -89,9 +89,9 @@ const TermsAndConditions = () => {
       </div>
 
       <div style={styles.section}>
-        <h2 style={styles.title}>6. Token and NFT Ownership</h2>
+        <h2 style={styles.title}>6. coinand NFT Ownership</h2>
         <p style={styles.text}>
-          Ownership of RWATOKEN, RWANFT, or any other digital asset on the
+          Ownership of RWACoin, RWANFT, or any other digital asset on the
           platform is tied to the blockchain, and transactions are recorded on
           the Binance Smart Chain. Your ownership rights are governed by the
           smart contract and blockchain infrastructure, and the Company does not
@@ -126,7 +126,7 @@ const TermsAndConditions = () => {
           &ldquo;Company&rdquo;), you agree to comply with and be bound by these
           Terms and Conditions. These terms govern your use of the
           Company&rsquo;s platform, blockchain-based services, and digital
-          assets such as RWATOKEN and RWANFT.
+          assets such as RWAcoin and RWANFT.
         </p>
       </div>
 

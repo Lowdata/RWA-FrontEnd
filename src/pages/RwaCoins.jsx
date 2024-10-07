@@ -20,7 +20,7 @@ const RWATokenPage = () => {
   return (
     <div style={styles.container}>
       <div style={styles.header}>
-        <h1 style={styles.title}>Real World Asset Token (RWA)</h1>
+        <h1 style={styles.title}>Real World Asset Coin (RWA)</h1>
         <p style={styles.subtitle}>
           Blockchain-powered asset ownership and investment.
         </p>
@@ -32,14 +32,14 @@ const RWATokenPage = () => {
           <strong>Blockchain:</strong> Binance Smart Chain (BSC)
         </p>
         <p style={styles.description}>
-          <strong>Total Supply:</strong> 100 billion tokens
+          <strong>Total Supply:</strong> 100 billion Coins
         </p>
       </div>
 
       <div style={styles.section}>
         <h2 style={styles.sectionTitle}>RWA Tokenization</h2>
         <p style={styles.description}>
-          The process of converting physical asset ownership into digital tokens
+          The process of converting physical asset ownership into digital Coins
           on the blockchain.
         </p>
         <p style={styles.description}>
@@ -73,7 +73,7 @@ const RWATokenPage = () => {
       <div style={styles.section}>
         <h2 style={styles.sectionTitle}>Multi-chain Tokenization</h2>
         <p style={styles.description}>
-          Tokens that operate across multiple blockchain networks.
+          Coins that operate across multiple blockchain networks.
         </p>
         <p style={styles.description}>
           <strong>Advantages:</strong> Enhances flexibility, expands market
@@ -85,7 +85,7 @@ const RWATokenPage = () => {
         <h2 style={styles.sectionTitle}>Custody and Security</h2>
         <p style={styles.description}>
           Ensures the safe storage and management of digital assets represented
-          by tokens.
+          by Coins.
         </p>
         <p style={styles.description}>
           <strong>Measures:</strong> Robust security practices safeguard against

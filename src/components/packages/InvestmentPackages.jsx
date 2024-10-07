@@ -43,13 +43,13 @@ const InvestmentPackage = () => {
       <h2 style={titleStyle}>RWA Investment Package</h2>
       <p style={paragraphStyle}>
         Stake in packages starting from $50. Earn 0.1% daily for 4 years, with
-        the opportunity to sell tokens on the exchange.
+        the opportunity to sell coin on the exchange.
       </p>
       <ul style={listStyle}>
         <li style={listItemStyle}>Price: $50 per unit</li>
-        <li style={listItemStyle}>Commissionable Value: 40%</li>
         <li style={listItemStyle}>Every Day Earning: 0.1% RSP for 4 years</li>
-        <li style={listItemStyle}>Sell: Sell RWATOKEN 5% on the exchange</li>
+        <li style={listItemStyle}>Sell: Sell RWACoin 5% on the exchange</li>
+        <li style={listItemStyle}>You can stake for 1year,2years,3 years and 4 years</li>
       </ul>
     </section>
   );

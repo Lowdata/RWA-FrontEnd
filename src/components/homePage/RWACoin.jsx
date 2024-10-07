@@ -5,7 +5,7 @@ import SectorBanner from "./sectorCard";
 
 
 const RwaCoin = () => {
-    const data = `RWAS is a digital token on BSC representing ownership or rights to real-world assets. Designed for enhanced 
+    const data = `RWAS is a digital coin on BSC representing ownership or rights to real-world assets. Designed for enhanced 
 liquidity, fractional ownership, and transparent asset management.`;
   return (
     <section className="sector-section">

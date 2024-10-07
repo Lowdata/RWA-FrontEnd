@@ -8,7 +8,7 @@ const Tokenomics = () => (
     <Card style={styles.card}>
       <CardContent>
         <Typography variant="h6" style={styles.cardTitle}>
-          Real World Asset Token (RWA)
+          Real World Asset Coin (RWA)
         </Typography>
         <ul style={styles.cardList}>
           <li style={styles.listItem}>
@@ -146,19 +146,19 @@ const Tokenomics = () => (
 // Stable Token Section
 const StableToken = () => (
   <section style={styles.section}>
-    <h2 style={styles.sectionTitle}>Real World Asset USD Stable Token</h2>
+    <h2 style={styles.sectionTitle}>Real World Asset USD Stable coin</h2>
     <Card style={styles.card}>
       <CardContent>
         <Typography variant="h6" style={styles.cardTitle}>
-          Stable Token (RWAUSD) Locked for 4 Years
+          Stable coin (RWAUSD) Locked for 4 Years
         </Typography>
         <ul style={styles.cardList}>
           <li style={styles.listItem}>
-            RWAUSD is a stable token locked for four years, designed to minimize
+            RWAUSD is a stable coin locked for four years, designed to minimize
             price volatility by being pegged to a stable asset such as USD.
           </li>
           <li style={styles.listItem}>
-            <strong>Total Supply:</strong> 500 billion tokens
+            <strong>Total Supply:</strong> 500 billion coins
           </li>
         </ul>
       </CardContent>
@@ -181,7 +181,7 @@ const ProductsAndServices = () => (
             <li style={styles.listItem}>Company TO Pool Bonus</li>
             <li style={styles.listItem}>Global Matrix Bonus</li>
             <li style={styles.listItem}>Meeting Fund</li>
-            <li style={styles.listItem}>Trip and Token Reward Points</li>
+            <li style={styles.listItem}>Trip and Coin Reward Points</li>
           </ul>
         </Typography>
       </CardContent>

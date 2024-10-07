@@ -1,7 +1,8 @@
 /* Ensure the dashboard covers the full viewport height */
 .dashboard-container {
   display: flex;
-  min-height: 100vh; /* Full height of the viewport */
+  min-height: 100vh; 
+  /* Full height of the viewport */
 }
 
 /* Sidebar without fixed height */

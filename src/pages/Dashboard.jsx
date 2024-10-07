@@ -17,12 +17,15 @@ const styles = {
     flexDirection: "row",
     minHeight: "100vh",
     backgroundColor: "#0A0E27",
-    "@media (maxWidth: 768px)": {},
+    "@media (minWidth: 768px)": {
+      flexDirection: "row", // Default to row for larger screens
+    },
   },
   sidebar: {
     width: "220px",
     backgroundColor: "#1A2238",
     padding: "20px",
+
     boxShadow: "2px 0 12px rgba(0, 0, 0, 0.3)",
     display: "flex",
     flexDirection: "column",
@@ -61,6 +64,7 @@ const styles = {
     backgroundColor: "#3A506B",
     transform: "translateX(10px)",
   },
+  // profile container
   content: {
     flex: 1,
     padding: "40px",
@@ -68,6 +72,11 @@ const styles = {
     color: "#fff",
     marginLeft: "20px",
     width: "100%",
+    "@media (maxWidth: 768px)": {
+      display:"flex",
+      flexDirection:"row",
+      justifyContent:"center" // Smaller padding
+    },
   },
   arrow: {
     fontSize: "30px",
@@ -80,6 +89,9 @@ const styles = {
     background: "none", // Ensure there's no background overlap
     border: "none", // Remove default button styling
     transition: "left 0.3s ease-in-out",
+    "@media (minWidth: 768px)": {
+      display: "none", // Hide the arrow button on larger screens
+    },
   },
   alert: {
     marginBottom: "20px", // Add spacing for the alert at the top of the page

@@ -162,9 +162,8 @@ const Profile = () => {
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
-      width: "100%",
-      padding: "20px",
-      color: "#E0E0E0", // Light text
+      width: "80%",
+      color: "#E0E0E0",
     },
     accountBalanceContainer: {
       display: "flex",
@@ -187,6 +186,9 @@ const Profile = () => {
       width: "100%",
       maxWidth: "600px",
       marginTop: "20px",
+      "@media (maxWidth: 768px)": {
+        marginTop: "10px",
+      },
     },
     shareButton: {
       flexGrow: 1,
@@ -198,6 +200,10 @@ const Profile = () => {
       "&:hover": {
         backgroundColor: "#CBA135", // Same gold button on hover
         boxShadow: "0 0 12px rgba(203, 161, 53, 0.7)", // Softer glow on hover
+      },
+      "@media (maxWidth: 768px)": {
+        margin: "5px 0", // Stack buttons vertically on smaller screens
+        padding: "6px 12px",
       },
     },
     walletConnection: {
@@ -216,11 +222,14 @@ const Profile = () => {
       border: "2px solid #CBA135", // Softer gold border
       boxShadow: "0 8px 18px rgba(0, 0, 0, 0.6)", // Stronger shadow for depth
       marginBottom: "20px",
-      color: "#F5E6C5", // Softer gold text for luxury feel
+      color: "#F5E6C5",
+      "@media (maxWidth: 768px)": {
+        padding: "10px",
+        margin: "10px 0",
+      }, // Softer gold text for luxury feel
     },
     avatar: {
       marginRight: "15px",
-      
     },
     userDetails: {
       flexGrow: "1",
@@ -275,7 +284,7 @@ const Profile = () => {
       width: "100%",
       maxWidth: "600px",
       color: "#CBA135", // Softer gold text for rich appearance
-      marginTop:"20px"
+      marginTop: "20px",
     },
     balance: {
       fontSize: "26px",
@@ -313,6 +322,10 @@ const Profile = () => {
       padding: "20px",
       textAlign: "center",
       color: "#CBA135", // Softer gold text for referral card
+      "@media (maxWidth: 768px)": {
+        padding: "10px",
+        marginTop: "15px",
+      },
     },
     referralHeader: {
       fontSize: "20px",
@@ -335,6 +348,11 @@ const Profile = () => {
       "&:hover": {
         backgroundColor: "#CBA135", // Same gold on hover
         boxShadow: "0 0 12px rgba(203, 161, 53, 0.7)", // Subtle hover glow
+      },
+      "@media (maxWidth: 768px)": {
+        marginTop: "20px",
+        marginLeft: "90px",
+        marginRight: "50px",
       },
     },
   };

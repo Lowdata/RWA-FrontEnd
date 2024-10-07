@@ -143,7 +143,7 @@ const AboutUs = () => {
           At Real World Asset Corp, our investment platform offers unparalleled
           access to a diverse set of assets:
         </p>
-        <h3 style={styles.title}>Real Estate Investment</h3>
+        <h3 style={styles.title}>Real World Investment</h3>
         <p style={styles.text}>
           We enable fractional ownership of residential, commercial, and
           industrial properties through RWATOKEN. The real estate market offers

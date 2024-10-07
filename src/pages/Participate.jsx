@@ -16,23 +16,23 @@ const RWAInvestment = () => (
 // RWA Tokens Section
 const RWATokens = () => (
   <section style={styles.card}>
-    <h2 style={styles.sectionTitle}>RWA Tokens</h2>
+    <h2 style={styles.sectionTitle}>RWA Coin</h2>
     <p style={styles.paragraph}>
-      <strong>Real World Asset Token (RWA)</strong> is a digital token on the
+      <strong>Real World Asset Coin (RWA)</strong> is a digital Coin on the
       Binance Smart Chain (BSC) representing ownership or rights to real-world
       assets. It is designed to enhance liquidity, provide fractional ownership,
       and transparent asset management.
     </p>
     <ul style={styles.list}>
       <li style={styles.listItem}>Blockchain: Binance Smart Chain (BSC)</li>
-      <li style={styles.listItem}>Total Supply: 100 billion tokens</li>
+      <li style={styles.listItem}>Total Supply: 100 billion Coins</li>
       <li style={styles.listItem}>
         RWA Tokenization: Converting physical asset ownership into digital
-        tokens.
+        Coins.
       </li>
     </ul>
     <p style={styles.paragraph}>
-      <strong>Stable Token (RWAUSD)</strong> is a stable token locked for four
+      <strong>Stable Coin (RWAUSD)</strong> is a stable coin locked for four
       years, designed to minimize price volatility by being pegged to USD.
     </p>
     <ul style={styles.list}>
