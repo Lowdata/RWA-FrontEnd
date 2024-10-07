@@ -7,6 +7,7 @@ import RwaNFTs from "../components/homePage/RWANfts";
 import RwaStableToken from "../components/homePage/RWAStableCoin";
 import NumberCounter from "../components/homePage/counter";
 import UserNotifications from "../components/homePage/notification";
+import Counter from "../components/homePage/NumberUser";
 import "../styles/home.css"
 
 export const HomePage = () => {
@@ -30,6 +31,9 @@ export const HomePage = () => {
             totalSupply="100 Billion"
           />
         </div>
+        <Counter
+        title="Total User"
+        />
 
         <div className="notifications-container">
           <UserNotifications />
