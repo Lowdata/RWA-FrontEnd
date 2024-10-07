@@ -3,8 +3,10 @@ import { useState, useEffect } from "react";
 import { profile } from "../../assets/images";
 import {
   Button,
-  Alert
+Avatar,
+  Alert,
 } from "@mui/material";
+
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchUserEarnings, fetchUserBalance } from "../../store/earningSlice";
@@ -14,6 +16,16 @@ import UserBalanceCard from "./Profile/userBalance";
 import EarningsCard from "./Profile/earningsCard";
 
 const Profile = () => {
+    const stringAvatar = (name) => {
+  if (!name) return {};
+  const initials = name
+    .split(' ')
+    .map((part) => part[0])
+    .join('');
+  return {
+    children: initials,
+  };
+};
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -207,11 +219,8 @@ const Profile = () => {
       color: "#F5E6C5", // Softer gold text for luxury feel
     },
     avatar: {
-      width: "80px",
-      height: "80px",
-      borderRadius: "50%",
       marginRight: "15px",
-      border: "2px solid #CBA135", // Softer gold border for the avatar
+      
     },
     userDetails: {
       flexGrow: "1",
@@ -333,7 +342,19 @@ const Profile = () => {
   return (
     <div style={profileStyles.container}>
       <div style={profileStyles.userInfo}>
-        <img src={profile} alt="User Avatar" style={profileStyles.avatar} />
+        {/* <img src={profile} alt="User Avatar" style={profileStyles.avatar} /> */}
+        <div style={profileStyles.avatar}>
+          <Avatar
+            sx={{
+              bgcolor: "#DC4D01",
+              border: "2px solid  #CBA135",
+              width: "50px",
+              height:"50px"
+            }}
+            {...stringAvatar(`${userName}`)}
+          />
+        </div>
+
         <div style={profileStyles.userDetails}>
           <div style={profileStyles.userName}>{userName}</div>
           <div style={profileStyles.userId}>Id-{userId}</div>
