@@ -1,0 +1,85 @@
+/* General Styles */
+.content-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 20px 0;
+  background-color: #101521;
+}
+
+.counter-container {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 20px;
+  background-color: #252a3d;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.notifications-container {
+  margin-top: 40px;
+  padding: 20px;
+  background-color: #252a3d;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  width: 100%;
+}
+
+.investment-container {
+  width: 80%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
+  max-width: 1200px;
+}
+
+/* Media Query for Mobile Screens */
+@media only screen and (max-width: 768px) {
+  /* Adjust grid layout for small screens */
+  .investment-container {
+    grid-template-columns: 1fr;
+    width: 70%; /* Make it span more on smaller screens */
+    margin-right: 50px;
+  }
+
+  /* Adjust the counter size */
+  .counter-container {
+    flex-direction: column; /* Stack the counters vertically */
+    padding: 10px; /* Reduce padding */
+  }
+
+  .counter-container > div {
+    margin-bottom: 20px; /* Add some space between the stacked counters */
+  }
+}
+
+/* Smaller NumberCounter on mobile */
+@media only screen and (max-width: 480px) {
+  .counter-container {
+    width: 100%; /* Make the counter container fit the screen */
+  }
+
+  .counter-container div {
+    font-size: 14px; /* Reduce font size */
+    padding: 10px; /* Reduce padding for mobile */
+  }
+
+  /* Smaller number font */
+  .NumberCounter h3 {
+    font-size: 18px;
+  }
+
+  .NumberCounter div {
+    font-size: 48px; /* Smaller number for mobile */
+  }
+
+  .NumberCounter p {
+    font-size: 14px;
+  }
+}

@@ -7,6 +7,7 @@ import RwaNFTs from "../components/homePage/RWANfts";
 import RwaStableToken from "../components/homePage/RWAStableCoin";
 import NumberCounter from "../components/homePage/counter";
 import UserNotifications from "../components/homePage/notification";
+import "../styles/home.css"
 
 export const HomePage = () => {
   return (
@@ -16,29 +17,8 @@ export const HomePage = () => {
     >
       <Hero />
       <About />
-      <section
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          width: "100%",
-          padding: "20px 0",
-          backgroundColor: "#101521",
-        }}
-      >
-        {/* Adding the increasing number animations */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-around",
-            width: "100%",
-            marginTop: "20px",
-            backgroundColor: "#252A3D",
-            padding: "20px",
-            borderRadius: "10px",
-            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)",
-          }}
-        >
+      <section className="content-section">
+        <div className="counter-container">
           <NumberCounter
             title="RWAUSD Sales"
             endValue={5000}
@@ -51,30 +31,11 @@ export const HomePage = () => {
           />
         </div>
 
-        <div
-          style={{
-            marginTop: "40px",
-            padding: "20px",
-            backgroundColor: "#252A3D",
-            borderRadius: "10px",
-            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)",
-            width: "100%",
-          }}
-        >
+        <div className="notifications-container">
           <UserNotifications />
         </div>
-        <div
-          style={{
-            width: "80%",
-            margin: "0 auto",
-            display: "grid",
-            gridTemplateColumns: "1fr",
-            gap: "20px",
-            justifyContent: "center",
-            padding: "20px", // Center content with padding
-            maxWidth: "1200px",
-          }}
-        >
+
+        <div className="investment-container">
           <RwaInvestment />
           <RwaCoin />
           <RwaNFTs />
