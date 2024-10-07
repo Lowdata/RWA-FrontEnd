@@ -1,206 +1,159 @@
-import YouTubeIcon from "@mui/icons-material/YouTube"; // Material UI YouTube icon
-import {tokenomics} from "../assets/images"
+/* eslint-disable react/prop-types */
+import { Card, CardContent, Typography, Grid } from "@mui/material";
+import RWANFT from "../components/LearnMore/RwaNft";
+import Coin from "../components/LearnMore/Coins"
 
-const IntroSection = () => (
+// Intro Section
+const RWAInvestmentIntro = () => (
   <section style={styles.section}>
-    <h1 style={styles.mainTitle}>Get to Know RWA</h1>
+    <h1 style={styles.mainTitle}>RWA Investment</h1>
     <p style={styles.paragraph}>
-      Welcome to the world of RWA (Real World Assets). These innovative
-      platforms are designed to bridge the gap between traditional assets and
-      digital transformation. By leveraging blockchain technology, we aim to
-      bring transparency, security, and access to a wide range of financial
-      tools. It&apos;s a great opportunity!
+      Real World Asset Investment involves allocating capital to tangible assets
+      that exist in the physical world. The goal is to diversify portfolios and
+      achieve stable, long-term returns by investing in a variety of asset
+      classes.
     </p>
   </section>
 );
 
-const WhatIsRWA = () => (
-  <section style={styles.card}>
-    <h2 style={styles.sectionTitle}>What is RWA: Real World Assets</h2>
-    <p style={styles.paragraph}>
-      RWA is the underlying framework that tokenizes physical, real-world
-      assets, converting them into digital tokens that can be easily traded.
-      This unlocks liquidity and transparency in traditionally illiquid markets.
-    </p>
-    <ul style={styles.list}>
-      <li style={styles.listItem}>
-        <span style={styles.bullet}>•</span> Tokenization of real-world assets.
-      </li>
-      <li style={styles.listItem}>
-        <span style={styles.bullet}>•</span> Global investor access.
-      </li>
-      <li style={styles.listItem}>
-        <span style={styles.bullet}>•</span> Promotes liquidity in traditionally
-        illiquid markets.
-      </li>
-      <li style={styles.listItem}>
-        <span style={styles.bullet}>•</span>
-        Total Supply = 100 BILLION (Capped/Locked supply)
-      </li>
-    </ul>
-  </section>
+// Card Component for Each Sector
+const InvestmentSectorCard = ({ title, description, benefits, details }) => (
+  <Card style={styles.investmentCard}>
+    <CardContent>
+      <Typography variant="h5" style={styles.cardTitle}>
+        {title}
+      </Typography>
+      <Typography variant="body1" style={styles.cardDescription}>
+        {description}
+      </Typography>
+      <ul style={styles.cardList}>
+        {details.map((detail, index) => (
+          <li key={index} style={styles.cardListItem}>
+            {detail}
+          </li>
+        ))}
+      </ul>
+    </CardContent>
+  </Card>
 );
 
-const HowItWorks = () => (
-  <section style={styles.card}>
-    <h2 style={styles.sectionTitle}>How It Works: Integrity at the Core</h2>
-    <p style={styles.paragraph}>
-      The RWA and RWA platforms are designed with integrity as the central
-      pillar. Utilizing blockchain technology, every transaction is secure,
-      verifiable, and transparent. This ensures that all investments made are
-      backed by actual assets with rigorous auditing.
-    </p>
-    <ul style={styles.list}>
-      <li style={styles.listItem}>
-        <span style={styles.bullet}>•</span> Asset Identification
-      </li>
-      <li style={styles.listItem}>
-        <span style={styles.bullet}>•</span> Tokenization
-      </li>
-      <li style={styles.listItem}>
-        <span style={styles.bullet}>•</span> Trading and Investment
-      </li>
-    </ul>
-  </section>
-);
+// Investment Sectors Overview Section
+const InvestmentSectorsOverview = () => {
+  const sectors = [
+    {
+      title: "Real Estate",
+      description:
+        "Investing in residential, commercial, and industrial properties.",
+      benefits:
+        "Steady cash flow, property value appreciation, and portfolio diversification.",
+      details: [
+        "Housing",
+        "Township",
+        "Commercial Malls",
+        "High-end Apartments",
+        "Office Spaces",
+        "Industrial Properties",
+        "Agricultural Land",
+        "Retail Spaces",
+        "Mixed-use Developments",
+        "Hospitality Properties",
+        "Land Investments",
+        "Student Housing",
+        "Senior Living",
+        "Vacation Properties",
+      ],
+    },
+    {
+      title: "Commodities",
+      description:
+        "Investing in physical goods such as gold, silver, oil, and agricultural products.",
+      benefits:
+        "Hedge against inflation, portfolio diversification, and high liquidity.",
+      details: [
+        "Precious Metals",
+        "Industrial Metals",
+        "Energy Commodities",
+        "Agricultural Products",
+        "Livestock",
+        "Soft Commodities",
+        "Forestry Products",
+        "Minerals",
+        "Renewable Energy Resources",
+        "Water Resources",
+        "Base Materials",
+        "Fertilizers",
+      ],
+    },
+    {
+      title: "Fine Art and Collectibles",
+      description:
+        "Investing in artworks, antiques, and rare items. Potential for significant appreciation, cultural value, and aesthetic pleasure.",
+      benefits: "Cultural value, potential for appreciation.",
+      details: [
+        "Fine Art",
+        "Antiques",
+        "Rare Books and Manuscripts",
+        "Coins and Currency",
+        "Stamps",
+        "Vintage and Classic Cars",
+        "Jewelry",
+        "Luxury Watches",
+      ],
+    },
+    {
+      title: "Trade Finance",
+      description: "Providing capital for international trade transactions.",
+      benefits:
+        "Short-term investment, reduced risk through trade credit insurance, and high returns.",
+      details: [
+        "Letters of Credit",
+        "Trade Credit Insurance",
+        "Export Financing",
+        "Import Financing",
+        "Supply Chain Financing",
+      ],
+    },
+    {
+      title: "Carbon Credits",
+      description:
+        "Investing in carbon reduction projects to earn carbon credits.",
+      benefits: "Environmental impact, potential for appreciation.",
+      details: [
+        "Renewable Energy Projects",
+        "Afforestation and Reforestation",
+        "Energy Efficiency Projects",
+        "Methane Capture Projects",
+      ],
+    },
+  ];
 
-const TechnicalRoadmap = () => (
-  <section style={styles.card}>
-    <h2 style={styles.sectionTitle}>
-      Technical Roadmap: Milestones and Whats Next
-    </h2>
-    <div style={styles.roadmapStep}>
-      <h3 style={styles.roadmapTitle}>Q1 2024: Launch</h3>
-      <p style={styles.paragraph}>
-        Launch of the RWA platform with initial asset offerings.
-      </p>
+  return (
+    <section style={styles.section}>
+      <h2 style={styles.sectionTitle}>Investment Sectors Overview</h2>
+      <Grid container spacing={3}>
+        {sectors.map((sector, index) => (
+          <Grid item xs={12} sm={6} md={4} key={index}>
+            <InvestmentSectorCard {...sector} />
+          </Grid>
+        ))}
+      </Grid>
+    </section>
+  );
+};
+
+// Main LearnMore Section
+const LearnMore = () => {
+  return (
+    <div style={styles.pageContainer}>
+      <RWAInvestmentIntro />
+      <InvestmentSectorsOverview />
+      <RWANFT/>
+      <Coin/>
     </div>
-    <div style={styles.roadmapStep}>
-      <h3 style={styles.roadmapTitle}>Q2 2024: DEX Integration</h3>
-      <p style={styles.paragraph}>
-        Integration with decentralized exchanges to enhance liquidity.
-      </p>
-    </div>
-    <div style={styles.roadmapStep}>
-      <h3 style={styles.roadmapTitle}>Q3 2024: Staking and Yield</h3>
-      <p style={styles.paragraph}>
-        Introduction of staking and yield farming for RWA-backed assets.
-      </p>
-    </div>
-    <div style={styles.roadmapStep}>
-      <h3 style={styles.roadmapTitle}>Q4 2024: Partnerships</h3>
-      <p style={styles.paragraph}>
-        Expansion of partnerships with institutional investors.
-      </p>
-    </div>
-  </section>
-);
+  );
+};
 
-const YouTubeSection = () => (
-  <section style={styles.youtubeSection}>
-    <h2 style={styles.sectionTitle}>Learn More: RWA and RWA on YouTube</h2>
-    <p style={styles.paragraph}>
-      Stay informed by visiting our YouTube channel. Watch insightful videos
-      that cover the full spectrum of RWA and RWA, from beginner guides to
-      advanced tutorials on how to make the most of your investments.
-    </p>
-    <button style={styles.youtubeButton}>
-      <YouTubeIcon style={styles.youtubeIcon} />
-      Watch Now on YouTube
-    </button>
-  </section>
-);
-
-const ProductsAndServices = () => (
-  <section style={styles.card}>
-    <h2 style={styles.sectionTitle}>Products and Services Overview</h2>
-    <ul style={styles.list}>
-      <li style={styles.listItem}>
-        RWATOKEN: Description of benefits and utility.
-      </li>
-      <li style={styles.listItem}>RWAUSD: Details on stability and usage.</li>
-      <li style={styles.listItem}>
-        RWA Investment: Explanation of investment opportunities.
-      </li>
-      <li style={styles.listItem}>
-        RWANFT: Features and benefits related to non-fungible tokens.
-      </li>
-      <li style={styles.listItem}>
-        Founder Member: Privileges and benefits for early adopters.
-      </li>
-      <li style={styles.listItem}>
-        RWA Sourcing Partner: Role and benefits within the ecosystem.
-      </li>
-      <li style={styles.listItem}>
-        Business Partner: Opportunities and advantages for partners.
-      </li>
-    </ul>
-  </section>
-);
-
-const CommissionStructure = () => (
-  <section style={styles.card}>
-    <h2 style={styles.sectionTitle}>Commission Structure</h2>
-    <p style={styles.paragraph}>
-      Participants can earn commissions across 12 levels, benefiting from
-      referrals made by their direct connections and those further down the
-      referral chain.
-    </p>
-    <ul style={styles.list}>
-      <li style={styles.listItem}>
-        Reward Share Points (RSP) and Commissionable Volume (CV)
-      </li>
-      <li style={styles.listItem}>Lock % RSP Commission</li>
-      <li style={styles.listItem}>1-year: 15%, CV: 2%</li>
-      <li style={styles.listItem}>2-year: 30%, CV: 3%</li>
-      <li style={styles.listItem}>3-year: 60%, CV: 4%</li>
-      <li style={styles.listItem}>4-year: 100%, CV: 5%</li>
-    </ul>
-  </section>
-);
-
-const Tokenomics = () => (
-  <section style={styles.card}>
-    <h2 style={styles.sectionTitle}>Tokenomics Overview</h2>
-    <p style={styles.paragraph}>
-      Here is the breakdown of the detailed profit distribution and tokenomics
-      for RWA.
-    </p>
-    <img
-      src={tokenomics}
-      alt="Tokenomics chart"
-      style={styles.image}
-    />
-  </section>
-);
-
-const StableToken = () => (
-  <section style={styles.card}>
-    <h2 style={styles.sectionTitle}>RWAUSD: Stable Token Locked for 4 Years</h2>
-    <p style={styles.paragraph}>
-      RWAUSD is a stable token locked for four years, designed to minimize price
-      volatility by being pegged to a stable asset such as USD.
-    </p>
-    <p>
-        Total Supply = 500 Billion (No capping/Locking of stable coin supply)
-    </p>
-  </section>
-);
-
-const LearnMore = () => (
-  <div style={styles.pageContainer}>
-    <IntroSection />
-    <WhatIsRWA />
-    <Tokenomics />
-    <StableToken />
-    <CommissionStructure />
-    <ProductsAndServices />
-    <HowItWorks />
-    <TechnicalRoadmap />
-    <YouTubeSection />
-  </div>
-);
-
+// Styles
 const styles = {
   pageContainer: {
     fontFamily: "'Roboto', sans-serif",
@@ -230,67 +183,38 @@ const styles = {
     lineHeight: "1.7",
     marginBottom: "2rem",
   },
-  card: {
+  investmentCard: {
     backgroundColor: "#1A2F45",
-    padding: "2.5rem", // Increase padding
+    padding: "2.5rem",
     borderRadius: "12px",
     boxShadow: "0 6px 10px rgba(0, 0, 0, 0.3)", // Stronger shadow for more depth
-    marginBottom: "2.5rem", // More spacing between sections
-    maxWidth: "800px",
-    margin: "auto",
-    marginTop: "10px",
+    marginBottom: "2.5rem",
+    textAlign: "left",
   },
-  list: {
-    listStyle: "none",
+  cardTitle: {
+    fontSize: "1.8rem",
+    fontWeight: "600",
+    color: "#F0C419",
+    marginBottom: "1rem",
+  },
+  cardDescription: {
     fontSize: "1.2rem",
-    lineHeight: "1.8",
-    textAlign: "left",
-    margin: "0 auto",
-    paddingLeft: "1.5rem",
-    backgroundColor: "rgba(255, 255, 255, 0.1)",
-    borderRadius: "10px",
-    padding: "1rem",
-  },
-  listItem: {
-    marginBottom: "0.7rem", // Add spacing between list items
-    color: "#F0C419",
-    fontWeight: "500",
-    backgroundColor: "rgba(25, 155, 250, 0.1)",
-  },
-  bullet: {
-    fontSize: "1.4rem", // Slightly larger bullets
-    marginRight: "0.5rem",
-    color: "#F0C419",
-  },
-  roadmapStep: {
+    fontWeight: "400",
+    color: "#E0E0E0",
     marginBottom: "1.5rem",
-    textAlign: "left",
   },
-  roadmapTitle: {
-    fontSize: "1.6rem", // Increased size for roadmap subheadings
-    color: "#F0C419",
+  cardList: {
+    listStyleType: "none",
+    padding: 0,
+    fontSize: "1rem",
   },
-  youtubeSection: {
-    padding: "2rem",
-    textAlign: "center",
-  },
-  youtubeButton: {
-    backgroundColor: "#F0C419",
-    padding: "1rem 2.5rem", // Larger button
-    fontSize: "1.3rem", // Slightly larger font size
-    color: "#203C5E",
-    borderRadius: "10px",
-    border: "none",
-    cursor: "pointer",
-    display: "inline-flex",
-    alignItems: "center", // Align text and icon in the center
-  },
-  image:{
-    borderRadius: "50px"
-  },
-  youtubeIcon: {
-    fontSize: "2rem", // Larger icon size
-    marginRight: "1rem",
+  cardListItem: {
+    marginBottom: "0.7rem",
+    backgroundColor: "#2D4F6C", // Lighter shade for better contrast
+    color: "#F0F0F0", // Light color for readability
+    padding: "0.5rem 1rem",
+    borderRadius: "8px",
+    transition: "background-color 0.3s ease", // For hover effect
   },
 };
 

@@ -5,6 +5,7 @@ import {
   fetchUserEarnings,
 } from "../../store/api/admin";
 import LoadingSpinner from "../loading/Loading";
+import { Alert } from "@mui/material";
 
 const ReferralSection = () => {
   const dispatch = useDispatch();
@@ -16,7 +17,9 @@ const ReferralSection = () => {
 
   const handleFetchReferralData = () => {
     if (rwaId.trim() === "") {
-      alert("Please enter a valid RWA ID.");
+      <Alert variant="filled" severity="error">
+        Enter a valid ID.
+      </Alert>;
       return;
     }
 

@@ -82,7 +82,7 @@ const styles = {
     background: "linear-gradient(135deg, #1f1c2c, #928DAB)",
     boxShadow: "0 10px 30px rgba(0, 0, 0, 0.1)",
     margin: " auto",
-    maxWidth: "900px",
+    width:"100%",
   },
   header: {
     textAlign: "center",

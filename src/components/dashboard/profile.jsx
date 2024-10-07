@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { profile } from "../../assets/images";
 import {
   Button,
+  Alert
 } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -100,11 +101,16 @@ const Profile = () => {
 
   const handleReferralCopy = () => {
     navigator.clipboard.writeText(referralLink).then(() => {
-      alert("Referral link copied to clipboard!");
+      <Alert variant="filled" severity="success">
+        Referral link copied to clipboard!
+      </Alert>;
     });
   };
   const handleWithdrawClick = () => {
-    alert("Withdraw Funds clicked");
+  
+    <Alert variant="filled" severity="success">
+      Withdrawal Request Raised.
+    </Alert>;
   };
 
   const handlePrivateKeyCopy = () => {

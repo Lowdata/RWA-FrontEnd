@@ -1,157 +1,111 @@
 import { Button } from "@mui/material";
 
-// Importing the components from Learn More section
-
-const WhatIsRWA = () => (
+// RWA Investment Section
+const RWAInvestment = () => (
   <section style={styles.card}>
-    <h2 style={styles.sectionTitle}>What is RWA: Real World Assets</h2>
+    <h2 style={styles.sectionTitle}>RWA Investment</h2>
     <p style={styles.paragraph}>
-      RWA is the underlying framework that tokenizes physical, real-world
-      assets, converting them into digital tokens that can be easily traded.
-      This unlocks liquidity and transparency in traditionally illiquid markets.
+      RWA Investment offers participants the opportunity to invest in packages
+      starting from $50, with the ability to purchase multiple units. This
+      investment is structured to provide a 40% CV (Contribution Value)
+      distribution across various components, including profit sharing and
+      benefits.
     </p>
     <ul style={styles.list}>
       <li style={styles.listItem}>
-        <span style={styles.bullet}>•</span> Tokenization of real-world assets.
-      </li>
-      <li style={styles.listItem}>
-        <span style={styles.bullet}>•</span> Global investor access.
-      </li>
-      <li style={styles.listItem}>
-        <span style={styles.bullet}>•</span> Promotes liquidity in traditionally
-        illiquid markets.
+        <strong>CV Distribution Breakdown:</strong>
+        <ul>
+          <li>40% Commissionable Value</li>
+          <li>
+            1% of BV for Sourcing Partner: Benefits sourcing partners who
+            contribute to business growth
+          </li>
+        </ul>
       </li>
     </ul>
   </section>
 );
 
-const HowItWorks = () => (
+// RWA Tokens Section
+const RWATokens = () => (
   <section style={styles.card}>
-    <h2 style={styles.sectionTitle}>How It Works: Integrity at the Core</h2>
+    <h2 style={styles.sectionTitle}>RWA Tokens</h2>
     <p style={styles.paragraph}>
-      The RWA and RWA platforms are designed with integrity as the central
-      pillar. Utilizing blockchain technology, every transaction is secure,
-      verifiable, and transparent. This ensures that all investments made are
-      backed by actual assets with rigorous auditing.
+      <strong>Real World Asset Token (RWA)</strong> is a digital token on the
+      Binance Smart Chain (BSC) representing ownership or rights to real-world
+      assets. It is designed to enhance liquidity, provide fractional ownership,
+      and transparent asset management.
     </p>
     <ul style={styles.list}>
+      <li style={styles.listItem}>Blockchain: Binance Smart Chain (BSC)</li>
+      <li style={styles.listItem}>Total Supply: 100 billion tokens</li>
       <li style={styles.listItem}>
-        <span style={styles.bullet}>•</span> Asset Identification
+        RWA Tokenization: Converting physical asset ownership into digital
+        tokens.
       </li>
+    </ul>
+    <p style={styles.paragraph}>
+      <strong>Stable Token (RWAUSD)</strong> is a stable token locked for four
+      years, designed to minimize price volatility by being pegged to USD.
+    </p>
+    <ul style={styles.list}>
+      <li style={styles.listItem}>Total Supply: 500 Billion</li>
       <li style={styles.listItem}>
-        <span style={styles.bullet}>•</span> Tokenization
-      </li>
-      <li style={styles.listItem}>
-        <span style={styles.bullet}>•</span> Trading and Investment
+        No capping or locking of stable coin supply
       </li>
     </ul>
   </section>
 );
 
-const RWAInvestment = () => {
-  return (
-    <div style={styles.investmentContainer}>
-      <h1 style={styles.investmentTitle}>What is RWA Investment</h1>
-      <p style={styles.investmentSubtitle}>
-        Explore investment products with over $10 million market cap
-      </p>
-
-      <div style={styles.cardsContainer}>
-        <div style={styles.investmentCard}>
-          <h2 style={styles.cardTitle}>Real Estate</h2>
-          <p style={styles.cardDescription}>
-            Real Estate NFTs digitize property ownership, enabling fractional
-            investments, seamless transactions, and enhanced liquidity in the
-            real estate market.
-          </p>
-          <ul style={styles.cardList}>
-            <li style={styles.cardListItem}>Residential Real Estate</li>
-            <li style={styles.cardListItem}>Commercial Real Estate</li>
-            <li style={styles.cardListItem}>Real Estate Development</li>
-            <li style={styles.cardListItem}>Vacation and Rental Properties</li>
-            <li style={styles.cardListItem}>
-              Real Estate Investment Trusts (REITs)
-            </li>
-            <li style={styles.cardListItem}>Property Management</li>
-          </ul>
-        </div>
-
-        <div style={styles.investmentCard}>
-          <h2 style={styles.cardTitle}>Real Estate Finance</h2>
-          <p style={styles.cardDescription}>
-            Providing financial services for real estate acquisitions,
-            development, and management, including loans, mortgages, and other
-            funding mechanisms.
-          </p>
-          <ul style={styles.cardList}>
-            <li style={styles.cardListItem}>Mortgage Services</li>
-            <li style={styles.cardListItem}>Property Valuation</li>
-            <li style={styles.cardListItem}>Real Estate Auctions</li>
-            <li style={styles.cardListItem}>
-              Blockchain-based Land Registries
-            </li>
-            <li style={styles.cardListItem}>Real Estate Crowdfunding</li>
-          </ul>
-        </div>
-
-        <div style={styles.investmentCard}>
-          <h2 style={styles.cardTitle}>Sustainable Real Estate</h2>
-          <p style={styles.cardDescription}>
-            Focus on green and eco-friendly real estate investments, ensuring
-            sustainable development for a greener future.
-          </p>
-          <ul style={styles.cardList}>
-            <li style={styles.cardListItem}>Green Buildings</li>
-            <li style={styles.cardListItem}>Sustainable Developments</li>
-            <li style={styles.cardListItem}>Energy-efficient Properties</li>
-            <li style={styles.cardListItem}>Eco-friendly Construction</li>
-          </ul>
-        </div>
-      </div>
-
-      {/* Package Staking Section */}
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-        }}
-      >
-        <div style={styles.stakingContainer}>
-          <h2 style={styles.stakingTitle}>RWA Investment Staking</h2>
-          <p style={styles.stakingDetails}>
-            • Definition: Real World Asset Investment involves allocating
-            capital to tangible assets that exist in the physical world. • Goal:
-            To diversify portfolios and achieve stable, long-term returns by
-            investing in a variety of asset classes.
-          </p>
-          <ul style={styles.stakingList}>
-            <li style={styles.stakingListItem}>
-              Overview of Benefits and Returns
-            </li>
-            <li style={styles.stakingListItem}>
-              Potential for One-time Investment or Royalty Earnings
-            </li>
-            <li style={styles.stakingListItem}>Investment Date and Duration</li>
-            <li style={styles.stakingListItem}>Units Available for Purchase</li>
-            <li style={styles.stakingListItem}>
-              Staking Period: Opening and Closing Dates
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const StableToken = () => (
+// RWA NFT Section
+const RWANFT = () => (
   <section style={styles.card}>
-    <h2 style={styles.sectionTitle}>RWAUSD: Stable Token</h2>
+    <h2 style={styles.sectionTitle}>RWA NFTs</h2>
     <p style={styles.paragraph}>
-      RWAUSD is a stable token locked for four years, designed to minimize price
-      volatility by being pegged to a stable asset such as USD.
+      RWA NFTs represent digital ownership of real-world assets, ranging from
+      real estate to intellectual property, using blockchain technology for
+      transparency, security, and fractional ownership.
     </p>
-    <p>Total Supply = 500 Billion (No capping/Locking of stable coin supply)</p>
+    <ul style={styles.list}>
+      <li style={styles.listItem}>
+        Digital Ownership: Verifiable proof of ownership
+      </li>
+      <li style={styles.listItem}>
+        Interoperability: Seamless integration across platforms
+      </li>
+      <li style={styles.listItem}>
+        Immutable Record: Authenticity secured on blockchain
+      </li>
+      <li style={styles.listItem}>
+        Fractional Ownership: Democratizes high-value asset access
+      </li>
+      <li style={styles.listItem}>
+        Liquidity: Tradeable on digital marketplaces
+      </li>
+    </ul>
+    <p style={styles.paragraph}>
+      As blockchain evolves, RWANFTs will unlock additional opportunities for
+      investors.
+    </p>
+  </section>
+);
+
+// Benefits Section
+const Benefits = () => (
+  <section style={styles.card}>
+    <h2 style={styles.sectionTitle}>Benefits</h2>
+    <ul style={styles.list}>
+      <li style={styles.listItem}>
+        Increased Liquidity and Market Accessibility
+      </li>
+      <li style={styles.listItem}>
+        Fractional Ownership for Diverse Asset Classes
+      </li>
+      <li style={styles.listItem}>Transparent and Secure Transactions</li>
+      <li style={styles.listItem}>
+        Interoperability Across Blockchain Networks
+      </li>
+    </ul>
   </section>
 );
 
@@ -176,14 +130,12 @@ const ParticipateSection = () => {
         </div>
       </section>
 
-      
-
-      {/* Content from Learn More */}
+      {/* Content Sections */}
       <section style={styles.additionalContent}>
-        <RWAInvestment/>
-        <WhatIsRWA />
-        <StableToken/>
-        <HowItWorks />
+        <RWAInvestment />
+        <RWATokens />
+        <RWANFT />
+        <Benefits />
       </section>
     </div>
   );
@@ -191,103 +143,10 @@ const ParticipateSection = () => {
 
 // Define your styles
 const styles = {
-  investmentContainer: {
-    padding: "3rem 2rem",
-    backgroundColor: "#1A2F45",
-    color: "#FFFFFF",
-    textAlign: "center",
-  },
-  investmentTitle: {
-    fontSize: "3rem",
-    fontWeight: "700",
-    color: "#F0C419",
-    marginBottom: "2rem",
-  },
-  investmentSubtitle: {
-    fontSize: "1.8rem",
-    fontWeight: "400",
-    color: "#E0E0E0",
-    marginBottom: "2rem",
-  },
-  cardsContainer: {
-    display: "flex",
-    flexWrap: "wrap",
-    gap: "2rem",
-    justifyContent: "center",
-  },
-  investmentCard: {
-    backgroundColor: "#203C5E",
-    padding: "2rem",
-    borderRadius: "12px",
-    width: "320px",
-    boxShadow: "0 6px 12px rgba(0, 0, 0, 0.3)",
-    textAlign: "left",
-  },
-  cardTitle: {
-    fontSize: "2.2rem",
-    fontWeight: "600",
-    color: "#F0C419",
-    marginBottom: "1rem",
-  },
-  cardDescription: {
-    fontSize: "1.4rem",
-    fontWeight: "400",
-    color: "#E0E0E0",
-    marginBottom: "1.5rem",
-  },
-  cardList: {
-    listStyleType: "none",
-    padding: 0,
-    fontSize: "1.2rem",
-  },
-  cardListItem: {
-    marginBottom: "0.7rem",
-    backgroundColor: "#2D4F6C", // Lighter shade for better contrast
-    color: "#F0F0F0", // Light color for readability
-    padding: "0.5rem 1rem",
-    borderRadius: "8px",
-    transition: "background-color 0.3s ease", // For hover effect
-  },
-  cardListItemHover: {
-    backgroundColor: "#F0C419", // Highlight color on hover
-    color: "#203C5E", // Darker text on hover
-  },
-  stakingContainer: {
-    marginTop: "3rem",
-    padding: "2rem",
-    backgroundColor: "#203C5E",
-    borderRadius: "12px",
-    boxShadow: "0 6px 12px rgba(0, 0, 0, 0.3)",
-    width:"45%"
-  },
-  stakingTitle: {
-    fontSize: "2.4rem",
-    fontWeight: "600",
-    color: "#F0C419",
-    marginBottom: "1rem",
-  },
-  stakingDetails: {
-    fontSize: "1.4rem",
-    color: "#E0E0E0",
-    marginBottom: "1.5rem",
-  },
-  stakingList: {
-    listStyleType: "none",
-    padding: 0,
-    fontSize: "1.2rem",
-  },
-  stakingListItem: {
-    marginBottom: "0.7rem",
-    backgroundColor: "#2D4F6C", // Lighter background for staking list items
-    color: "#F0F0F0",
-    padding: "0.5rem 1rem",
-    borderRadius: "8px",
-    transition: "background-color 0.3s ease", // Hover effect for staking list
-  },
   pageContainer: {
     display: "flex",
     flexDirection: "column",
-    minHeight: "100vh", // Ensures it takes full height
+    minHeight: "100vh",
     backgroundColor: "#203C5E",
     color: "#FFFFFF",
   },
@@ -310,7 +169,7 @@ const styles = {
     marginBottom: "1.5rem",
   },
   paragraph: {
-    fontSize: "2.2rem",
+    fontSize: "1.8rem",
     fontWeight: "400",
     lineHeight: "1.7",
     marginBottom: "2rem",
@@ -345,7 +204,7 @@ const styles = {
   },
   list: {
     listStyle: "none",
-    fontSize: "1.2rem",
+    fontSize: "1.4rem",
     lineHeight: "1.8",
     textAlign: "left",
     margin: "0 auto",
@@ -359,11 +218,8 @@ const styles = {
     color: "#F0C419",
     fontWeight: "500",
     backgroundColor: "rgba(25, 155, 250, 0.1)",
-  },
-  bullet: {
-    fontSize: "1.4rem",
-    marginRight: "0.5rem",
-    color: "#F0C419",
+    padding: "0.5rem 1rem",
+    borderRadius: "8px",
   },
 };
 

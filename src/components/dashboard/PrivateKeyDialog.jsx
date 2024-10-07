@@ -9,6 +9,7 @@ import {
   Button,
   CircularProgress,
   Typography,
+  Alert
 } from "@mui/material";
 import axios from "axios";
 
@@ -32,7 +33,9 @@ const PrivateKeyDialog = ({ open, onClose }) => {
       if (response.data.privateKey) {
         setPrivateKey(response.data.privateKey);
         navigator.clipboard.writeText(response.data.privateKey);
-        alert("Private key copied to clipboard!");
+        <Alert variant="filled" severity="success">
+          Private key copied to clipboard!
+        </Alert>;
       } else {
         setError("Failed to retrieve private key.");
       }

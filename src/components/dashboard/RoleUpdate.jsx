@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Select, MenuItem, Card, Typography } from "@mui/material";
+import { Button, Select, MenuItem, Card, Typography,Alert } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "../../store/editSlice";
 import { deductTokens } from "../../store/api/admin";
@@ -32,9 +32,14 @@ const RoleUpdate = () => {
         updateUser({ rwaId: userId, role: selectedRole })
       ).unRWAp();
 
-      alert(`Role updated to ${selectedRole} successfully!`);
+     
+      <Alert variant="filled" severity="error">
+        Role updated to ${selectedRole} successfully!
+      </Alert>;
     } catch (error) {
-      alert(`Failed to change role: ${error.message}`);
+      <Alert variant="filled" severity="error">
+        Failed to change role: ${error.message}
+      </Alert>;
     }
   };
 

@@ -14,8 +14,9 @@ import solar from "./solar.jpg"
 import building from "./building.jpg"
 import cosmetics from "./cosmetics.jpg"
 import co from "./co.jpg"
-import tokenomics from "./tokenomics.png"
+import tokenomics from "./tokenomics.webp"
 import fashion from "./fashion.jpeg"
 import watch from "./watch.jpeg"
+import airdrop from "./airdrop.webp"
 
-export { logo, bg, coin, nft, investment, stable, twitter, facebook, telegram, profile, edit,house,solar,building,cosmetics, co, tokenomics,fashion,watch };
+export { logo, bg, coin, nft, investment, stable, twitter, facebook, telegram, profile, edit,house,solar,building,cosmetics, co, tokenomics,fashion,watch,airdrop };
