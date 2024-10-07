@@ -9,6 +9,7 @@ import LoadingSpinner from "../components/loading/Loading";
 export const stake = [];
 
 const NFTDetails = () => {
+     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const { id } = useParams();
   const navigate = useNavigate();
   const [nft, setNft] = useState(null);

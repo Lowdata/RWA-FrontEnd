@@ -11,6 +11,7 @@ import {
   Button,
   Alert,
 } from "@mui/material"; 
+import { useSelector } from "react-redux";
 
 
 export const stakeCoins = [];
@@ -205,6 +206,7 @@ const getFallbackImage = (product) => {
 };
 
 const Marketplace = () => {
+    const isLoggedIn = useSelector((state)=> state.auth.isLoggedIn)
 
   const [products, setProducts] = useState([]);
    const [activeSection, setActiveSection] = useState(
@@ -230,6 +232,10 @@ const Marketplace = () => {
   }, []);
 
   const handleDialogOpen = (type, product) => {
+    if(!isLoggedIn){
+        setAlert({ type: "error", message: "Log in for Investing!" });
+        return;
+    }
      if (!product) {
        setAlert({ type: "error", message: "Product not found!" });
        return;
@@ -251,6 +257,13 @@ const Marketplace = () => {
   };
 
   const handleProductClick = (id, category) => {
+    if (!isLoggedIn) {
+      // If the user is not logged in, show the alert
+      setAlert({ type: "error", message: "LOG IN BEFORE INVESTMENT" });
+      return; // Prevent further actions
+    }
+
+    
     if (category !== "Coin") {
 
       navigate(`/nft/${id}`, { state: { activeSection } });
@@ -267,7 +280,7 @@ const Marketplace = () => {
           image: coin,
           description: "RWA native token for ecosystem growth and staking.",
           category: "Coin",
-          amount: "$10",
+          amount: "$0.045",
           raised: 3000,
           stakeOptions: [1, 2, 3, 4],
         },
@@ -463,12 +476,13 @@ const Marketplace = () => {
               {activeSection === "Coins" && renderCoinButtons(product)}
             </div>
           ))}
-          
         </div>
       </main>
       {/* Dialog for Buy/Staking */}
       <Dialog open={openDialog} onClose={handleDialogClose}>
-        <DialogTitle>{dialogType === "buy" ? "Buy Coin" : "Stake Coin"}</DialogTitle>
+        <DialogTitle>
+          {dialogType === "buy" ? "Buy Coin" : "Stake Coin"}
+        </DialogTitle>
         <DialogContent>
           <input
             type="number"
@@ -478,13 +492,20 @@ const Marketplace = () => {
             min="1"
             style={{ marginBottom: "10px" }}
           />
-          <select value={currency} onChange={(e) => setCurrency(e.target.value)}>
+          <select
+            value={currency}
+            onChange={(e) => setCurrency(e.target.value)}
+          >
             <option value="USDT">USDT</option>
             <option value="BNB">BNB</option>
+            <option value="RWAToken">RWAToken</option>
           </select>
 
           {dialogType === "stake" && selectedProduct?.name === "RWA Token" && (
-            <select value={stakeTime} onChange={(e) => setStakeTime(e.target.value)}>
+            <select
+              value={stakeTime}
+              onChange={(e) => setStakeTime(e.target.value)}
+            >
               <option value={1}>1 year</option>
               <option value={2}>2 years</option>
               <option value={3}>3 years</option>
@@ -497,7 +518,10 @@ const Marketplace = () => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleDialogClose}>Cancel</Button>
-          <Button onClick={dialogType === "buy" ? handleBuy : handleStake} color="primary">
+          <Button
+            onClick={dialogType === "buy" ? handleBuy : handleStake}
+            color="primary"
+          >
             Confirm
           </Button>
         </DialogActions>

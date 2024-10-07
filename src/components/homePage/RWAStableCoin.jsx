@@ -16,7 +16,7 @@ A Stable Asset Such As USD`;
         title="RWA Stable Token"
         description={data}
         reverse={true}
-        route="/coins"
+        route="/stable"
       />
     </section>
   );

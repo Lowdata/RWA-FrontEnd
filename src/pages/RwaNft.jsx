@@ -1,9 +1,21 @@
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useState } from "react";
+import { Alert } from "@mui/material";
 const RWANFTPackage = () => {
-    const navigate = useNavigate();
-    const handleButtonClick = () => {
-      navigate("/marketplace"); // Redirect to /marketplace when the button is clicked
-    };
+     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+     const [showAlert, setShowAlert] = useState(false);
+     const navigate = useNavigate();
+     const handleButtonClick = () => {
+       if (isLoggedIn) navigate("/marketplace");
+       else {
+         setShowAlert(true);
+         setTimeout(() => {
+           navigate("/register");
+         }, 2000);
+         // navigate("/register")
+       }
+     };
   return (
     <div style={styles.container}>
       <div style={styles.header}>
@@ -87,10 +99,15 @@ const RWANFTPackage = () => {
           </li>
         </ul>
       </div>
-
-      <button style={styles.button}
-      onClick={handleButtonClick}
-      >Start Investing</button>
+      {/* Material UI Alert component */}
+      {showAlert && (
+        <Alert severity="warning" onClose={() => setShowAlert(false)}>
+          Please register or log in to start investing!
+        </Alert>
+      )}
+      <button style={styles.button} onClick={handleButtonClick}>
+        Start Investing
+      </button>
     </div>
   );
 };

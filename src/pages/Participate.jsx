@@ -6,23 +6,10 @@ const RWAInvestment = () => (
     <h2 style={styles.sectionTitle}>RWA Investment</h2>
     <p style={styles.paragraph}>
       RWA Investment offers participants the opportunity to invest in packages
-      starting from $50, with the ability to purchase multiple units. This
-      investment is structured to provide a 40% CV (Contribution Value)
-      distribution across various components, including profit sharing and
+      starting from $50, with the ability to purchase multiple units. 
       benefits.
     </p>
-    <ul style={styles.list}>
-      <li style={styles.listItem}>
-        <strong>CV Distribution Breakdown:</strong>
-        <ul>
-          <li>40% Commissionable Value</li>
-          <li>
-            1% of BV for Sourcing Partner: Benefits sourcing partners who
-            contribute to business growth
-          </li>
-        </ul>
-      </li>
-    </ul>
+    
   </section>
 );
 

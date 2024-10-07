@@ -1,10 +1,22 @@
 import { useNavigate } from "react-router-dom";
-
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { Alert } from "@mui/material";
 const RWATokenPage = () => {
-    const navigate = useNavigate();
-    const handleButtonClick = () => {
-      navigate("/marketplace"); // Redirect to /marketplace when the button is clicked
-    };
+    const isLoggedIn = useSelector((state) => state.auth.isLoggedIn); 
+    const [showAlert, setShowAlert] = useState(false); 
+  const navigate = useNavigate();
+  const handleButtonClick = () => {
+    if (isLoggedIn) navigate("/marketplace");
+    else {
+      setShowAlert(true);
+      setTimeout(() => {
+        navigate("/register");
+      }, 2000);
+      // navigate("/register")
+    }
+  };
+
   return (
     <div style={styles.container}>
       <div style={styles.header}>
@@ -25,114 +37,70 @@ const RWATokenPage = () => {
       </div>
 
       <div style={styles.section}>
-        <h2 style={styles.sectionTitle}>About RWA</h2>
-        <p style={styles.description}>
-          RWA is a digital token on BSC representing ownership or rights to
-          real-world assets. Designed for enhanced liquidity, fractional
-          ownership, and transparent asset management.
-        </p>
-      </div>
-
-      <div style={styles.section}>
         <h2 style={styles.sectionTitle}>RWA Tokenization</h2>
-        <ul style={styles.list}>
-          <li style={styles.listItem}>
-            <strong>Definition:</strong> The process of converting physical
-            asset ownership into digital tokens on blockchain.
-          </li>
-          <li style={styles.listItem}>
-            <strong>Benefits:</strong> Facilitates fractional ownership,
-            increased liquidity, and efficient asset transfer.
-          </li>
-        </ul>
+        <p style={styles.description}>
+          The process of converting physical asset ownership into digital tokens
+          on the blockchain.
+        </p>
+        <p style={styles.description}>
+          <strong>Benefits:</strong> Facilitates fractional ownership, increased
+          liquidity, and efficient asset transfer.
+        </p>
       </div>
 
       <div style={styles.section}>
         <h2 style={styles.sectionTitle}>Smart Contracts</h2>
-        <ul style={styles.list}>
-          <li style={styles.listItem}>
-            <strong>Definition:</strong> Self-executing contracts with terms
-            coded into blockchain.
-          </li>
-          <li style={styles.listItem}>
-            <strong>Role:</strong> Automates transactions, ensures transparency,
-            and eliminates intermediaries.
-          </li>
-        </ul>
+        <p style={styles.description}>
+          Self-executing contracts with terms coded into the blockchain.
+        </p>
+        <p style={styles.description}>
+          <strong>Role:</strong> Automates transactions, ensures transparency,
+          and eliminates intermediaries.
+        </p>
       </div>
 
       <div style={styles.section}>
         <h2 style={styles.sectionTitle}>Oracles and Data Feeds</h2>
-        <ul style={styles.list}>
-          <li style={styles.listItem}>
-            <strong>Definition:</strong> Services providing real-world data to
-            smart contracts.
-          </li>
-          <li style={styles.listItem}>
-            <strong>Importance:</strong> Enables smart contracts on BSC to
-            interact with external events and information.
-          </li>
-        </ul>
+        <p style={styles.description}>
+          Services that provide real-world data to smart contracts.
+        </p>
+        <p style={styles.description}>
+          <strong>Importance:</strong> Enables smart contracts to interact with
+          external events and information on Binance Smart Chain (BSC).
+        </p>
       </div>
 
       <div style={styles.section}>
         <h2 style={styles.sectionTitle}>Multi-chain Tokenization</h2>
-        <ul style={styles.list}>
-          <li style={styles.listItem}>
-            <strong>Concept:</strong> Tokens operable across multiple blockchain
-            networks.
-          </li>
-          <li style={styles.listItem}>
-            <strong>Advantages:</strong> Enhances flexibility, expands market
-            reach, and supports diverse use cases.
-          </li>
-        </ul>
+        <p style={styles.description}>
+          Tokens that operate across multiple blockchain networks.
+        </p>
+        <p style={styles.description}>
+          <strong>Advantages:</strong> Enhances flexibility, expands market
+          reach, and supports diverse use cases.
+        </p>
       </div>
 
       <div style={styles.section}>
         <h2 style={styles.sectionTitle}>Custody and Security</h2>
-        <ul style={styles.list}>
-          <li style={styles.listItem}>
-            <strong>Importance:</strong> Ensures safe storage and management of
-            digital assets represented by tokens.
-          </li>
-          <li style={styles.listItem}>
-            <strong>Measures:</strong> Robust security practices safeguard
-            against theft, loss, and unauthorized access.
-          </li>
-        </ul>
-      </div>
-
-      <div style={styles.section}>
-        <h2 style={styles.sectionTitle}>Stable Token (RWAUSD)</h2>
         <p style={styles.description}>
-          RWAUSD is a stable token locked for four years, designed to minimize
-          price volatility by being pegged to a stable asset such as USD.
+          Ensures the safe storage and management of digital assets represented
+          by tokens.
+        </p>
+        <p style={styles.description}>
+          <strong>Measures:</strong> Robust security practices safeguard against
+          theft, loss, and unauthorized access.
         </p>
       </div>
-
-      <div style={styles.section}>
-        <h2 style={styles.sectionTitle}>Commission Structure</h2>
-        <ul style={styles.list}>
-          <li style={styles.listItem}>
-            Participants can earn commissions across 12 levels from referrals.
-          </li>
-          <li style={styles.listItem}>
-            <strong>RSP and CV:</strong> Rewards increase with the duration
-            tokens are locked, ranging from 1 to 4 years.
-          </li>
-        </ul>
-      </div>
-
-      <div style={styles.section}>
-        <h2 style={styles.sectionTitle}>Purchase Options</h2>
-        <p style={styles.description}>
-          Participants can buy RWAUSD using top 10 cryptocurrencies or specific
-          payment modes like RWATOKE, RWAUSD, and Wallet Money.
-        </p>
-      </div>
-
-      <button style={styles.button} onClick={handleButtonClick}>Start Investing</button>
+      {/* Material UI Alert component */}
+      {showAlert && (
+        <Alert severity="warning" onClose={() => setShowAlert(false)}>
+          Please register or log in to start investing!
+        </Alert>
+      )}
+      <button style={styles.button} onClick={handleButtonClick}>
+        Start Investing
+      </button>
     </div>
   );
 };
@@ -146,7 +114,7 @@ const styles = {
     background: "linear-gradient(135deg, #1f1c2c, #928DAB)",
     boxShadow: "0 10px 30px rgba(0, 0, 0, 0.1)",
     margin: "auto",
-    maxWidth: "900px",
+    width:"100%"
   },
   header: {
     textAlign: "center",

@@ -36,6 +36,7 @@ import RWANFTPackage from "./pages/RwaNft"
 import RWATokenPage from "./pages/RwaCoins"
 import { gapi } from "gapi-script";
 import { useEffect } from "react";
+import StableTokenPage from "./pages/RwaStableToken";
 
 
 const App = () => {
@@ -52,57 +53,56 @@ const App = () => {
         gapi.load('client:auth2', start);
       })
   return (
-    
-      <Web3ModalProvider>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            minHeight: "100vh" /* Fix height for footer stick */,
-            overflow: "hidden",
-          }}
-        >
-          <Header />
-          <AuthDebug />
-          <Box sx={{ flex: 1, display: "flex", flexDirection: "column" }}>
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route
-                path="/dashboard"
-                element={<PrivateRouteDashboard element={Dashboard} />}
-              />
-              <Route path="/register" element={<SignUp />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/forgot-password" element={<ForgotPassword />} />
-              <Route path="/marketplace" element={<Marketplace />} />
-              <Route
-                path="/admin"
-                element={<PrivateRouteAdmin element={AdminDashboard} />}
-              />
-              <Route
-                path="/nft/:id"
-                element={<PrivateRouteMarketPlace element={NFTDetails} />}
-              />
-              <Route path="/rwa-investment" element={<RWAInvestment />} />
-              <Route path="/rwa-nft" element={<RWANFTPackage />} />
-              <Route path="/about" element={<AboutUs />} />
-              <Route path="/package" element={<PackagesPage />} />
-              <Route path="/coins" element={<RWATokenPage />} />
-              <Route path="/learnmore" element={<LearnMore />} />
-              <Route path="/develop" element={<DevelopPage />} />
-              <Route path="/participate" element={<ParticipateSection />} />
-              <Route path="/policy" element={<PrivacyPolicy />} />
-              <Route path="/contact" element={<ContactUs />} />
-              <Route path="/terms" element={<TermsAndConditions />} />
-              <Route path="/otp-screen" element={<OTPScreen />} />
-              <Route path="/not-authorised" element={<NotAuthorized />} />
-              <Route path="*" element={<Navigate to="/" />} />
-            </Routes>
-          </Box>
-          <Footer />
+    <Web3ModalProvider>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          minHeight: "100vh" /* Fix height for footer stick */,
+          overflow: "hidden",
+        }}
+      >
+        <Header />
+        <AuthDebug />
+        <Box sx={{ flex: 1, display: "flex", flexDirection: "column" }}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route
+              path="/dashboard"
+              element={<PrivateRouteDashboard element={Dashboard} />}
+            />
+            <Route path="/register" element={<SignUp />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/marketplace" element={<Marketplace />} />
+            <Route
+              path="/admin"
+              element={<PrivateRouteAdmin element={AdminDashboard} />}
+            />
+            <Route
+              path="/nft/:id"
+              element={<PrivateRouteMarketPlace element={NFTDetails} />}
+            />
+            <Route path="/rwa-investment" element={<RWAInvestment />} />
+            <Route path="/rwa-nft" element={<RWANFTPackage />} />
+            <Route path="/about" element={<AboutUs />} />
+            <Route path="/package" element={<PackagesPage />} />
+            <Route path="/coins" element={<RWATokenPage />} />
+            <Route path="/stable" element={<StableTokenPage />} />
+            <Route path="/learnmore" element={<LearnMore />} />
+            <Route path="/develop" element={<DevelopPage />} />
+            <Route path="/participate" element={<ParticipateSection />} />
+            <Route path="/policy" element={<PrivacyPolicy />} />
+            <Route path="/contact" element={<ContactUs />} />
+            <Route path="/terms" element={<TermsAndConditions />} />
+            <Route path="/otp-screen" element={<OTPScreen />} />
+            <Route path="/not-authorised" element={<NotAuthorized />} />
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
         </Box>
-      </Web3ModalProvider>
-    
+        <Footer />
+      </Box>
+    </Web3ModalProvider>
   );
 };
 
