@@ -8,6 +8,7 @@ import {
   Menu,
   MenuItem,
   useMediaQuery,
+  Avatar
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useTheme } from "@mui/material/styles";
@@ -15,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logo } from "../assets/images";
 import { logOutUser } from "../store/auth/authAction";
+import {stringAvatar} from "../components/dashboard/profile"
 
 function Header() {
   const theme = useTheme();
@@ -24,6 +26,7 @@ function Header() {
 
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const userName  = useSelector((state)=> state.auth.userName)
   const navigate = useNavigate();
 
   const handleMenuOpen = (event) => {
@@ -210,26 +213,42 @@ function Header() {
               ))}
             </div>
           )}
-
-          {/* Login/Logout Button */}
-          <Button
-            onClick={handleLoginLogout}
-            style={{
-              color: "#f5f5f5", // White text for the button
-              backgroundColor: "#3b5998", // Dark blue login button
-              fontFamily: "Roboto, sans-serif",
-              fontSize: "1rem",
-              padding: "8px 16px",
-              textTransform: "none",
-              borderRadius: "4px",
-              transition: "all 0.3s ease",
-              "&:hover": {
-                backgroundColor: "#2e466c", // Slightly darker on hover
-              },
-            }}
-          >
-            {isLoggedIn ? "Log Out" : "Log In"}
-          </Button>
+          {/* Login/Logout Button and Avatar */}
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            {/* Login/Logout Button */}
+            <Button
+              onClick={handleLoginLogout}
+              style={{
+                color: "#f5f5f5", // White text for the button
+                backgroundColor: "#3b5998", // Dark blue login button
+                fontFamily: "Roboto, sans-serif",
+                fontSize: "1rem",
+                padding: "8px 16px",
+                textTransform: "none",
+                borderRadius: "4px",
+                transition: "all 0.3s ease",
+                "&:hover": {
+                  backgroundColor: "#2e466c", // Slightly darker on hover
+                },
+              }}
+            >
+              {isLoggedIn ? "Log Out" : "Log In"}
+            </Button>
+            {isLoggedIn ? ( // Corrected ternary operator
+              <Avatar
+                sx={{
+                  bgcolor: "#DC4D01",
+                  border: "2px solid  #CBA135",
+                  width: "50px",
+                  height: "50px",
+                }}
+                {...stringAvatar(userName)}
+                onClick={() => {
+                  navigate("/dashboard");
+                }}
+              />
+            ) : null}{" "}
+          </div>
         </Toolbar>
       </AppBar>
     </>

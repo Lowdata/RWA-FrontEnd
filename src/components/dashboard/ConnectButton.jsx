@@ -1,6 +1,6 @@
 
 const ConnectButton = () => {
-  return <w3m-button label="Deposit" icon="wallet" disabled="true"/>;
+  return <w3m-button label="Deposit" icon="wallet"/>;
 };
 
 export default ConnectButton;

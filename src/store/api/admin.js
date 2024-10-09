@@ -1,11 +1,27 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { useDispatch } from "react-redux";
 
 
 export const fetchUsers = createAsyncThunk("admin/fetchUsers", async () => {
   const response = await fetch("https://rwa-backend.onrender.com/admin/users");
   const data = await response.json();
   return data.users;
+});
+
+export const fetchBusinessPartners = createAsyncThunk("admin/fetchBusinessPartners", async () => {
+  const response = await fetch(
+    "https://rwa-backend.onrender.com/admin/businessPartners"
+  );
+  const data = await response.json();
+  return data.businessPartners;
+});
+
+// Fetch stats from the admin API
+export const fetchAdminStats = createAsyncThunk("admin/fetchAdminStats", async () => {
+  const response = await fetch("https://rwa-backend.onrender.com/admin/stats");
+  if (!response.ok) {
+    throw new Error("Failed to fetch admin stats");
+  }
+  return response.json();
 });
 
 // Fetch referral details by RWA ID

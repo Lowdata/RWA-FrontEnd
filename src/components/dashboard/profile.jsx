@@ -14,18 +14,18 @@ import RoleUpdate from "./RoleUpdate";
 import PrivateKeyDialog from "./PrivateKeyDialog";
 import UserBalanceCard from "./Profile/userBalance";
 import EarningsCard from "./Profile/earningsCard";
-
-const Profile = () => {
-    const stringAvatar = (name) => {
-  if (!name) return {};
-  const initials = name
-    .split(' ')
-    .map((part) => part[0])
-    .join('');
-  return {
-    children: initials,
+  export const stringAvatar = (name) => {
+    if (!name) return {};
+    const initials = name
+      .split(" ")
+      .map((part) => part[0])
+      .join("");
+    return {
+      children: initials,
+    };
   };
-};
+const Profile = () => {
+  
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -164,6 +164,13 @@ const Profile = () => {
       justifyContent: "center",
       width: "80%",
       color: "#E0E0E0",
+      marginRight: "50px",
+
+      "@media (maxWidth: 768px)": {
+        margin: "5px",
+        padding: "6px 12px",
+        marginRight: "50px",
+      },
     },
     accountBalanceContainer: {
       display: "flex",
@@ -221,6 +228,8 @@ const Profile = () => {
       borderRadius: "12px",
       border: "2px solid #CBA135", // Softer gold border
       boxShadow: "0 8px 18px rgba(0, 0, 0, 0.6)", // Stronger shadow for depth
+      marginRight: "50px",
+
       marginBottom: "20px",
       color: "#F5E6C5",
       "@media (maxWidth: 768px)": {
@@ -284,7 +293,9 @@ const Profile = () => {
       width: "100%",
       maxWidth: "600px",
       color: "#CBA135", // Softer gold text for rich appearance
-      marginTop: "20px",
+      marginRight: "50px",
+
+      marginTop: "10px",
     },
     balance: {
       fontSize: "26px",
@@ -312,11 +323,13 @@ const Profile = () => {
       },
     },
     referralCard: {
-      marginTop: "20px",
+      marginTop: "10px",
       width: "100%",
       maxWidth: "600px",
       backgroundColor: "#112240", // Darker metal blue for card background
       borderRadius: "12px",
+      marginRight: "50px",
+
       border: "2px solid #CBA135", // Softer gold border
       boxShadow: "0 8px 18px rgba(0, 0, 0, 0.6)", // Stronger shadow for depth
       padding: "20px",
@@ -325,6 +338,7 @@ const Profile = () => {
       "@media (maxWidth: 768px)": {
         padding: "10px",
         marginTop: "15px",
+        marginRight: "25px",
       },
     },
     referralHeader: {
@@ -350,15 +364,13 @@ const Profile = () => {
         boxShadow: "0 0 12px rgba(203, 161, 53, 0.7)", // Subtle hover glow
       },
       "@media (maxWidth: 768px)": {
-        marginTop: "20px",
-        marginLeft: "90px",
-        marginRight: "50px",
+        backgroundColor: "#CBA135",
       },
     },
   };
 
   return (
-    <div style={profileStyles.container}>
+    <div className="profile" style={profileStyles.container}>
       <div style={profileStyles.userInfo}>
         {/* <img src={profile} alt="User Avatar" style={profileStyles.avatar} /> */}
         <div style={profileStyles.avatar}>
@@ -367,7 +379,7 @@ const Profile = () => {
               bgcolor: "#DC4D01",
               border: "2px solid  #CBA135",
               width: "50px",
-              height:"50px"
+              height: "50px",
             }}
             {...stringAvatar(`${userName}`)}
           />
@@ -437,17 +449,16 @@ const Profile = () => {
         >
           Invite via Email
         </Button>
+        {role === "admin" && (
+          <Button
+            variant="contained"
+            style={profileStyles}
+            onClick={handleAdminDashboardClick}
+          >
+            Admin Dashboard
+          </Button>
+        )}
       </div>
-
-      {role === "admin" && (
-        <Button
-          variant="contained"
-          style={profileStyles.adminButton}
-          onClick={handleAdminDashboardClick}
-        >
-          Admin Dashboard
-        </Button>
-      )}
     </div>
   );
 };

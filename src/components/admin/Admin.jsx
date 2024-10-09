@@ -2,24 +2,41 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import ProductPipeline from "./productPipeline";
 import "./admin.css";
-import { fetchUsers } from "../../store/api/admin";
+import { fetchBusinessPartners } from "../../store/api/admin";
 import ApproveBusinessPartner from "./approval";
 import ReferralSection from "./ReferalSection";
 import DeleteUserCard from "./deleteUser"; 
 import TokenManagement from "./Token";
 import LoadingSpinner from "../loading/Loading"
+import { fetchAdminStats } from "../../store/api/admin";
 
 const AdminDashboard = () => {
   const dispatch = useDispatch();
-  const { users, loading, todayJoining, totalJoining } = useSelector(
+  const { stats,  loading, todayJoining } = useSelector(
     (state) => state.admin
   );
-
   const [activeSection, setActiveSection] = useState("dashboard");
 
+  const [partners, setPartners] = useState([]); 
+
+  useEffect(() => {
+    if (activeSection === "dashboard") {
+      const fetchStats = async () => {
+        const data = await dispatch(fetchAdminStats());
+        return data;
+      };
+      fetchStats();
+    }
+  }, [activeSection, dispatch]);
+  
   useEffect(() => {
     if (activeSection === "business") {
-      dispatch(fetchUsers());
+        const fetchPartner = async()=>{
+   const { payload } = await dispatch(fetchBusinessPartners());
+   setPartners(payload);       
+}
+   fetchPartner();
+      
     }
   }, [activeSection, dispatch]);
 
@@ -47,8 +64,36 @@ const AdminDashboard = () => {
               <p>{todayJoining}</p>
             </div>
             <div className="dashboard-item">
-              <h2>Total Joining</h2>
-              <p>{totalJoining}</p>
+              <h2>Total Users</h2>
+              <p>{stats.totalUsers}</p>
+            </div>
+            <div className="dashboard-item">
+              <h2>Total Referral Earnings</h2>
+              <p>${stats.totalReferralEarnings}</p>
+            </div>
+            <div className="dashboard-item">
+              <h2>Total Matrix Earnings</h2>
+              <p>${stats.totalMatrixEarnings}</p>
+            </div>
+            <div className="dashboard-item">
+              <h2>Total Revenue Earnings</h2>
+              <p>${stats.totalRevenueEarnings}</p>
+            </div>
+            <div className="dashboard-item">
+              <h2>Total Leadership Earnings</h2>
+              <p>${stats.totalLeadershipEarnings}</p>
+            </div>
+            <div className="dashboard-item">
+              <h2>Total Daily Earnings</h2>
+              <p>${stats.totalDailyEarnings}</p>
+            </div>
+            <div className="dashboard-item">
+              <h2>Total Direct Royalty Earnings</h2>
+              <p>${stats.totalDirectRoyaltyEarnings}</p>
+            </div>
+            <div className="dashboard-item">
+              <h2>Total Earnings</h2>
+              <p>${stats.totalEarnings}</p>
             </div>
             <div className="dashboard-item">
               <DeleteUserCard />
@@ -59,11 +104,11 @@ const AdminDashboard = () => {
           <div className="business-section">
             {loading ? (
               <LoadingSpinner />
-            ) : users.length === 0 ? (
+            ) : partners.length === 0 ? (
               <p>No pending business partner approvals.</p>
             ) : (
               <div className="business-card-container">
-                {users.map((user) => (
+                {partners.map((user) => (
                   <ApproveBusinessPartner key={user.rwa_id} user={user} />
                 ))}
               </div>

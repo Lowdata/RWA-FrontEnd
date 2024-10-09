@@ -103,6 +103,7 @@ const RoleUpdate = () => {
       width: "100%",
       maxWidth: "600px",
       marginBottom: "20px",
+      marginRight:"50px",
       color: "#CBA135", // Light gold text for a premium feel
     },
     title: {

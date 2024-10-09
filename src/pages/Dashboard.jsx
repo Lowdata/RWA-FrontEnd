@@ -186,9 +186,11 @@ const Dashboard = () => {
           {sidebarOpen ? <FaArrowLeft /> : <FaArrowRight />}{" "}
           {/* Use arrows instead */}
         </button>
-        {renderPageContent()}
+       
+          {renderPageContent()}
+        </div>
       </div>
-    </div>
+   
   );
 };
 

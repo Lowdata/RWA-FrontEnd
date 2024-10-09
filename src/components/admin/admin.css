@@ -3,13 +3,14 @@
   display: flex;
   height: 100vh;
   width: 100%;
+  color: #E0E0E0;
 }
 
 /* Sidebar styling */
 .sidebar {
   width: 200px;
-  background-color: #007bff;
-  color: white;
+  background-color: #112240; /* Darker metal blue */
+  color: #F5E6C5; /* Softer gold text */
   padding: 20px;
 }
 
@@ -19,57 +20,72 @@
 }
 
 .sidebar ul li {
-  background-color: #0056b3;
-  color: white;
+  background-color: #CBA135; /* Softer gold button */
+  color: #1C1C1E; /* Dark text */
   padding: 10px;
   margin-bottom: 10px;
   cursor: pointer;
   text-align: left;
-  transition: background-color 0.3s;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(203, 161, 53, 0.5); /* Subtle glow effect */
+  transition: background-color 0.3s, box-shadow 0.3s ease;
 }
 
 .sidebar ul li:hover {
-  background-color: #555;
+  background-color: #CBA135; /* Same on hover */
+  box-shadow: 0 0 12px rgba(203, 161, 53, 0.7); /* Softer glow on hover */
 }
 
 .main-content {
   flex-grow: 1;
   padding: 20px;
-  background-color: #f4f4f4;
+  background-color: #1C1C1E; /* Dark background for content */
   overflow-y: auto;
 }
 
 /* Dashboard and business sections styling */
-.dashboard-section, .business-section {
+.dashboard-section,
+.business-section {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
 }
 
 .dashboard-item {
-  background-color: white;
+  background-color: #112240; /* Darker metal blue */
   padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  border: 2px solid #CBA135; /* Softer gold border */
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.6); /* Deep shadow for rich look */
+  color: #CBA135; /* Softer gold text for rich appearance */
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dashboard-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(203, 161, 53, 0.5); /* Glow on hover */
 }
 
 .dashboard-item h2 {
-  font-size: 18px;
+  font-size: 22px;
+  font-weight: 600;
   margin-bottom: 10px;
 }
 
 .dashboard-item p {
-  font-size: 16px;
-  color: #333;
+  font-size: 18px;
+  color: #F5E6C5; /* Softer gold text */
 }
 
 /* User Details and Requests styling */
 .user-details {
-  background-color: #fff;
+  background-color: #112240; /* Darker metal blue */
   padding: 15px;
   margin-top: 10px;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  border: 2px solid #CBA135; /* Softer gold border */
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.6); /* Strong shadow for depth */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -78,66 +94,39 @@
 .user-details h3 {
   font-size: 18px;
   margin-bottom: 10px;
+  color: #F5E6C5; /* Softer gold text */
 }
 
 .user-details button {
-  background-color: #007bff;
-  color: white;
+  background-color: #CBA135; /* Softer gold button */
+  color: #1C1C1E; /* Dark text */
   padding: 10px 20px;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
-  margin-right: 10px;
+  box-shadow: 0 0 8px rgba(203, 161, 53, 0.5); /* Subtle glow */
+  transition: background-color 0.3s, box-shadow 0.3s;
 }
 
 .user-details button:hover {
-  background-color: #0056b3;
+  background-color: #CBA135; /* Same on hover */
+  box-shadow: 0 0 12px rgba(203, 161, 53, 0.7); /* Softer glow on hover */
 }
 
-.request-item button {
-  background-color: #28a745;
-  color: white;
-  padding: 8px 12px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-.request-item button:hover {
-  background-color: #218838;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-ul li {
-  background-color: #fff;
-  padding: 10px;
-  margin-top: 5px;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-
-/* Business section styling */
-/* Business section styling */
+/* Business card styling */
 .business-card-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
   padding: 20px;
-  justify-items: center;
 }
 
-/* Business card styling */
 .business-card {
-  background-color: white;
+  background-color: #112240; /* Darker metal blue */
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 2px solid #CBA135; /* Softer gold border */
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.6); /* Stronger shadow */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -149,20 +138,20 @@ ul li {
 
 .business-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 16px rgba(203, 161, 53, 0.7); /* Softer glow on hover */
 }
 
-/* Text and buttons */
 .business-card h3 {
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 10px;
   text-align: center;
+  color: #CBA135; /* Softer gold text */
 }
 
 .business-card p {
-  font-size: 14px;
-  color: #666;
+  font-size: 16px;
+  color: #F5E6C5; /* Softer gold */
   margin-bottom: 10px;
   text-align: center;
 }
@@ -185,26 +174,22 @@ ul li {
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.approve-btn:hover, .reject-btn:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
 .approve-btn {
-  background-color: #28a745;
-  color: white;
+  background-color: #CBA135; /* Softer gold button */
+  color: #1C1C1E; /* Dark text */
 }
 
 .approve-btn:hover {
-  background-color: #218838;
+  box-shadow: 0 0 12px rgba(203, 161, 53, 0.7); /* Softer glow */
 }
 
 .reject-btn {
-  background-color: #dc3545;
-  color: white;
+  background-color: #DC3545; /* Red reject button */
+  color: #fff;
 }
 
 .reject-btn:hover {
-  background-color: #c82333;
+  background-color: #C82333; /* Darker red on hover */
 }
 
 @media (max-width: 768px) {
@@ -221,11 +206,13 @@ ul li {
   }
 }
 
+/* Referral Section Styling */
 .referral-section {
   padding: 20px;
-  background-color: #fff;
+  background-color: #112240; /* Darker metal blue */
   border-radius: 12px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  border: 2px solid #CBA135; /* Softer gold border */
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.6); /* Strong shadow for depth */
   max-width: 600px;
   margin: 0 auto;
 }
@@ -245,29 +232,38 @@ ul li {
 
 .referral-input button {
   padding: 8px 16px;
-  background-color: #4CAF50;
-  color: white;
+  background-color: #CBA135; /* Softer gold button */
+  color: #1C1C1E; /* Dark text */
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  box-shadow: 0 0 8px rgba(203, 161, 53, 0.5); /* Subtle glow effect */
+}
+
+.referral-input button:hover {
+  background-color: #CBA135; /* Same on hover */
+  box-shadow: 0 0 12px rgba(203, 161, 53, 0.7); /* Softer glow on hover */
 }
 
 .referral-card {
   padding: 16px;
-  background-color: #fafafa;
-  border: 1px solid #ddd;
+  background-color: #112240; /* Darker metal blue */
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  border: 2px solid #CBA135; /* Softer gold border */
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.6); /* Stronger shadow */
+  margin-top: 20px;
 }
 
 .referral-details h4 {
-  margin-top: 16px;
+  font-size: 18px;
   font-weight: bold;
+  color: #CBA135; /* Softer gold text */
 }
 
 .referral-details ul {
-  list-style-type: none;
+  list-style: none;
   padding: 0;
+  color: #F5E6C5; /* Softer gold text */
 }
 
 .referral-details ul li {

@@ -5,6 +5,7 @@ import adminReducer from "./adminSlice";
 import userReducer from "./editSlice";
 import paymentReducer from "./paymentSlice"
 import {persistStore, persistReducer} from "redux-persist";
+import businessReducer from "./businessSlice";
 
 import storage from "redux-persist/lib/storage";
 import logger from "redux-logger";
@@ -72,6 +73,7 @@ const store = configureStore({
     earrnings: persistedEarningsReducer,
     user: userReducer,
     payment: persistedPaymentReducer,
+    business: businessReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
