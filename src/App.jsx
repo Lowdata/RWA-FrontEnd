@@ -19,7 +19,7 @@ import { Box } from "@mui/material";
 import { PrivateRouteAdmin } from "./components/admin/Private";
 import AdminDashboard from "./components/admin/Admin";
 import NotAuthorized from "./components/Authority.NotAuthorised";
-import AuthDebug from "./components/debug/authDebug";
+// import AuthDebug from "./components/debug/authDebug";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/700.css";
 import "@fontsource/roboto-slab/400.css";
@@ -63,7 +63,6 @@ const App = () => {
         }}
       >
         <Header />
-        <AuthDebug />
         <Box sx={{ flex: 1, display: "flex", flexDirection: "column" }}>
           <Routes>
             <Route path="/" element={<HomePage />} />

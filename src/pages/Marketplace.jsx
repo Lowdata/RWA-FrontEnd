@@ -10,156 +10,11 @@ import {
   DialogTitle,
   Button,
   Alert,
-} from "@mui/material"; 
+} from "@mui/material";
 import { useSelector } from "react-redux";
-
+import "../styles/Marketplace.css"; // Import the CSS file
 
 export const stakeCoins = [];
-// Color scheme from your image (example colors)
-const colors = {
-  background: "#2C3E50", // Dark background
-  cardBackground: "#1A252F", // Slightly darker for card
-  primary: "#E67E22", // Orange-gold tone for buttons, active state
-  textPrimary: "#FFFFFF", // White text
-  textSecondary: "#BDC3C7", // Lighter gray text
-  border: "#34495E", // Border color for elements
-};
-
-// Marketplace styling
-const marketplaceStyles = {
-  container: {
-    display: "flex",
-    flexDirection: "column",
-    minHeight: "100vh",
-    fontFamily: "'Roboto', sans-serif",
-    backgroundColor: colors.background,
-    color: colors.textPrimary,
-  },
-  main: {
-    flex: 1,
-    padding: "20px",
-    animation: "fadeIn 0.6s ease-out", // Fade-in effect for content
-  },
-  footer: {
-    backgroundColor: "#f5f5f5",
-    padding: "10px",
-    textAlign: "center",
-    position: "sticky",
-    bottom: 0,
-    width: "100%",
-    color: colors.textPrimary,
-  },
-  header: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: "20px",
-    transition: "background-color 0.4s, padding 0.4s", // Smooth header animation
-  },
-  productGrid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(5, 1fr)",
-    gap: "20px",
-    "@media (maxWidth: 800px)": {
-      gridTemplateColumns: "repeat(2, 1fr)", // Adjust for smaller screens
-    },
-    "@media (maxWidth: 500px)": {
-      gridTemplateColumns: "repeat(1, 1fr)", // Single column for very small screens
-    },
-  },
-  productCard: {
-    border: `1px solid ${colors.border}`,
-    borderRadius: "15px",
-    padding: "20px",
-    textAlign: "center",
-    backgroundColor: colors.cardBackground,
-    color: colors.textPrimary,
-    cursor: "default",
-    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-    transition:
-      "transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease",
-    transform: "translateY(0)",
-  },
-  productCardHover: {
-    transform: "translateY(-10px)", // Smoother hover transition
-    boxShadow: "0 12px 24px rgba(0, 0, 0, 0.2)",
-  },
-  productImage: {
-    width: "80%",
-    borderRadius: "10px",
-    transition: "transform 0.4s ease", // Smooth image hover
-  },
-  productName: {
-    fontSize: "18px",
-    fontWeight: "bold",
-    marginTop: "15px",
-    color: colors.textPrimary,
-  },
-  productDescription: {
-    fontSize: "14px",
-    color: colors.textSecondary,
-    marginTop: "10px",
-  },
-  stakingButton: {
-    marginTop: "20px",
-    padding: "12px 20px",
-    backgroundColor: colors.primary,
-    color: colors.textPrimary,
-    border: "none",
-    borderRadius: "8px",
-    cursor: "pointer",
-    fontSize: "16px",
-    gap: "20px",
-    transition: "transform 0.3s ease, box-shadow 0.3s ease",
-  },
-  stakingButtonHover: {
-    transform: "scale(1.05)",
-    boxShadow: "0 8px 16px rgba(0, 0, 0, 0.3)", // Subtle hover effect
-  },
-  buttonGroup: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    gap: "10px",
-    "@media (maxwidth: 600px)": {
-      flexDirection: "column", // Stack buttons on smaller screens
-      alignItems: "center",
-    },
-  },
-  navTabs: {
-    display: "flex",
-    justifyContent: "flex-start",
-    marginBottom: "20px",
-    cursor: "default",
-    gap: "20px",
-    padding: "20px",
-  },
-  activeTab: {
-    fontWeight: "bold",
-    color: colors.primary,
-    borderBottom: `2px solid ${colors.primary}`,
-  },
-};
-
-// Adding keyframes dynamically using <style> tag
-const addGlobalStyles = () => {
-  const styleTag = document.createElement("style");
-  styleTag.innerHTML = `
-    @keyframes fadeIn {
-      0% { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-    
-    @keyframes buttonPress {
-      0% { transform: scale(1); }
-      50% { transform: scale(0.95); }
-      100% { transform: scale(1); }
-    }
-  `;
-  document.head.appendChild(styleTag); // Append the styles to the document's head
-};
-
-
 
 export const getApprovedProducts = async () => {
   try {
@@ -205,22 +60,22 @@ const getFallbackImage = (product) => {
   }
 };
 
+
 const Marketplace = () => {
-    const isLoggedIn = useSelector((state)=> state.auth.isLoggedIn)
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   const [products, setProducts] = useState([]);
-   const [activeSection, setActiveSection] = useState(
-     location.state?.activeSection || "Coins"
-   );
-   const [openDialog, setOpenDialog] = useState(false);
-   const [dialogType, setDialogType] = useState(""); // "buy" or "stake"
-   const [selectedProduct, setSelectedProduct] = useState(null);
-   const [units, setUnits] = useState(0);
-   const [currency, setCurrency] = useState("USDT");
-   const [stakeTime, setStakeTime] = useState(1); // For staking years
-   const [alert, setAlert] = useState({ type: "", message: "" });
+  const [activeSection, setActiveSection] = useState(
+    location.state?.activeSection || "Coins"
+  );
+  const [openDialog, setOpenDialog] = useState(false);
+  const [dialogType, setDialogType] = useState(""); // "buy" or "stake"
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [units, setUnits] = useState(0);
+  const [currency, setCurrency] = useState("USDT");
+  const [stakeTime, setStakeTime] = useState(1); // For staking years
+  const [alert, setAlert] = useState({ type: "", message: "" });
   const navigate = useNavigate();
-
 
   useEffect(() => {
     const loadProducts = async () => {
@@ -228,48 +83,44 @@ const Marketplace = () => {
       setProducts(approvedProducts);
     };
     loadProducts();
-    addGlobalStyles(); // Add keyframes on load
   }, []);
 
   const handleDialogOpen = (type, product) => {
-    if(!isLoggedIn){
-        setAlert({ type: "error", message: "Log in for Investing!" });
-        return;
+    if (!isLoggedIn) {
+      setAlert({ type: "error", message: "Log in for Investing!" });
+      return;
     }
-     if (!product) {
-       setAlert({ type: "error", message: "Product not found!" });
-       return;
-     }
-     setDialogType(type);
-     setSelectedProduct(product); // Ensure product is set
-     setOpenDialog(true);
+    if (!product) {
+      setAlert({ type: "error", message: "Product not found!" });
+      return;
+    }
+    setDialogType(type);
+    setSelectedProduct(product);
+    setOpenDialog(true);
   };
-    const goToStaking = () => {
-      navigate("/dashboard", { state: { currentPage: "Staking" } });
-    };
+
+  const goToStaking = () => {
+    navigate("/dashboard", { state: { currentPage: "Staking" } });
+  };
 
   const handleDialogClose = () => {
-   setOpenDialog(false);
-   setUnits(0);
-   setCurrency("USDT");
-   setStakeTime(1);
-   setSelectedProduct(null);
+    setOpenDialog(false);
+    setUnits(0);
+    setCurrency("USDT");
+    setStakeTime(1);
+    setSelectedProduct(null);
   };
 
   const handleProductClick = (id, category) => {
     if (!isLoggedIn) {
-      // If the user is not logged in, show the alert
       setAlert({ type: "error", message: "LOG IN BEFORE INVESTMENT" });
-      return; // Prevent further actions
+      return;
     }
 
-    
     if (category !== "Coin") {
-
       navigate(`/nft/${id}`, { state: { activeSection } });
     }
   };
-
 
   const filterProducts = (section) => {
     if (section === "Coins") {
@@ -327,7 +178,7 @@ const Marketplace = () => {
           name: selectedProduct.name,
           amount: units,
           purchaseDate: new Date(),
-          lockTime: stakeTime, // In years
+          lockTime: stakeTime,
         };
         localStorage.setItem(
           "stakedCoins",
@@ -364,7 +215,6 @@ const Marketplace = () => {
     const cost = units * selectedProduct.amount;
 
     if (userBalance[currency] >= cost) {
-      // Deduct the cost and update local storage
       userBalance[currency] -= cost;
       localStorage.setItem("userBalance", JSON.stringify(userBalance));
       setAlert({ type: "success", message: "Purchase successful!" });
@@ -378,33 +228,15 @@ const Marketplace = () => {
   const filteredProducts = filterProducts(activeSection);
 
   const renderCoinButtons = (product) => (
-    <div style={marketplaceStyles.buttonGroup}>
+    <div className="button-group">
       <button
-        style={marketplaceStyles.stakingButton}
-        onMouseEnter={(e) =>
-          Object.assign(
-            e.currentTarget.style,
-            marketplaceStyles.stakingButtonHover
-          )
-        }
-        onMouseLeave={(e) =>
-          Object.assign(e.currentTarget.style, marketplaceStyles.stakingButton)
-        }
+        className="staking-button"
         onClick={() => handleDialogOpen("buy", product)}
       >
         Buy
       </button>
       <button
-        style={marketplaceStyles.stakingButton}
-        onMouseEnter={(e) =>
-          Object.assign(
-            e.currentTarget.style,
-            marketplaceStyles.stakingButtonHover
-          )
-        }
-        onMouseLeave={(e) =>
-          Object.assign(e.currentTarget.style, marketplaceStyles.stakingButton)
-        }
+        className="staking-button"
         onClick={() => handleDialogOpen("stake", product)}
       >
         Stake
@@ -413,30 +245,28 @@ const Marketplace = () => {
   );
 
   return (
-    <div style={marketplaceStyles.container}>
-      <header style={marketplaceStyles.header}>
-        <button style={marketplaceStyles.stakingButton} onClick={goToStaking}>
+    <div className="marketplace-container">
+      <header className="marketplace-header">
+        <button className="staking-button" onClick={goToStaking}>
           Go to Your Staking
         </button>
       </header>
 
-      <div style={marketplaceStyles.navTabs}>
+      <div className="nav-tabs">
         <span
-          style={activeSection === "Coins" ? marketplaceStyles.activeTab : {}}
+          className={activeSection === "Coins" ? "active-tab" : ""}
           onClick={() => setActiveSection("Coins")}
         >
           Coins
         </span>
         <span
-          style={activeSection === "NFTs" ? marketplaceStyles.activeTab : {}}
+          className={activeSection === "NFTs" ? "active-tab" : ""}
           onClick={() => setActiveSection("NFTs")}
         >
           NFTs
         </span>
         <span
-          style={
-            activeSection === "Investments" ? marketplaceStyles.activeTab : {}
-          }
+          className={activeSection === "Investments" ? "active-tab" : ""}
           onClick={() => setActiveSection("Investments")}
         >
           Investments
@@ -444,41 +274,26 @@ const Marketplace = () => {
       </div>
       {alert.message && <Alert severity={alert.type}>{alert.message}</Alert>}
 
-      <main style={marketplaceStyles.main}>
-        <div style={marketplaceStyles.productGrid}>
+      <main className="marketplace-main">
+        <div className="product-grid">
           {filteredProducts.map((product) => (
             <div
               key={product.id}
-              style={marketplaceStyles.productCard}
+              className="product-card"
               onClick={() => handleProductClick(product.id, product.category)}
-              onMouseEnter={(e) =>
-                Object.assign(
-                  e.currentTarget.style,
-                  marketplaceStyles.productCardHover
-                )
-              }
-              onMouseLeave={(e) =>
-                Object.assign(
-                  e.currentTarget.style,
-                  marketplaceStyles.productCard
-                )
-              }
             >
               <img
                 src={product.image}
                 alt={product.name}
-                style={marketplaceStyles.productImage}
+                className="product-image"
               />
-              <div style={marketplaceStyles.productName}>{product.name}</div>
-              <div style={marketplaceStyles.productDescription}>
-                {product.amount}
-              </div>
+              <div className="product-name">{product.name}</div>
+              <div className="product-description">{product.amount}</div>
               {activeSection === "Coins" && renderCoinButtons(product)}
             </div>
           ))}
         </div>
       </main>
-      {/* Dialog for Buy/Staking */}
       <Dialog open={openDialog} onClose={handleDialogClose}>
         <DialogTitle>
           {dialogType === "buy" ? "Buy Coin" : "Stake Coin"}
@@ -490,7 +305,6 @@ const Marketplace = () => {
             value={units}
             onChange={(e) => setUnits(e.target.value)}
             min="1"
-            style={{ marginBottom: "10px" }}
           />
           <select
             value={currency}

@@ -10,6 +10,7 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa"; // Import arrow icon
 import { Alert, IconButton } from "@mui/material"; // Import Alert and IconButton
 import CheckIcon from "@mui/icons-material/Check"; // Import the success icon
 import CloseIcon from "@mui/icons-material/Close"; // Import the close icon for dismissing the alert
+import ReferralPage from "../components/dashboard/Profile/ReferralsStable";
 
 const styles = {
   dashboardContainer: {
@@ -136,6 +137,8 @@ const Dashboard = () => {
         return userRole === "business_partner" ? <BusinessPage /> : null; // Conditional render based on role
       case "Activity":
         return <ActivityPage />;
+      case "Referrals":
+        return <ReferralPage/>;
       default:
         return <div>Select a page</div>;
     }
@@ -195,7 +198,13 @@ const Dashboard = () => {
 };
 
 const Sidebar = ({ currentPage, setCurrentPage, setSidebarOpen, userRole }) => {
-  const menuItems = ["My Wallet", "Staking", "Rank and Rewards", "Activity"];
+  const menuItems = [
+    "My Wallet",
+    "Staking",
+    "Rank and Rewards",
+    "Activity",
+    "Referrals",
+  ];
 
   // Conditionally add the "Business" item if the user is a business partner
   if (userRole === "business_partner") {

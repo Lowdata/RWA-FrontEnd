@@ -1,6 +1,7 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
+//nft stake
 export const makePayment = createAsyncThunk(
   "payment/makePayment",
   async (
@@ -26,7 +27,27 @@ export const makePayment = createAsyncThunk(
   }
 );
 
+// Fetch staked investments
+export const fetchInvestments = createAsyncThunk(
+  "investments/fetchInvestments", // Action type
+  async (userId, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(
+        "https://rwa-backend.onrender.com/api/investment/my-investments",
+        { params: { userId } }
+      );
+       console.log("staking ",response.data);
+      return response.data; 
+     
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to fetch investments"
+      );
+    }
+  }
+);
 
+//token stake 
 export const tokenPayment = createAsyncThunk(
   "payment/tokenPayment",
   async (
@@ -69,6 +90,22 @@ export const buyTokens = createAsyncThunk(
         
     }catch(error){
         return rejectWithValue(error.response.data|| "Payment Failes")
+    }
+  }
+);
+
+//claim rewards
+export const claimRewards = createAsyncThunk(
+  "payment/claimRewards",
+  async ({ rwa_id }, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        "https://rwa-backend.onrender.com/api/users/claimRewards",
+        { rwa_id }
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data || "Claim rewards failed");
     }
   }
 );

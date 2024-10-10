@@ -174,3 +174,34 @@ export const resetPassword = createAsyncThunk(
     }
   }
 );
+
+
+ //fetching user referrals
+export const fetchUserReferrals = createAsyncThunk(
+  "auth/fetchUserReferrals",
+  async (userId, { rejectWithValue }) => {
+    try {
+      const response = await fetch(
+        `https://rwa-backend.onrender.com/users/referrals/${userId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        return rejectWithValue({ status: response.status, ...errorData });
+      }
+
+      const result = await response.json(); 
+      const data = result.data;
+      console.log("Refereafksad",data)
+      return result;
+    } catch (error) {
+      return rejectWithValue({ status: 500, message: "Network error" });
+    }
+  }
+);

@@ -5,6 +5,7 @@ import {
   forgotPassword,
   verifyOtp,
   resetPassword,
+  fetchUserReferrals
 } from "./auth/authAction";
 import { REHYDRATE } from "redux-persist";
 const initialState = {
@@ -23,6 +24,9 @@ const initialState = {
   isLoading: false,
   isLoggedIn: false,
   rehydrationCompleted: false,
+  referrals: {}, // Add a state to store the fetched referrals
+  referralsLoading: false,
+  referralsError: null,
 };
 
 
@@ -85,19 +89,20 @@ const authSlice = createSlice({
   //rehydration user
   extraReducers: (builder) => {
     builder.addCase(REHYDRATE, (state, action) => {
-    if (action.payload && action.payload.auth) {
-      console.log("Rehydrating state: ", action.payload.auth);
-      state.isLoggedIn = action.payload.auth.isLoggedIn || false;
-      state.email = action.payload.auth.email || "";
-      state.userName = action.payload.auth.userName || "";
-      state.role = action.payload.auth.role || "";
-      state.publicKey = action.payload.auth.publicKey || "";
-      state.privateKey = action.payload.auth.privateKey || "";
-      state.userId = action.payload.auth.userId || ""; // Ensure userId is rehydrated
-      state.approval = action.payload.auth.approval || null;
-      state.rehydrationCompleted = true;
-    }});
-    
+      if (action.payload && action.payload.auth) {
+        console.log("Rehydrating state: ", action.payload.auth);
+        state.isLoggedIn = action.payload.auth.isLoggedIn || false;
+        state.email = action.payload.auth.email || "";
+        state.userName = action.payload.auth.userName || "";
+        state.role = action.payload.auth.role || "";
+        state.publicKey = action.payload.auth.publicKey || "";
+        state.privateKey = action.payload.auth.privateKey || "";
+        state.userId = action.payload.auth.userId || ""; // Ensure userId is rehydrated
+        state.approval = action.payload.auth.approval || null;
+        state.rehydrationCompleted = true;
+      }
+    });
+
     // Register User Cases
     builder
       .addCase(registerUser.pending, (state) => {
@@ -123,10 +128,9 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.isLoading = false;
-         state.isLoggedIn = true;
-         console.log("Login successful, state updated:", state);
+        state.isLoggedIn = true;
+        console.log("Login successful, state updated:", state);
         state.successMessage = "User logged in successfully";
-        
 
         const { user } = action.payload;
         state.email = user.email || "";
@@ -136,8 +140,7 @@ const authSlice = createSlice({
         state.publicKey = user.publicKey || "";
         state.privateKey = user.privateKey || "";
         state.approval = user.approval || null;
-        console.log(user)
-        
+        console.log(user);
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoading = false;
@@ -184,6 +187,22 @@ const authSlice = createSlice({
       .addCase(resetPassword.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload?.message || "Error in resetting password";
+      });
+
+    // Handle fetchUserReferrals cases
+    builder
+      .addCase(fetchUserReferrals.pending, (state) => {
+        state.referralsLoading = true;
+        state.referralsError = null;
+      })
+      .addCase(fetchUserReferrals.fulfilled, (state, action) => {
+        state.referrals = action.payload; // Store the referrals in state
+        state.referralsLoading = false;
+      })
+      .addCase(fetchUserReferrals.rejected, (state, action) => {
+        state.referralsLoading = false;
+        state.referralsError =
+          action.payload?.message || "Failed to load referrals";
       });
   },
 });
