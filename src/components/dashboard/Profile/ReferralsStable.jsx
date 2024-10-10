@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserReferrals } from "../../../store/auth/authAction"; 
-import "../../../styles/referral.css"
+import "./referral.css";
 
 const ReferralPage = () => {
   const dispatch = useDispatch();
