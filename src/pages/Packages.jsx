@@ -71,7 +71,6 @@ const PackagesPage = () => {
       <ServiceOverview />
       <InvestmentPackage />
       <NftPackage />
-      <Footer />
     </div>
   );
 };

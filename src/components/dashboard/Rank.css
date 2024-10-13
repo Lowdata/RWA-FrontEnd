@@ -134,3 +134,21 @@
 .user-rank-card:hover {
   animation: glowing 0.5s ease-in-out forwards;
 }
+
+.claim-rewards-button{
+   padding: 12px 20px;
+  margin-top: 20px;
+  background-color: #CBA135; /* Gold button */
+  color: #1C1C1E; /* Dark text on gold */
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  box-shadow: 0 0 8px rgba(203, 161, 53, 0.5); /* Subtle glow */
+  cursor: pointer;
+  border: none;
+  transition: box-shadow 0.3s ease;
+}
+.claim-rewards-button:hover{
+     background-color: #CBA135; /* Consistent color on hover */
+  box-shadow: 0 0 12px rgba(203, 161, 53, 0.7);
+}

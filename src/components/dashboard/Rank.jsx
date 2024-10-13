@@ -1,150 +1,179 @@
 import { useSelector } from "react-redux";
 import "./Rank.css";
+import { useState } from "react";
+import {
+    Alert
+} from "@mui/material"
+import { claimRewards } from "../../store/api/payments";
+import { useDispatch } from "react-redux";
 
 const RankAndRewardsPage = () => {
   const earnings = useSelector((state) => state.admin);
+  const{userId} = useSelector((state)=> state.auth)
+  const [rewardClaimed, setRewardClaimed] = useState(false); // State to track if rewards are claimed
+    const dispatch = useDispatch();
   if (!earnings) {
     return <div>Loading...</div>; // Handle loading or null state
   }
+
   const { rank: userRank = "Unranked" } = earnings;
- const ranks = [
-   {
-     rank: "Unranked",
-     color: "#808080",
-     cash: "0",
-     nft: "0",
-     reward: "0",
-     trip: "0",
-     teamFund: "0",
-     meetingFund: "0",
-   },
-   {
-     rank: "Sr. Promoter",
-     color: "#800",
-     cash: 50,
-     nft: 25,
-     reward: 100,
-     trip: "Local",
-     teamFund: 1000,
-     meetingFund: "-",
-   },
-   {
-     rank: "Bronze",
-     color: "#CD7F32",
-     cash: 500,
-     nft: 100,
-     reward: 200,
-     trip: "Local",
-     teamFund: 10000,
-     meetingFund: 100,
-   },
-   {
-     rank: "Silver",
-     color: "#606060",
-     cash: 3000,
-     nft: 300,
-     reward: 500,
-     trip: "International",
-     teamFund: 100000,
-     meetingFund: 500,
-   },
-   {
-     rank: "Gold",
-     color: "#FFD700",
-     cash: 10000,
-     nft: 1000,
-     reward: 1000,
-     trip: "International",
-     teamFund: 375000,
-     meetingFund: 1000,
-   },
-   {
-     rank: "Platinum",
-     color: "#E5E4E2",
-     cash: 20000,
-     nft: 2000,
-     reward: 3000,
-     trip: "International",
-     teamFund: 975000,
-     meetingFund: 3000,
-   },
-   {
-     rank: "Ruby",
-     color: "#E0115F",
-     cash: 40000,
-     nft: 4000,
-     reward: 10000,
-     trip: "International",
-     teamFund: 2500000,
-     meetingFund: 10000,
-   },
-   {
-     rank: "Emerald",
-     color: "#50C878",
-     cash: 100000,
-     nft: 10000,
-     reward: 20000,
-     trip: "International",
-     teamFund: 7000000,
-     meetingFund: 20000,
-   },
-   {
-     rank: "Founder Emerald",
-     color: "#50C878",
-     cash: 200000,
-     nft: 20000,
-     reward: 30000,
-     trip: "International",
-     teamFund: 16000000,
-     meetingFund: 30000,
-   },
-   {
-     rank: "Diamond",
-     color: "#B9F2FF",
-     cash: 500000,
-     nft: 30000,
-     reward: 50000,
-     trip: "International",
-     teamFund: 30000000,
-     meetingFund: 50000,
-   },
-   {
-     rank: "Black Diamond",
-     color: "#B9F2FG",
-     cash: 1000000,
-     nft: 50000,
-     reward: 100000,
-     trip: "International",
-     teamFund: 77000000,
-     meetingFund: 100000,
-   },
-   {
-     rank: "Crown",
-     color: "#E5E4E2",
-     cash: 2000000,
-     nft: 100000,
-     reward: 150000,
-     trip: "International",
-     teamFund: 160000000,
-     meetingFund: 150000,
-   },
-   {
-     rank: "Crown Ambassador",
-     color: "#FFDF00",
-     cash: 4000000,
-     nft: 200000,
-     reward: 250000,
-     trip: "International",
-     teamFund: 300000000,
-     meetingFund: 250000,
-   },
- ];
+  const ranks = [
+    {
+      rank: "Unranked",
+      color: "#808080",
+      cash: "0",
+      nft: "0",
+      reward: "0",
+      trip: "0",
+      teamFund: "0",
+      meetingFund: "0",
+    },
+    {
+      rank: "Sr. Promoter",
+      color: "#800",
+      cash: 50,
+      nft: 25,
+      reward: 100,
+      trip: "Local",
+      teamFund: 1000,
+      meetingFund: "-",
+    },
+    {
+      rank: "Bronze",
+      color: "#CD7F32",
+      cash: 500,
+      nft: 100,
+      reward: 200,
+      trip: "Local",
+      teamFund: 10000,
+      meetingFund: 100,
+    },
+    {
+      rank: "Silver",
+      color: "#606060",
+      cash: 3000,
+      nft: 300,
+      reward: 500,
+      trip: "International",
+      teamFund: 100000,
+      meetingFund: 500,
+    },
+    {
+      rank: "Gold",
+      color: "#FFD700",
+      cash: 10000,
+      nft: 1000,
+      reward: 1000,
+      trip: "International",
+      teamFund: 375000,
+      meetingFund: 1000,
+    },
+    {
+      rank: "Platinum",
+      color: "#E5E4E2",
+      cash: 20000,
+      nft: 2000,
+      reward: 3000,
+      trip: "International",
+      teamFund: 975000,
+      meetingFund: 3000,
+    },
+    {
+      rank: "Ruby",
+      color: "#E0115F",
+      cash: 40000,
+      nft: 4000,
+      reward: 10000,
+      trip: "International",
+      teamFund: 2500000,
+      meetingFund: 10000,
+    },
+    {
+      rank: "Emerald",
+      color: "#50C878",
+      cash: 100000,
+      nft: 10000,
+      reward: 20000,
+      trip: "International",
+      teamFund: 7000000,
+      meetingFund: 20000,
+    },
+    {
+      rank: "Founder Emerald",
+      color: "#50C878",
+      cash: 200000,
+      nft: 20000,
+      reward: 30000,
+      trip: "International",
+      teamFund: 16000000,
+      meetingFund: 30000,
+    },
+    {
+      rank: "Diamond",
+      color: "#B9F2FF",
+      cash: 500000,
+      nft: 30000,
+      reward: 50000,
+      trip: "International",
+      teamFund: 30000000,
+      meetingFund: 50000,
+    },
+    {
+      rank: "Black Diamond",
+      color: "#B9F2FG",
+      cash: 1000000,
+      nft: 50000,
+      reward: 100000,
+      trip: "International",
+      teamFund: 77000000,
+      meetingFund: 100000,
+    },
+    {
+      rank: "Crown",
+      color: "#E5E4E2",
+      cash: 2000000,
+      nft: 100000,
+      reward: 150000,
+      trip: "International",
+      teamFund: 160000000,
+      meetingFund: 150000,
+    },
+    {
+      rank: "Crown Ambassador",
+      color: "#FFDF00",
+      cash: 4000000,
+      nft: 200000,
+      reward: 250000,
+      trip: "International",
+      teamFund: 300000000,
+      meetingFund: 250000,
+    },
+  ];
 
   const userRankInfo = ranks.find((rank) => rank.rank === userRank) || ranks[0];
 
+  const handleClaimRewards = async () => {
+    try {
+      // Simulate API call or add real call to claim rewards
+      const response = await dispatch(claimRewards(userId)); // Ensure claimUserRewards is an existing action
+      if (response) {
+        <Alert variant="filled" severity="success">
+          Rewards claimed successfully!
+        </Alert>;
+      } else {
+        <Alert variant="filled" severity="error">
+          Failed to claim rewards.
+        </Alert>;
+      }
+    } catch (error) {
+      <Alert variant="filled" severity="error">
+        An error occurred while claiming rewards.
+      </Alert>;
+    }
+  };
   return (
     <div className="rank-rewards-container">
-      <h1 className="heading">Rank and Rewards</h1>
+      <h1 className="heading">Bonus and Rank</h1>
       <p className="description">
         Discover the different ranks and their rewards. Every rank comes with
         exclusive benefits like cash rewards, NFTs, team funds, and
@@ -152,13 +181,25 @@ const RankAndRewardsPage = () => {
       </p>
 
       {/* Small card showing the user's rank */}
-      <div className="user-rank-card" style={{ backgroundColor: userRankInfo.color }}>
+      <div
+        className="user-rank-card"
+        style={{ backgroundColor: userRankInfo.color }}
+      >
         <h2>Your Rank: {userRankInfo.rank}</h2>
         <p>Cash Reward: {userRankInfo.cash} USDT</p>
         <p>NFT Reward: {userRankInfo.nft}</p>
         <p>Team Fund: {userRankInfo.teamFund} USDT</p>
         <p>Trip: {userRankInfo.trip}</p>
         <p>Meeting Fund: {userRankInfo.meetingFund}</p>
+
+        {/* Claim Rewards Button */}
+        <button
+          className="claim-rewards-button"
+          onClick={handleClaimRewards}
+          disabled={rewardClaimed} // Disable if already claimed
+        >
+          {rewardClaimed ? "Rewards Claimed" : "Claim Rewards"}
+        </button>
       </div>
 
       {/* Ranks table */}
@@ -239,24 +280,6 @@ const RankAndRewardsPage = () => {
                 <td>{bonus.rank}</td>
                 <td>{bonus.companyTO}%</td>
                 <td>{bonus.matching}%</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-
-        <h3>Global Matrix Bonus 3x12 (ROI on ROI)</h3>
-        <table className="bonus-table">
-          <thead>
-            <tr>
-              <th>Level</th>
-              <th>Distribution %</th>
-            </tr>
-          </thead>
-          <tbody>
-            {[20, 10, 10, 10, 5, 5, 5, 5, 5, 5, 5, 5].map((percent, index) => (
-              <tr key={index}>
-                <td>{index + 1}</td>
-                <td>{percent}%</td>
               </tr>
             ))}
           </tbody>

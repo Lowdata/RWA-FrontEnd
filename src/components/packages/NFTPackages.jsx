@@ -53,7 +53,7 @@ const NftPackage = () => {
           Fractional ownership for high-value assets
         </li>
         <li style={listItemStyle}>CV: 40%</li>
-        <li style={listItemStyle}>Price: $XX per unit</li>
+        <li style={listItemStyle}>Price: $50 per unit</li>
       </ul>
     </section>
   );

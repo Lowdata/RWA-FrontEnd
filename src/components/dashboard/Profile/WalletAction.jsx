@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import {
   useAccount,
   useConnect,
@@ -17,7 +17,7 @@ import {
   toHex,
   encodeAbiParameters,
 } from "viem";
-
+import { useSelector } from "react-redux";
 // Import Material UI components
 import {
   TextField,
@@ -26,6 +26,9 @@ import {
   Snackbar,
   Alert,
   Box,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
 } from "@mui/material";
 // CURRENCY CONTRACTS
   const USDT_ADDRESS = "0x337610d27c682E347C9cD60BD4b3b107C9d34dDd";
@@ -86,95 +89,113 @@ const ConnectButton = () => {
   );
 };
 const SendTransactionForm = () => {
-const { isConnected, address } = useAccount();
-const [recipient, setRecipient] = useState("");
-const [amount, setAmount] = useState("");
-const [currency, setCurrency] = useState("BNB");
-const [isSuccess, setIsSuccess] = useState(false);
-const [isError, setIsError] = useState(false);
-const [errorMessage, setErrorMessage] = useState("");
-const [isLoading, setIsLoading] = useState(false);
+  const { isConnected, address } = useAccount();
+  const { publicKey } = useSelector((state) => state.auth); // Get publicKey from Redux state
+  const [recipientType, setRecipientType] = useState("self");
+  const [recipient, setRecipient] = useState(publicKey);
+  const [amount, setAmount] = useState("");
+  const [currency, setCurrency] = useState("BNB");
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSnackbarOpen, setSnackbarOpen] = useState(false); // State for Snackbar
+  const { sendTransaction } = useSendTransaction();
+  const {
+    isLoading: isConfirming,
+    isSuccess: isConfirmed,
+    hash,
+  } = useWaitForTransactionReceipt();
 
+  // Show alert with funding instructions when the wallet is connected
+  useEffect(() => {
+    if (isConnected) {
+      setSnackbarOpen(true); // Open Snackbar when wallet connects
+    }
+  }, [isConnected]);
 
- const { sendTransaction } = useSendTransaction();
-const {
-  isLoading: isConfirming,
-  isSuccess: isConfirmed,
-  hash,
-} = useWaitForTransactionReceipt();
+  const handleRecipientChange = (event) => {
+    const value = event.target.value;
+    setRecipientType(value);
+    if (value === "self") {
+      setRecipient(publicKey); // Set recipient to self's publicKey
+    } else {
+      setRecipient(""); // Reset recipient field for other account
+    }
+  };
 
-   const handleSendTransaction = async () => {
-     setIsLoading(true);
-     setIsSuccess(false);
-     setIsError(false);
+  const handleSendTransaction = async () => {
+    setIsLoading(true);
+    setIsSuccess(false);
+    setIsError(false);
 
-     try {
-       if (currency === "BNB") {
-         // Estimate gas for native BNB transfer
-         const gasEstimate = await estimateGas(config, {
-           request: {
-             to: recipient,
-             value: parseEther(amount),
-           },
-         });
+    try {
+      if (currency === "BNB") {
+        // Estimate gas for native BNB transfer
+        const gasEstimate = await estimateGas(config, {
+          request: {
+            to: recipient,
+            value: parseEther(amount),
+          },
+        });
 
-         console.log("Gas estimate for BNB:", gasEstimate);
+        console.log("Gas estimate for BNB:", gasEstimate);
 
-         await sendTransaction({
-           to: recipient,
-           value: parseEther(amount),
-         });
-       } else {
-         // Token transaction
-         const tokenAddress = tokenAddresses[currency];
+        await sendTransaction({
+          to: recipient,
+          value: parseEther(amount),
+        });
+      } else {
+        // Token transaction
+        const tokenAddress = tokenAddresses[currency];
 
-         // Estimate gas for token transfer
-         const gasEstimate = await estimateGas(config, {
-           request: {
-             to: tokenAddress,
-             data: toHex(
-               encodeAbiParameters(
-                 ["address", "uint256"],
-                 [recipient, ethers.utils.parseUnits(amount, 18)]
-               )
-             ),
-           },
-         });
+        // Estimate gas for token transfer
+        const gasEstimate = await estimateGas(config, {
+          request: {
+            to: tokenAddress,
+            data: toHex(
+              encodeAbiParameters(
+                ["address", "uint256"],
+                [recipient, ethers.utils.parseUnits(amount, 18)]
+              )
+            ),
+          },
+        });
 
-         console.log("Gas estimate for token:", gasEstimate);
+        console.log("Gas estimate for token:", gasEstimate);
 
-         // Send token transaction
-         await sendTransaction({
-           to: tokenAddress,
-           data: toHex(
-             encodeAbiParameters(
-               ["address", "uint256"],
-               [recipient, ethers.utils.parseUnits(amount, 18)]
-             )
-           ),
-           gasLimit: gasEstimate,
-         });
-       }
+        // Send token transaction
+        await sendTransaction({
+          to: tokenAddress,
+          data: toHex(
+            encodeAbiParameters(
+              ["address", "uint256"],
+              [recipient, ethers.utils.parseUnits(amount, 18)]
+            )
+          ),
+          gasLimit: gasEstimate,
+        });
+      }
 
-       setIsSuccess(true);
-     } catch (error) {
-       setIsError(true);
-       setErrorMessage(error.message || "Transaction failed");
-       console.log(error.message || "Transaction failed");
-     }
+      setIsSuccess(true);
+    } catch (error) {
+      setIsError(true);
+      setErrorMessage(error.message || "Transaction failed");
+      console.log(error.message || "Transaction failed");
+    }
 
-     setIsLoading(false);
-   };
+    setIsLoading(false);
+  };
 
-   const handleCloseSnackbar = () => {
-     setIsSuccess(false);
-     setIsError(false);
-   };
+  const handleCloseSnackbar = () => {
+    setIsSuccess(false);
+    setIsError(false);
+    setSnackbarOpen(false); // Close Snackbar
+  };
 
-   if (!isConnected) {
-     return <p>Please connect your wallet to send a transaction.</p>;
-   }
-
+  if (!isConnected) {
+    return <p>Please connect your wallet to send a transaction.</p>;
+  }
 
   return (
     <Box
@@ -184,31 +205,48 @@ const {
         handleSendTransaction();
       }}
     >
+      {/* Choose Recipient (Self or Other) */}
+      <RadioGroup
+        value={recipientType}
+        onChange={handleRecipientChange}
+        row
+        sx={{ mb: 2 }}
+      >
+        <FormControlLabel
+          value="self"
+          control={<Radio />}
+          label="Self (Your RWA Account)"
+        />
+        <FormControlLabel value="other" control={<Radio />} label="Other" />
+      </RadioGroup>
+
       {/* Recipient Address */}
-      <TextField
-        label="Recipient Address"
-        variant="outlined"
-        value={recipient}
-        onChange={(e) => setRecipient(e.target.value)}
-        fullWidth
-        margin="normal"
-        required
-        sx={{
-          mb: 2,
-          "& .MuiInputBase-root": {
-            backgroundColor: "#fff",
-            borderRadius: "8px",
-          },
-          "& label.Mui-focused": {
-            color: "#e2b857",
-          },
-          "& .MuiOutlinedInput-root": {
-            "&.Mui-focused fieldset": {
-              borderColor: "#e2b857",
+      {recipientType === "other" && (
+        <TextField
+          label="Recipient Address"
+          variant="outlined"
+          value={recipient}
+          onChange={(e) => setRecipient(e.target.value)}
+          fullWidth
+          margin="normal"
+          required
+          sx={{
+            mb: 2,
+            "& .MuiInputBase-root": {
+              backgroundColor: "#fff",
+              borderRadius: "8px",
             },
-          },
-        }}
-      />
+            "& label.Mui-focused": {
+              color: "#e2b857",
+            },
+            "& .MuiOutlinedInput-root": {
+              "&.Mui-focused fieldset": {
+                borderColor: "#e2b857",
+              },
+            },
+          }}
+        />
+      )}
 
       {/* Amount */}
       <TextField
@@ -271,60 +309,51 @@ const {
       <Button
         type="submit"
         variant="contained"
-        color="primary"
+        disabled={isLoading || isConfirming}
         fullWidth
-        disabled={isLoading}
-        sx={{ mt: 2 }}
+        sx={{ backgroundColor: "#e2b857", mb: 2 }}
       >
-        {isLoading ? "Sending..." : "Send Transaction"}
+        {isLoading || isConfirming
+          ? "Sending..."
+          : isConfirmed
+          ? "Transaction Confirmed"
+          : "Send Transaction"}
       </Button>
 
-      {/* Success Alert */}
+      {/* Snackbar with Alert */}
       <Snackbar
-        open={isSuccess}
+        open={isSnackbarOpen || isSuccess || isError}
         autoHideDuration={6000}
         onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
       >
         <Alert
           onClose={handleCloseSnackbar}
-          severity="success"
+          severity={isSuccess ? "success" : isError ? "error" : "info"}
           sx={{ width: "100%" }}
         >
-          Transaction successful!
-        </Alert>
-      </Snackbar>
-
-      {/* Error Alert */}
-      <Snackbar
-        open={isError}
-        autoHideDuration={6000}
-        onClose={handleCloseSnackbar}
-      >
-        <Alert
-          onClose={handleCloseSnackbar}
-          severity="error"
-          sx={{ width: "100%" }}
-        >
-          {errorMessage}
+          {isSuccess
+            ? "Transaction successful!"
+            : isError
+            ? errorMessage
+            : "Wallet connected. Ready to send a transaction."}
         </Alert>
       </Snackbar>
     </Box>
   );
 };
-const queryClient = new QueryClient();
+
 const WalletActions = () => {
   const { isConnected } = useAccount();
 
   return (
-    <WagmiProvider config={config}>
-      <QueryClientProvider client={queryClient}>
+   
         <Box>
           <h1>Wallet Actions</h1>
           <ConnectButton />
           {isConnected && <SendTransactionForm />}
         </Box>
-      </QueryClientProvider>
-    </WagmiProvider>
+      
   );
 };
 

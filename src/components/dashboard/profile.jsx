@@ -153,6 +153,7 @@ const Profile = () => {
     )}&body=${encodeURIComponent(body)}`;
     window.open(mailtoLink, "_blank");
   };
+  
 
   // Updated styles with matte, gold, blue, and dark metal
   // Updated styles
@@ -196,6 +197,22 @@ const Profile = () => {
       "@media (maxWidth: 768px)": {
         marginTop: "10px",
       },
+    },
+    claimButton: {
+      padding: "12px 20px",
+      marginTop: "20px",
+      backgroundColor: "#CBA135", // Gold button
+      color: "#1C1C1E", // Dark text on gold
+      borderRadius: "8px",
+      fontSize: "16px",
+      fontWeight: "600",
+      boxShadow: "0 0 8px rgba(203, 161, 53, 0.5)", // Subtle glow
+      "&:hover": {
+        backgroundColor: "#CBA135", // Consistent color on hover
+        boxShadow: "0 0 12px rgba(203, 161, 53, 0.7)", // Softer glow on hover
+      },
+      cursor: "pointer",
+      border: "none",
     },
     shareButton: {
       flexGrow: 1,

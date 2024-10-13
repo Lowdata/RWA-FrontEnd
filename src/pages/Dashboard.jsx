@@ -12,6 +12,7 @@ import CheckIcon from "@mui/icons-material/Check"; // Import the success icon
 import CloseIcon from "@mui/icons-material/Close"; // Import the close icon for dismissing the alert
 import ReferralPage from "../components/dashboard/Profile/ReferralsStable";
 import WalletActions from "../components/dashboard/Profile/WalletAction";
+import PackagesPage from "./Packages";
 
 const styles = {
   dashboardContainer: {
@@ -132,16 +133,18 @@ const Dashboard = () => {
         return <StakingPage />;
       case "Purchases":
         return <div>You are on &quot;Purchases&quot; page</div>;
-      case "Rank and Rewards":
+      case "Bonus":
         return <RankAndRewardsPage />;
       case "Business":
         return userRole === "business_partner" ? <BusinessPage /> : null; // Conditional render based on role
       case "Activity":
         return <ActivityPage />;
-      case "Referrals":
+      case "My Team":
         return <ReferralPage/>;
         case"Deposit":
             return <WalletActions/>
+        case"Packages":
+            return <PackagesPage/>
       default:
         return <div>Select a page</div>;
     }
@@ -204,10 +207,11 @@ const Sidebar = ({ currentPage, setCurrentPage, setSidebarOpen, userRole }) => {
   const menuItems = [
     "My Wallet",
     "Staking",
-    "Rank and Rewards",
+    "Bonus",
     "Activity",
     "Deposit",
-    "Referrals",
+    "My Team",
+    "Packages",
   ];
 
   // Conditionally add the "Business" item if the user is a business partner
