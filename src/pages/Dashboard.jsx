@@ -11,6 +11,7 @@ import { Alert, IconButton } from "@mui/material"; // Import Alert and IconButto
 import CheckIcon from "@mui/icons-material/Check"; // Import the success icon
 import CloseIcon from "@mui/icons-material/Close"; // Import the close icon for dismissing the alert
 import ReferralPage from "../components/dashboard/Profile/ReferralsStable";
+import WalletActions from "../components/dashboard/Profile/WalletAction";
 
 const styles = {
   dashboardContainer: {
@@ -139,6 +140,8 @@ const Dashboard = () => {
         return <ActivityPage />;
       case "Referrals":
         return <ReferralPage/>;
+        case"Deposit":
+            return <WalletActions/>
       default:
         return <div>Select a page</div>;
     }
@@ -203,6 +206,7 @@ const Sidebar = ({ currentPage, setCurrentPage, setSidebarOpen, userRole }) => {
     "Staking",
     "Rank and Rewards",
     "Activity",
+    "Deposit",
     "Referrals",
   ];
 
