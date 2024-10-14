@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import { useState,useEffect } from "react";
 import {
   useAccount,
@@ -6,9 +5,8 @@ import {
   useDisconnect,
   useSendTransaction,
   useWaitForTransactionReceipt,
-  WagmiProvider,
 } from "wagmi";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import UserBalanceCard from "./userBalance";
 import { ethers } from "ethers";
 import { estimateGas } from "@wagmi/core"; // Import estimateGas from wagmi core
 import { config } from "./config"; // Import your config file
@@ -40,19 +38,33 @@ import {
     RWA: RWA_ADDRESS,
     RWAUSD: RWAUSD_ADDRESS,
   };
-
+  
 const ConnectButton = () => {
   const { address, isConnected } = useAccount();
   const { connect, connectors, pendingConnector, isLoading } = useConnect();
   const { disconnect } = useDisconnect();
-
   // Add logs to inspect connector statuses
   console.log("Connectors: ", connectors);
   console.log("isLoading: ", isLoading);
   console.log("pendingConnector: ", pendingConnector);
 
+  // Filter the connectors for MetaMask, Compass, Keplr, and Phantom
+  const filteredConnectors = connectors.filter((connector) =>
+    [
+      "io.metamask", // MetaMask
+      "io.leapwallet.CompassWallet", // Compass Wallet
+      "app.keplr", // Keplr
+      "app.phantom",
+      "com.trustwallet.app", // Phantom
+    ].includes(connector.id)
+  );
+
+  console.log("Filtered Connectors: ", filteredConnectors);
+
   return (
-    <Box>
+    <Box
+      
+    >
       {isConnected ? (
         <Box>
           <p>Connected to {address}</p>
@@ -61,8 +73,7 @@ const ConnectButton = () => {
           </Button>
         </Box>
       ) : (
-        connectors.map((connector) => {
-          // If connector.ready is undefined, consider using an alternative condition
+        filteredConnectors.map((connector) => {
           const isConnectorReady = connector.ready !== false && connector.id;
 
           return (
@@ -345,15 +356,89 @@ const SendTransactionForm = () => {
 
 const WalletActions = () => {
   const { isConnected } = useAccount();
+  const [balances, setBalances] = useState({
+    nativeBnbBalance: "0.0000",
+    usdtBalance: "0.0000",
+    rwaUsdBalance: "0.0000",
+    rwaTokenBalance: "0.0000",
+  });
+
+  useEffect(() => {
+    const savedBalances = JSON.parse(localStorage.getItem("userBalances"));
+    if (savedBalances) {
+      setBalances({
+        nativeBnbBalance: parseFloat(savedBalances.nativeBnbBalance).toFixed(4),
+        usdtBalance: parseFloat(savedBalances.usdtBalance).toFixed(4),
+        rwaUsdBalance: parseFloat(savedBalances.rwaUsdBalance).toFixed(4),
+        rwaTokenBalance: parseFloat(savedBalances.rwaTokenBalance).toFixed(4),
+      });
+    }
+  }, []);
+
+  const styles = {
+    container: {
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: "20px",
+      backgroundColor: "rgb(17, 34, 64)",
+      borderRadius: "12px",
+      border: "2px solid rgb(203, 161, 53)",
+      boxShadow: "0px 8px 18px rgba(0, 0, 0, 0.6)",
+      color: "rgb(203, 161, 53)",
+      marginRight: "50px",
+      marginTop: "10px",
+    },
+    balanceContainer: {
+      display: "flex",
+      flexDirection:"row",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: "10px",
+      marginBottom: "20px",
+      width: "10%",
+    },
+    currencySelector: {
+      minWidth: "200px",
+    },
+    selectInput: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      borderRadius: "4px",
+      backgroundColor: "transparent",
+      padding: "10px",
+      border: "2px solid rgb(203, 161, 53)",
+      color: "#fff",
+      cursor: "pointer",
+    },
+    balanceText: {
+      fontSize: "22px",
+      fontWeight: "600",
+      color: "rgb(203, 161, 53)",
+    },
+    netWorthCard: {
+      backgroundColor: "#112240",
+      padding: "20px",
+      borderRadius: "12px",
+      marginBottom: "20px",
+      border: "2px solid rgb(203, 161, 53)",
+      color: "rgb(203, 161, 53)",
+      width: "40%",
+      display: "flex",
+      flexDirection: "row",
+    },
+  };
+
 
   return (
-   
-        <Box>
-          <h1>Wallet Actions</h1>
-          <ConnectButton />
-          {isConnected && <SendTransactionForm />}
-        </Box>
-      
+    <Box>
+      <UserBalanceCard balances={balances} styles={styles} />
+      <h1>Wallet Actions</h1>
+      <ConnectButton />
+      {isConnected && <SendTransactionForm />}
+    </Box>
   );
 };
 

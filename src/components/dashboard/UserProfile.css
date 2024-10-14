@@ -1,0 +1,175 @@
+/* General Styles */
+.dashboard-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-gap: 20px;
+  padding: 20px;
+  color: white;
+
+}
+
+@media (max-width: 1024px) {
+  .dashboard-container {
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 15px;
+   
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-container {
+    grid-template-columns: 1fr;
+    grid-gap: 10px;
+    
+    
+  }
+}
+.public-key {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.public-key p {
+  margin-right: 10px;
+  font-size: 14px;
+  color: white; /* Or any color that fits the theme */
+}
+
+.profile-section{
+     margin-right: 20px;
+    width:100%;
+}
+
+/* Profile Styles */
+.profile-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  background-color: #0e2433;
+  border: 2px solid gold;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 15px; /* Gap between profile and next section */
+}
+
+
+
+/* Stats Panel */
+.stats-panel {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Auto-fill for responsiveness */
+  grid-gap: 20px;
+  background-color: #0e2433;
+  border: 2px solid gold;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.stat-item {
+  background-color: #0a1a2a;
+  padding: 15px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+/* Referral Link */
+.referral-link {
+  background-color: #0e2433;
+  border: 2px solid gold;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 20px; /* Extra gap */
+}
+
+.referral-link input {
+  background-color: #0a1a2a;
+  border: 1px solid gold;
+  color: white;
+  padding: 10px;
+  width: 90%;
+  margin: 10px 0;
+}
+
+.referral-link button {
+  background-color: gold;
+  color: #0a1a2a;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+.admin-section {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.admin-button {
+  background-color: #CBA135; /* Gold color to match the overall theme */
+  color: #0a1a2a;
+  padding: 15px 30px;
+  border: 2px solid #DC4D01; /* Orange border */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  font-weight: bold; /* Make the button text bold */
+}
+
+.admin-button:hover {
+  background-color: #DC4D01; /* Orange background on hover */
+  color: #ffffff; /* White text on hover */
+  border-color: #CBA135; /* Gold border on hover */
+}
+
+/* Balance and Details Cards */
+.details-card, .balance-card, .announcement-card {
+  background-color: #0e2433;
+  padding: 20px;
+  margin-top: 15px;
+  border-radius: 10px;
+}
+
+.balance-card p, .details-card p, .announcement-card p {
+  color: white;
+}
+
+/* Announcement Card */
+.announcement-card {
+  background-color: #0e2433;
+  padding: 20px;
+  margin-top: 15px;
+  border-radius: 10px;
+  height: 100px; /* Adjust to fit the content */
+  overflow: hidden;
+}
+
+.announcement-list {
+  position: relative;
+  height: 100%; /* Fill the parent height */
+}
+
+.announcement-item-enter {
+  opacity: 0;
+  transform: translateY(100%);
+}
+
+.announcement-item-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 500ms, transform 500ms;
+}
+
+.announcement-item-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.announcement-item-exit-active {
+  opacity: 0;
+  transform: translateY(-100%);
+  transition: opacity 500ms, transform 500ms;
+}

@@ -95,15 +95,16 @@ const RoleUpdate = () => {
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
-      padding: "20px",
+      padding: "15px",
       backgroundColor: "#112240", // Darker metal blue for card background
-      borderRadius: "12px",
+      borderRadius: "18px",
       border: "2px solid #CBA135", // Softer gold border
       boxShadow: "0 8px 18px rgba(0, 0, 0, 0.6)", // Stronger shadow for depth
       width: "100%",
       maxWidth: "600px",
       marginBottom: "20px",
       marginRight:"50px",
+      marginTop:"12px",
       color: "#CBA135", // Light gold text for a premium feel
     },
     title: {

@@ -13,6 +13,10 @@ import CloseIcon from "@mui/icons-material/Close"; // Import the close icon for 
 import ReferralPage from "../components/dashboard/Profile/ReferralsStable";
 import WalletActions from "../components/dashboard/Profile/WalletAction";
 import PackagesPage from "./Packages";
+import UserProfile from "../components/dashboard/userProfile";
+import Header from "../components/headers";
+
+
 
 const styles = {
   dashboardContainer: {
@@ -70,22 +74,22 @@ const styles = {
   // profile container
   content: {
     flex: 1,
-    padding: "40px",
     backgroundColor: "#0A0E27",
     color: "#fff",
     marginLeft: "20px",
     width: "100%",
     "@media (maxWidth: 768px)": {
-      display:"flex",
-      flexDirection:"row",
-      justifyContent:"center" // Smaller padding
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "center",
+      // Smaller padding
     },
   },
   arrow: {
     fontSize: "30px",
     color: "#fff",
     position: "fixed",
-    top: "20px",
+    top: "30px",
     left: "15px",
     cursor: "pointer",
     zIndex: 15,
@@ -101,7 +105,9 @@ const styles = {
   },
 };
 
+
 const Dashboard = () => {
+    
   const location = useLocation();
   const [currentPage, setCurrentPage] = useState("Dashboard");
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -128,6 +134,8 @@ const Dashboard = () => {
     switch (currentPage) {
       case "Dashboard":
       case "My Wallet":
+        return <UserProfile />;
+      case "My":
         return <Profile />;
       case "Staking":
         return <StakingPage />;
@@ -140,11 +148,11 @@ const Dashboard = () => {
       case "Activity":
         return <ActivityPage />;
       case "My Team":
-        return <ReferralPage/>;
-        case"Deposit":
-            return <WalletActions/>
-        case"Packages":
-            return <PackagesPage/>
+        return <ReferralPage />;
+      case "Deposit":
+        return <WalletActions />;
+      case "Packages":
+        return <PackagesPage />;
       default:
         return <div>Select a page</div>;
     }
@@ -206,9 +214,10 @@ const Dashboard = () => {
 const Sidebar = ({ currentPage, setCurrentPage, setSidebarOpen, userRole }) => {
   const menuItems = [
     "My Wallet",
+    // "My",
     "Staking",
     "Bonus",
-    "Activity",
+    // "Activity",
     "Deposit",
     "My Team",
     "Packages",

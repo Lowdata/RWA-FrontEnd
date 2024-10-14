@@ -239,8 +239,9 @@ const Profile = () => {
       alignItems: "center",
       justifyContent: "space-between",
       width: "100%",
+      height:"auto",
       maxWidth: "600px",
-      padding: "20px",
+      padding: "12px",
       backgroundColor: "#112240", // Darker metal blue for card background
       borderRadius: "12px",
       border: "2px solid #CBA135", // Softer gold border

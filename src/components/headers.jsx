@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import  { useState } from "react";
 import {
   AppBar,
@@ -12,13 +13,13 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useTheme } from "@mui/material/styles";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logo } from "../assets/images";
 import { logOutUser } from "../store/auth/authAction";
 import {stringAvatar} from "../components/dashboard/profile"
 
-function Header() {
+function Header({ isSidebarOpen }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md")); // Mobile screens
   const isMediumDesktop = useMediaQuery(theme.breakpoints.down("lg")); // Mid-sized desktop screens
@@ -26,9 +27,13 @@ function Header() {
 
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const userName  = useSelector((state)=> state.auth.userName)
+  const userName = useSelector((state) => state.auth.userName);
   const navigate = useNavigate();
+    const location = useLocation();
 
+     const isAdminOrDashboard =
+       location.pathname === "/admin" ||
+       location.pathname.startsWith("/dashboard");
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -98,11 +103,14 @@ function Header() {
       <AppBar
         position="sticky"
         style={{
-          backgroundColor: "#1c1f2a", // Matte dark blue
-          color: "#f5f5f5", // Soft white
-          fontFamily: "Roboto, sans-serif",
-          padding: isMobile ? "0 10px" : "0 40px",
-          boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.5)", // Soft shadow for matte effect
+          backgroundColor: "#1c1f2a",
+          color: "#f5f5f5",
+          //   padding: isMobile ? "0 10px" : "0 40px",
+          boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.5)",
+          zIndex: 10, // Ensure the header is below the sidebar but above the content
+          transition: "padding 0.3s ease",
+          paddingRight: isSidebarOpen ? "20px" : isMobile ? "10px" : "40px",
+          height: isSidebarOpen ? "90px" : isMobile ? "70px" : "90px",
         }}
       >
         <Toolbar
@@ -119,11 +127,16 @@ function Header() {
               display: "flex",
               alignItems: "center",
               flexGrow: 1,
+              marginLeft: isAdminOrDashboard ? "50px" : "0",
             }}
           >
             <Button
               onClick={() => handleNavigate("/")}
-              style={{ display: "flex", alignItems: "center", padding: 0 }}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                padding: 0,
+              }}
             >
               <img
                 src={logo}
@@ -131,6 +144,8 @@ function Header() {
                 style={{
                   height: isMobile ? 60 : 80,
                   marginRight: isMobile || isMediumDesktop ? 5 : 15,
+                  transition: "margin-left 0.3s ease",
+                  marginLeft: isSidebarOpen ? "20px" : "0", // Shift logo to the right
                 }}
               />
               <Typography
@@ -214,7 +229,14 @@ function Header() {
             </div>
           )}
           {/* Login/Logout Button and Avatar */}
-          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+            //   marginRight: isAdminOrDashboard ? "15px" : "10px",
+            }}
+          >
             {/* Login/Logout Button */}
             <Button
               onClick={handleLoginLogout}
@@ -234,7 +256,7 @@ function Header() {
             >
               {isLoggedIn ? "Log Out" : "Log In"}
             </Button>
-            {isLoggedIn ? ( // Corrected ternary operator
+            {!isAdminOrDashboard && isLoggedIn ? ( // Corrected ternary operator
               <Avatar
                 sx={{
                   bgcolor: "#DC4D01",

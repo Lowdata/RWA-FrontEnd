@@ -1,8 +1,8 @@
-/* eslint-disable react/prop-types */
 import { Card, Typography, Alert } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { claimRewards } from "../../../store/api/payments";
 import { useState, useEffect } from "react";
+import PropTypes from "prop-types"; // Import PropTypes
 
 const EarningsCard = ({
   totalEarnings,
@@ -18,15 +18,13 @@ const EarningsCard = ({
   const { userId } = useSelector((state) => state.auth);
   const { error, status } = useSelector((state) => state.payment);
 
-  // State to track if claimRewards button has been clicked
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
-  const [claimTriggered, setClaimTriggered] = useState(false); // New state to track button click
+  const [claimTriggered, setClaimTriggered] = useState(false); // Track button click
 
   const handleClaimRewards = (rwa_id) => {
-    // This will only execute when the button is clicked
     dispatch(claimRewards({ rwa_id }));
-    setClaimTriggered(true); // Track that the button was clicked
+    setClaimTriggered(true);
   };
 
   useEffect(() => {
@@ -34,7 +32,7 @@ const EarningsCard = ({
       if (status === "succeeded") {
         setAlertMessage("Rewards claimed successfully!");
         setShowAlert(true);
-        setClaimTriggered(false); // Reset to avoid future triggering
+        setClaimTriggered(false);
       } else if (status === "failed") {
         const errorMessage =
           typeof error === "string"
@@ -42,7 +40,7 @@ const EarningsCard = ({
             : error?.message || "Failed to claim rewards.";
         setAlertMessage(errorMessage);
         setShowAlert(true);
-        setClaimTriggered(false); // Reset after showing error
+        setClaimTriggered(false);
       }
     }
   }, [status, error, claimTriggered]);
@@ -52,12 +50,24 @@ const EarningsCard = ({
       <Typography variant="h5" style={styles.balance}>
         Total Earnings: ${totalEarnings}
       </Typography>
-      <Typography>Referral Earnings: ${referralEarnings}</Typography>
-      <Typography>Matrix Earnings: ${matrixEarnings}</Typography>
-      <Typography>Revenue Earnings: ${revenueEarnings}</Typography>
-      <Typography>Leadership Earnings: ${leadershipEarnings}</Typography>
-      <Typography>Daily Earnings: ${dailyEarnings}</Typography>
-      <Typography>Direct Royalty Earnings: ${directRoyaltyEarnings}</Typography>
+      <Typography style={{ ...styles.typography, fontWeight: "bold" }}>
+        Referral Earnings: ${referralEarnings}
+      </Typography>
+      <Typography style={styles.typography}>
+        Matrix Earnings: ${matrixEarnings}
+      </Typography>
+      <Typography style={styles.typography}>
+        Revenue Earnings: ${revenueEarnings}
+      </Typography>
+      <Typography style={styles.typography}>
+        Leadership Earnings: ${leadershipEarnings}
+      </Typography>
+      <Typography style={styles.typography}>
+        Daily Earnings: ${dailyEarnings}
+      </Typography>
+      <Typography style={styles.typography}>
+        Direct Royalty Earnings: ${directRoyaltyEarnings}
+      </Typography>
 
       {showAlert && (
         <Alert
@@ -83,12 +93,28 @@ const EarningsCard = ({
             backgroundColor: "#CBA135",
           },
         }}
-        onClick={() => handleClaimRewards(userId)} // Only triggers on click
+        onClick={() => handleClaimRewards(userId)}
       >
         Claim Rewards
       </button>
     </Card>
   );
+};
+
+// Define PropTypes for the component
+EarningsCard.propTypes = {
+  totalEarnings: PropTypes.string.isRequired,
+  referralEarnings: PropTypes.string.isRequired,
+  matrixEarnings: PropTypes.string.isRequired,
+  revenueEarnings: PropTypes.string.isRequired,
+  leadershipEarnings: PropTypes.string.isRequired,
+  dailyEarnings: PropTypes.string.isRequired,
+  directRoyaltyEarnings: PropTypes.string.isRequired,
+  styles: PropTypes.shape({
+    netWorthCard: PropTypes.object,
+    balance: PropTypes.object,
+    typography: PropTypes.object,
+  }).isRequired,
 };
 
 export default EarningsCard;

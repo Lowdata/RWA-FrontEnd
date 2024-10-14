@@ -5,10 +5,10 @@ import {
   MenuItem,
   Select,
   Typography,
-  Button,
   Alert, // Import Alert from Material-UI
 } from "@mui/material";
-import ConnectButton from "../ConnectButton";
+
+
 
 const UserBalanceCard = ({ balances, styles }) => {
   const [selectedCurrency, setSelectedCurrency] = useState("USDT");
@@ -29,10 +29,6 @@ const UserBalanceCard = ({ balances, styles }) => {
 
   const handleWithdrawClick = () => {
     alert(`Withdraw ${selectedCurrency} clicked`);
-  };
-
-  const handleDepositClick = () => {
-    setShowAlert(true); // Show the alert when the Deposit button is clicked
   };
 
   return (
@@ -76,22 +72,15 @@ const UserBalanceCard = ({ balances, styles }) => {
       </div>
 
       {/* Buttons for Deposit and Withdraw */}
-      <div style={styles.buttons}>
-        <Button
-          variant="contained"
-          style={styles.button}
-          onClick={handleDepositClick} // Attach the deposit click handler
-        >
-          <ConnectButton />
-        </Button>
+      {/* <div style={styles.buttons}>
         <Button
           variant="contained"
           style={styles.button}
           onClick={handleWithdrawClick}
         >
           Withdraw
-        </Button>
-      </div>
+        </Button> */}
+      {/* </div> */}
     </div>
   );
 };
