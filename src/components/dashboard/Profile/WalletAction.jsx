@@ -48,23 +48,8 @@ const ConnectButton = () => {
   console.log("isLoading: ", isLoading);
   console.log("pendingConnector: ", pendingConnector);
 
-  // Filter the connectors for MetaMask, Compass, Keplr, and Phantom
-  const filteredConnectors = connectors.filter((connector) =>
-    [
-      "io.metamask", // MetaMask
-      "io.leapwallet.CompassWallet", // Compass Wallet
-      "app.keplr", // Keplr
-      "app.phantom",
-      "com.trustwallet.app", // Phantom
-    ].includes(connector.id)
-  );
-
-  console.log("Filtered Connectors: ", filteredConnectors);
-
   return (
-    <Box
-      
-    >
+    <Box>
       {isConnected ? (
         <Box>
           <p>Connected to {address}</p>
@@ -73,7 +58,8 @@ const ConnectButton = () => {
           </Button>
         </Box>
       ) : (
-        filteredConnectors.map((connector) => {
+        connectors.map((connector) => {
+            console.log(connector)
           const isConnectorReady = connector.ready !== false && connector.id;
 
           return (
