@@ -9,6 +9,8 @@ import DeleteUserCard from "./deleteUser";
 import TokenManagement from "./Token";
 import LoadingSpinner from "../loading/Loading"
 import { fetchAdminStats } from "../../store/api/admin";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import Sidebar from "./sidebar";
 
 const AdminDashboard = () => {
   const dispatch = useDispatch();
@@ -18,6 +20,7 @@ const AdminDashboard = () => {
   const [activeSection, setActiveSection] = useState("dashboard");
 
   const [partners, setPartners] = useState([]); 
+   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     if (activeSection === "dashboard") {
@@ -43,18 +46,20 @@ const AdminDashboard = () => {
   return (
     <div className="admin-container">
       {/* Sidebar */}
-      <div className="sidebar">
-        <ul>
-          <li onClick={() => setActiveSection("dashboard")}>Dashboard</li>
-          <li onClick={() => setActiveSection("business")}>Business</li>
-          <li onClick={() => setActiveSection("product-pipeline")}>
-            Product Pipeline
-          </li>
-          <li onClick={() => setActiveSection("referrals")}>Referral</li>
-          <li onClick={() => setActiveSection("tokens")}>Tokens</li>
-        </ul>
-      </div>
+      <Sidebar
+        activeSection={activeSection}
+        setActiveSection={setActiveSection}
+        sidebarOpen={sidebarOpen}
+        setSidebarOpen={setSidebarOpen}
+      />
 
+      {/* Arrow button for toggling the sidebar */}
+      <button
+        className="arrow-toggle"
+        onClick={() => setSidebarOpen(!sidebarOpen)}
+      >
+        {sidebarOpen ? <FaArrowLeft /> : <FaArrowRight />}
+      </button>
       {/* Main Content */}
       <div className="main-content">
         {activeSection === "dashboard" && (

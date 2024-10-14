@@ -1,0 +1,74 @@
+/* Sidebar Styling */
+.sidebar {
+  width: 200px;
+  background-color: #112240;
+  color: #F5E6C5;
+  padding: 20px;
+  position: fixed;
+  top: 0;
+  left: -250px; /* Initially hidden */
+  height: 100%;
+  transition: left 0.3s ease-in-out;
+  z-index: 15;
+}
+
+.sidebar.open {
+  left: 0; /* Slide it into view */
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  background-color: #CBA135;
+  color: #1C1C1E;
+  padding: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  text-align: left;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(203, 161, 53, 0.5);
+  transition: background-color 0.3s, box-shadow 0.3s ease;
+}
+
+.sidebar ul li.active {
+  background-color: #3A506B;
+}
+
+.sidebar ul li:hover {
+  box-shadow: 0 0 12px rgba(203, 161, 53, 0.7);
+}
+
+/* Arrow toggle styling */
+.arrow-toggle {
+  position: fixed;
+  top: 20px;
+  left: 10px;
+  font-size: 30px;
+  color: #F5E6C5;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 15;
+  transition: left 0.3s ease-in-out;
+}
+
+.sidebar.open ~ .arrow-toggle {
+  left: 210px; /* Moves with sidebar */
+}
+
+/* Main Content styling */
+.main-content {
+  margin-left: 0;
+  padding: 20px;
+  transition: margin-left 0.3s ease-in-out;
+}
+
+.sidebar.open ~ .main-content {
+  margin-left: 220px; /* Adjust when sidebar is open */
+}
+.sidebar:not(.open) ~ .main-content {
+  margin-left: 0; /* Adjust when sidebar is hidden */
+}

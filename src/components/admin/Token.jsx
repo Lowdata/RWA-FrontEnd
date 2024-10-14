@@ -114,7 +114,7 @@ const TokenManagement = () => {
               onChange={() => setActionType("credit")}
               style={{ marginRight: "5px" }}
             />
-            Credit Tokens
+            Credit 
           </label>
           <label
             style={{
@@ -132,7 +132,7 @@ const TokenManagement = () => {
               onChange={() => setActionType("deduct")}
               style={{ marginRight: "5px" }}
             />
-            Deduct Tokens
+            Deduct 
           </label>
         </div>
       </div>

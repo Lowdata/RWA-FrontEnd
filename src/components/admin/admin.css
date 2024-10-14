@@ -8,15 +8,43 @@
 
 /* Sidebar styling */
 .sidebar {
-  width: 200px;
-  background-color: #112240; /* Darker metal blue */
-  color: #F5E6C5; /* Softer gold text */
+   width: 200px;
+  background-color: #112240;
+  color: #F5E6C5;
   padding: 20px;
+  position: fixed;
+  top: 0;
+  left: -200px; /* Hidden by default */
+  height: 100%;
+  transition: left 0.3s ease-in-out;
+}
+
+.sidebar.open {
+  left: 0; /* When open, slide it into view */
 }
 
 .sidebar ul {
   list-style: none;
   padding: 0;
+}
+
+.sidebar.open ~ .arrow-toggle {
+  left: 210px; /* Move it with the sidebar */
+}
+.arrow-toggle {
+  position: fixed;
+  top: 20px;
+  left: 10px; /* Adjust based on sidebar width */
+  font-size: 30px;
+  color: #F5E6C5;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 15;
+  transition: left 0.3s ease-in-out;
+}
+.sidebar:not(.open) ~ .main-content {
+  margin-left: 0; /* Adjust when sidebar is hidden */
 }
 
 .sidebar ul li {
