@@ -126,10 +126,22 @@
 }
 
 /* Balance and Details Cards */
-.details-card, .balance-card, .announcement-card {
+.balance-card, .announcement-card {
+  background-color: #0e2433;
+  padding: 20px;
+  margin: 15px;
+  border-radius: 10px;
+   border: 2px solid gold;
+  border-radius: 10px;
+
+}
+
+.details-card{
   background-color: #0e2433;
   padding: 20px;
   margin-top: 15px;
+  margin-bottom: 15px;
+  border: 2px solid gold;
   border-radius: 10px;
 }
 

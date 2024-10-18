@@ -1,5 +1,13 @@
 import { useState } from "react";
-import { Button, Select, MenuItem, Card, Typography,Alert } from "@mui/material";
+import {
+  Button,
+  Select,
+  MenuItem,
+  Card,
+  Typography,
+  Alert,
+} from "@mui/material";
+import { InfoOutlined } from "@mui/icons-material"; // Import the InfoOutlined icon
 import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "../../store/editSlice";
 import { deductTokens } from "../../store/api/admin";
@@ -8,6 +16,9 @@ const RoleUpdate = () => {
   const dispatch = useDispatch();
   const [selectedRole, setSelectedRole] = useState("");
   const [selectedCurrency, setSelectedCurrency] = useState("USDT"); // default currency
+  const [infoVisible, setInfoVisible] = useState(false); // State to show/hide the info alert
+  const [successMessage, setSuccessMessage] = useState(""); // State to store success message
+  const [errorMessage, setErrorMessage] = useState(""); // State to store error message
 
   const { publicKey, role, userId } = useSelector((state) => state.auth);
   const { usdtBalance, rwaUsdBalance } = useSelector(
@@ -32,14 +43,9 @@ const RoleUpdate = () => {
         updateUser({ rwaId: userId, role: selectedRole })
       ).unRWAp();
 
-     
-      <Alert variant="filled" severity="error">
-        Role updated to ${selectedRole} successfully!
-      </Alert>;
+      setSuccessMessage(`Role updated to ${selectedRole} successfully!`);
     } catch (error) {
-      <Alert variant="filled" severity="error">
-        Failed to change role: ${error.message}
-      </Alert>;
+      setErrorMessage(`Failed to change role: ${error.message}`);
     }
   };
 
@@ -88,7 +94,10 @@ const RoleUpdate = () => {
     );
   };
 
-  // Updated styles to align with the rich, professional card UI
+  const handleInfoClick = () => {
+    setInfoVisible(true); // Show the info alert when the button is clicked
+  };
+
   const roleUpdateStyles = {
     card: {
       display: "flex",
@@ -100,11 +109,11 @@ const RoleUpdate = () => {
       borderRadius: "18px",
       border: "2px solid #CBA135", // Softer gold border
       boxShadow: "0 8px 18px rgba(0, 0, 0, 0.6)", // Stronger shadow for depth
-      width: "100%",
+      width: "80%",
       maxWidth: "600px",
       marginBottom: "20px",
-      marginRight:"50px",
-      marginTop:"12px",
+      marginRight: "50px",
+      marginTop: "12px",
       color: "#CBA135", // Light gold text for a premium feel
     },
     title: {
@@ -126,6 +135,22 @@ const RoleUpdate = () => {
         backgroundColor: "#CBA135", // Keep the same gold on hover
         boxShadow: "0 0 12px rgba(203, 161, 53, 0.7)", // Softer glow on hover
       },
+    },
+    infoButton: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      marginTop: "10px",
+      color: "#CBA135", // Gold color for icon
+    },
+    iconButton: {
+      marginLeft: "8px",
+      cursor: "pointer",
+      color: "#CBA135", // Gold icon
+    },
+    alert: {
+      marginTop: "10px", // Add margin for the alert
+      width: "100%",
     },
   };
 
@@ -153,6 +178,50 @@ const RoleUpdate = () => {
       >
         Change Role
       </Button>
+
+      <div style={roleUpdateStyles.infoButton}>
+        <Typography variant="body2">More Info</Typography>
+        <InfoOutlined
+          style={roleUpdateStyles.iconButton}
+          onClick={handleInfoClick}
+        />
+      </div>
+
+      {/* Display the Material-UI Alert for info */}
+      {infoVisible && (
+        <Alert
+          variant="filled"
+          severity="info"
+          onClose={() => setInfoVisible(false)} // Add close button
+          style={roleUpdateStyles.alert}
+        >
+          Update your role as a business partner and sourcing partner in $100
+          and earn profits. List your business and products with REAL WORLD
+          ASSET CORP.
+        </Alert>
+      )}
+
+      {/* Display success or error messages */}
+      {successMessage && (
+        <Alert
+          variant="filled"
+          severity="success"
+          onClose={() => setSuccessMessage("")}
+          style={roleUpdateStyles.alert}
+        >
+          {successMessage}
+        </Alert>
+      )}
+      {errorMessage && (
+        <Alert
+          variant="filled"
+          severity="error"
+          onClose={() => setErrorMessage("")}
+          style={roleUpdateStyles.alert}
+        >
+          {errorMessage}
+        </Alert>
+      )}
     </Card>
   );
 };

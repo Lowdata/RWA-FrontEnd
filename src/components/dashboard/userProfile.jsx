@@ -9,7 +9,7 @@ import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import Snackbar from "@mui/material/Snackbar";
-
+import RoleUpdate from "./RoleUpdate";
 // Utility function to create avatar initials
 export const stringAvatar = (name) => {
   if (!name) return {};
@@ -82,6 +82,7 @@ const UserProfile = () => {
           role={role}
         />
         <ReferralLink userId={userId} />
+        {role === "user" && <RoleUpdate />}
       </div>
 
       <div className="stats-section">
